@@ -7,7 +7,7 @@
   <groupId>com.ralap.blog</groupId>
   <artifactId>blog</artifactId>
   <version>1.0-SNAPSHOT</version>
-<packaging>pom</packaging>
+  <packaging>pom</packaging>
   <modules>
 
     <module>blog-admin</module>
@@ -33,5 +33,8 @@
       <artifactId>lombok</artifactId>
       <version>1.16.20</version>
     </dependency>
+
   </dependencies>
+
+
 </project>
