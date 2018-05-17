@@ -5,7 +5,11 @@ $(document).ready(function() {
 	$('#checkAllExample').checkAll({
 		masterCheckbox: '.check-all',
 		otherCheckboxes: '.check'
-	})
+	});
+  $('#checkAllFl').checkAll({
+    masterCheckbox: '.check-all',
+    otherCheckboxes: '.check'
+  })
 	//------------- Password metter -------------//
 	$(function() {
 		var $input = $('#password-metter');
