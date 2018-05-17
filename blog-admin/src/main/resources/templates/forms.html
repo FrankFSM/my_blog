@@ -15,7 +15,7 @@
         />
         <meta name="application-name" content="sprFlat admin template" />
         <!-- Import google fonts - Heading first/ text second -->
-        <link rel='stylesheet' type='text/css' 
+        <link rel='stylesheet' type='text/css'
         <!--[if lt IE 9]>
 
 <![endif]-->
@@ -47,6 +47,7 @@
         <!-- End #header -->
         <!-- Start #sidebar -->
         <div th:replace="/layout/sidebar"></div>
+
         <!-- End #sidebar -->
         <!-- Start #right-sidebar -->
         <div id="right-sidebar" class="hide-sidebar">
@@ -158,7 +159,7 @@
                                 </li>
                                 <li class="chat-me">
                                     <p class="avatar">
-                                        <img src="//assets/img/avatars/48.jpg" alt="SuggeElson">
+                                        <img src="/assets/img/avatars/48.jpg" alt="SuggeElson">
                                     </p>
                                     <p class="chat-name">SuggeElson <span class="chat-time">10 seconds ago</span>
                                     </p>
@@ -327,11 +328,11 @@
                                     <h3 class="panel-title">Form fields</h3>
                                 </div>
                                 <div class="panel-body">
-                                    <form class="form-horizontal group-border hover-stripped" role="form">
+                                    <form class="form-horizontal group-border hover-stripped" role="form" id="validate">
                                         <div class="form-group">
                                             <label class="col-lg-2 col-md-2 col-sm-12 control-label">Text field</label>
                                             <div class="col-lg-10 col-md-10">
-                                                <input type="text" class="form-control" placeholder="With autofocus" autofocus="autofocus">
+                                                <input type="text" class="form-control required" placeholder="With autofocus" autofocus="autofocus">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -1299,14 +1300,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- End .form-group  -->
-                                        <div class="form-group">
-                                            <label class="col-lg-2 col-md-2 col-sm-12 control-label">Flat color picker</label>
-                                            <div class="col-lg-10 col-md-10">
-                                                <input class="form-control" id="flat-color-picker">
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
+
                                     </div>
                                 </div>
                             </div>
@@ -1314,409 +1308,6 @@
                         </div>
                         <!-- End col-lg-12 -->
                     </div>
-                    <!-- End .row -->
-                    <div class="row">
-                        <!-- Start .row -->
-                        <div class="col-lg-12">
-                            <!-- col-lg-12 start here -->
-                            <div class="panel panel-default toggle">
-                                <!-- Start .panel -->
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Form layouts</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="page-header">
-                                        <h4>Horizontal form</h4>
-                                    </div>
-                                    <form class="form-horizontal" role="form">
-                                        <div class="form-group">
-                                            <label class="col-lg-2 col-md-2 col-sm-12 control-label">Full width input</label>
-                                            <div class="col-lg-10 col-md-10">
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                        <div class="form-group">
-                                            <label class="col-lg-2 col-md-2 col-sm-12 control-label">Grid inputs</label>
-                                            <div class="col-lg-10 col-md-10">
-                                                <div class="row">
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                        <div class="form-group">
-                                            <label class="col-lg-2 col-md-2 col-sm-12 control-label">Predefined width:</label>
-                                            <div class="col-lg-10 col-md-10">
-                                                <input type="text" class="form-control input-mini">
-                                                <pre class="css"><code>.input-mini</code></pre>
-                                                <input type="text" class="form-control input-small">
-                                                <pre class="css"><code>.input-small</code></pre>
-                                                <input type="text" class="form-control input-medium">
-                                                <pre class="css"><code>.input-medium</code></pre>
-                                                <input type="text" class="form-control input-large">
-                                                <pre class="css"><code>.input-large</code></pre>
-                                                <input type="text" class="form-control input-xlarge">
-                                                <pre class="css"><code>.input-xlarge</code></pre>
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                    </form>
-                                    <div class="page-header">
-                                        <h4>Horizontal form
-                                            <small>with dividers</small>
-                                        </h4>
-                                    </div>
-                                    <pre class="css"><code>.from-horizontal .group-border</code></pre>
-                                    <form class="form-horizontal group-border" role="form">
-                                        <div class="form-group">
-                                            <label class="col-lg-2 col-md-2 col-sm-12 control-label">Full width input</label>
-                                            <div class="col-lg-10 col-md-10">
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                        <div class="form-group">
-                                            <label class="col-lg-2 col-md-2 col-sm-12 control-label">Grid inputs</label>
-                                            <div class="col-lg-10 col-md-10">
-                                                <div class="row">
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                        <div class="form-group">
-                                            <label class="col-lg-2 col-md-2 col-sm-12 control-label">Grid inputs</label>
-                                            <div class="col-lg-10 col-md-10">
-                                                <div class="row">
-                                                    <div class="col-lg-6 col-md-6">
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6">
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                    </form>
-                                    <div class="page-header">
-                                        <h4>Horizontal form
-                                            <small>with hover-stripped</small>
-                                        </h4>
-                                    </div>
-                                    <pre><code>.from-horizontal .group-border .hover-stripped</code></pre>
-                                    <form class="form-horizontal group-border hover-stripped" role="form">
-                                        <div class="form-group">
-                                            <label class="col-lg-2 col-md-2 col-sm-12 control-label">Full width input</label>
-                                            <div class="col-lg-10 col-md-10">
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                        <div class="form-group">
-                                            <label class="col-lg-2 col-md-2 col-sm-12 control-label">Grid inputs</label>
-                                            <div class="col-lg-10 col-md-10">
-                                                <div class="row">
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                        <div class="form-group">
-                                            <label class="col-lg-2 col-md-2 col-sm-12 control-label">Grid inputs</label>
-                                            <div class="col-lg-10 col-md-10">
-                                                <div class="row">
-                                                    <div class="col-lg-6 col-md-6">
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6">
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                    </form>
-                                    <div class="page-header">
-                                        <h4>Vertical form
-                                            <small>with dividers</small>
-                                        </h4>
-                                    </div>
-                                    <pre><code>.from-vertical .group-border</code></pre>
-                                    <form class="form-vertical group-border" role="form">
-                                        <div class="form-group">
-                                            <label class="col-sm-12 control-label">Full width input</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <!-- End .form-group  -->
-                                        <div class="form-group">
-                                            <label class="col-sm-12 control-label">Grid inputs</label>
-                                            <div class="row">
-                                                <div class="col-lg-4 col-md-4">
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                                <div class="col-lg-4 col-md-4">
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                                <div class="col-lg-4 col-md-4">
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                        <div class="form-group">
-                                            <label class="col-sm-12 control-label">Grid inputs</label>
-                                            <div class="row">
-                                                <div class="col-lg-6 col-md-6">
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                                <div class="col-lg-6 col-md-6">
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                    </form>
-                                    <div class="page-header">
-                                        <h4>Vertical form
-                                            <small>with dividers and hover-stripped</small>
-                                        </h4>
-                                    </div>
-                                    <pre><code>.from-vertical .group-border .hover-stripped</code></pre>
-                                    <form class="form-vertical group-border hover-stripped" role="form">
-                                        <div class="form-group">
-                                            <label class="col-sm-12 control-label">Full width input</label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <!-- End .form-group  -->
-                                        <div class="form-group">
-                                            <label class="col-sm-12 control-label">Grid inputs</label>
-                                            <div class="row">
-                                                <div class="col-lg-4 col-md-4">
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                                <div class="col-lg-4 col-md-4">
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                                <div class="col-lg-4 col-md-4">
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                        <div class="form-group">
-                                            <label class="col-sm-12 control-label">Grid inputs</label>
-                                            <div class="row">
-                                                <div class="col-lg-6 col-md-6">
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                                <div class="col-lg-6 col-md-6">
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                    </form>
-                                </div>
-                            </div>
-                            <!-- End .panel -->
-                        </div>
-                        <!-- col-lg-12 end here -->
-                    </div>
-                    <!-- End .row -->
-                    <div class="row">
-                        <!-- Start .row -->
-                        <div class="col-lg-12">
-                            <!-- col-lg-12 start here -->
-                            <div class="panel panel-default toggle">
-                                <!-- Start .panel -->
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">From grid</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <form class="form-horizontal" role="form">
-                                        <div class="form-group">
-                                            <div class="col-lg-12 col-md-12 col-xs-12">
-                                                <input type="text" class="form-control" placeholder="col-lg-12">
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <div class="row">
-                                                    <div class="col-lg-11 col-md-11 col-xs-12">
-                                                        <input type="text" class="form-control" placeholder="col-lg-11">
-                                                    </div>
-                                                    <div class="col-lg-1 col-md-1 col-xs-12">
-                                                        <input type="text" class="form-control" placeholder="col-lg-1">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <div class="row">
-                                                    <div class="col-lg-10 col-md-10 col-xs-12">
-                                                        <input type="text" class="form-control" placeholder="col-lg-10">
-                                                    </div>
-                                                    <div class="col-lg-2 col-md-2 col-xs-12">
-                                                        <input type="text" class="form-control" placeholder="col-lg-2">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <div class="row">
-                                                    <div class="col-lg-9 col-md-9 col-xs-12">
-                                                        <input type="text" class="form-control" placeholder="col-lg-9">
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-3 col-xs-12">
-                                                        <input type="text" class="form-control" placeholder="col-lg-3">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <div class="row">
-                                                    <div class="col-lg-8 col-md-8 col-xs-12">
-                                                        <input type="text" class="form-control" placeholder="col-lg-8">
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4 col-xs-12">
-                                                        <input type="text" class="form-control" placeholder="col-lg-4">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <div class="row">
-                                                    <div class="col-lg-7 col-md-7 col-xs-12">
-                                                        <input type="text" class="form-control" placeholder="col-lg-7">
-                                                    </div>
-                                                    <div class="col-lg-5 col-md-5 col-xs-12">
-                                                        <input type="text" class="form-control" placeholder="col-lg-5">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <div class="row">
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
-                                                        <input type="text" class="form-control" placeholder="col-lg-6">
-                                                    </div>
-                                                    <div class="col-lg-6 col-md-6 col-xs-12">
-                                                        <input type="text" class="form-control" placeholder="col-lg-6">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <div class="row">
-                                                    <div class="col-lg-5 col-md-5 col-xs-12">
-                                                        <input type="text" class="form-control" placeholder="col-lg-5">
-                                                    </div>
-                                                    <div class="col-lg-7 col-md-7 col-xs-12">
-                                                        <input type="text" class="form-control" placeholder="col-lg-7">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <div class="row">
-                                                    <div class="col-lg-4 col-md-4 col-xs-12">
-                                                        <input type="text" class="form-control" placeholder="col-lg-4">
-                                                    </div>
-                                                    <div class="col-lg-8 col-md-8 col-xs-12">
-                                                        <input type="text" class="form-control" placeholder="col-lg-8">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <div class="row">
-                                                    <div class="col-lg-3 col-md-3 col-xs-12">
-                                                        <input type="text" class="form-control" placeholder="col-lg-3">
-                                                    </div>
-                                                    <div class="col-lg-9 col-md-9 col-xs-12">
-                                                        <input type="text" class="form-control" placeholder="col-lg-9">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <div class="row">
-                                                    <div class="col-lg-2 col-md-2 col-xs-12">
-                                                        <input type="text" class="form-control" placeholder="col-lg-2">
-                                                    </div>
-                                                    <div class="col-lg-10 col-md-10 col-xs-12">
-                                                        <input type="text" class="form-control" placeholder="col-lg-10">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                        <div class="form-group">
-                                            <div class="col-lg-12">
-                                                <div class="row">
-                                                    <div class="col-lg-1 col-md-1 col-xs-12">
-                                                        <input type="text" class="form-control" placeholder="col-lg-1">
-                                                    </div>
-                                                    <div class="col-lg-11 col-md-11 col-xs-12">
-                                                        <input type="text" class="form-control" placeholder="col-lg-11">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End .form-group  -->
-                                    </form>
-                                </div>
-                            </div>
-                            <!-- End .panel -->
-                        </div>
-                        <!-- col-lg-12 end here -->
-                    </div>
-                    <!-- End .row -->
                     <!-- Page End here -->
                 </div>
                 <!-- End .outlet -->
@@ -1780,5 +1371,7 @@
         <script src="/assets/js/jquery.sprFlat.js"></script>
         <script src="/assets/js/app.js"></script>
         <script src="/assets/js/pages/forms.js"></script>
+        <script src="/assets/plugins/forms/validation/jquery.validate.js"></script>
+        <script src="/assets/plugins/forms/validation/additional-methods.min.js"></script>
     </body>
 </html>

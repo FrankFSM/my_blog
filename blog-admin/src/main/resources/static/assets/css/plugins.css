@@ -2398,7 +2398,7 @@ body {
   padding: 0;
   width: 20px;
   height: 20px;
-  background: url(assets/plugins/forms/icheck/flat/yellow.png) no-repeat;
+  background: url(/assets/plugins/forms/icheck/flat/yellow.png) no-repeat;
   border: none;
   cursor: pointer;
 }
@@ -2432,7 +2432,7 @@ body {
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (min-device-pixel-ratio: 1.5) {
   .icheckbox_flat-yellow,
   .iradio_flat-yellow {
-    background-image: url(assets/plugins/forms/icheck/flat/yellow@2x.png);
+    background-image: url(/assets/plugins/forms/icheck/flat/yellow@2x.png);
     background-size: 176px 22px;
   }
 }
@@ -2446,7 +2446,7 @@ body {
   padding: 0;
   width: 20px;
   height: 20px;
-  background: url(assets/plugins/forms/icheck/flat/pink.png) no-repeat;
+  background: url(/assets/plugins/forms/icheck/flat/pink.png) no-repeat;
   border: none;
   cursor: pointer;
 }
@@ -2480,7 +2480,7 @@ body {
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (min-device-pixel-ratio: 1.5) {
   .icheckbox_flat-pink,
   .iradio_flat-pink {
-    background-image: url(assets/plugins/forms/icheck/flat/pink@2x.png);
+    background-image: url(/assets/plugins/forms/icheck/flat/pink@2x.png);
     background-size: 176px 22px;
   }
 }
@@ -2494,7 +2494,7 @@ body {
   padding: 0;
   width: 20px;
   height: 20px;
-  background: url(assets/plugins/forms/icheck/flat/purple.png) no-repeat;
+  background: url(/assets/plugins/forms/icheck/flat/purple.png) no-repeat;
   border: none;
   cursor: pointer;
 }
@@ -2528,7 +2528,7 @@ body {
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (min-device-pixel-ratio: 1.5) {
   .icheckbox_flat-purple,
   .iradio_flat-purple {
-    background-image: url(assets/plugins/forms/icheck/flat/purple@2x.png);
+    background-image: url(/assets/plugins/forms/icheck/flat/purple@2x.png);
     background-size: 176px 22px;
   }
 }

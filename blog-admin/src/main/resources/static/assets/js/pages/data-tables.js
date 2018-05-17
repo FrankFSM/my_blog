@@ -58,7 +58,7 @@ $('#datatable1').dataTable({
 	"bAutoWidth": false,
 	"sDom": "<'row'<'col-lg-3 col-md-3 col-sm-12 text-center'l><'col-lg-6 col-md-6 col-sm-12 text-center'T><'col-lg-3 col-md-3 col-sm-12 text-center'f>r>t<'row-'<'col-lg-6 col-md-6 col-sm-12'i><'col-lg-6 col-md-6 col-sm-12'p>>",
 	"oTableTools": {
-		"sSwfPath": "assets/plugins/tables/datatables/tabletools/swf/copy_csv_xls_pdf.swf",
+		"sSwfPath": "/assets/plugins/tables/datatables/tabletools/swf/copy_csv_xls_pdf.swf",
 		"aButtons": [
 			{
 				"sExtends":    "print",

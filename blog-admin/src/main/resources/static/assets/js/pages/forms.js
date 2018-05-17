@@ -250,6 +250,130 @@ $(document).ready(function() {
 		lineWidth: 2
 	});
 
+  $("#validate").validate({
+    ignore: null,
+    ignore: 'input[type="hidden"]',
+    errorPlacement: function(error, element) {
+      wrap = element.parent();
+      wrap1 = wrap.parent();
+      if (wrap1.hasClass('checkbox')) {
+        error.insertAfter(wrap1);
+      } else {
+        if (element.attr('type')=='file') {
+          error.insertAfter(element.next());
+        } else {
+          error.insertAfter(element);
+        }
+      }
+    },
+    errorClass: 'help-block',
+    rules: {
+      email: {
+        required: true,
+        email: true
+      },
+      select2: "required",
+      password: {
+        required: true,
+        minlength: 5
+      },
+      confirm_password: {
+        required: true,
+        minlength: 5,
+        equalTo: "#password"
+      },
+      textarea: {
+        required: true,
+        minlength: 10
+      },
+      maxLenght: {
+        required: true,
+        maxlength: 10
+      },
+      rangelenght: {
+        required: true,
+        rangelength: [10, 20]
+      },
+      url: {
+        required: true,
+        url: true
+      },
+      range: {
+        required: true,
+        range: [5, 10]
+      },
+      minval: {
+        required: true,
+        min: 13
+      },
+      maxval: {
+        required: true,
+        max: 13
+      },
+      date: {
+        required: true,
+        date: true
+      },
+      number: {
+        required: true,
+        number: true
+      },
+      digits: {
+        required: true,
+        digits: true
+      },
+      ccard: {
+        required: true,
+        creditcard: true
+      },
+      file: {
+        required: true,
+        accept: "png|jpeg|jpg|gif",
+        filesize: 2048
+      },
+      agree: "required"
+    },
+    messages: {
+      password: {
+        required: "Please provide a password",
+        minlength: "Your password must be at least 5 characters long"
+      },
+      confirm_password: {
+        required: "Please provide a password",
+        minlength: "Your password must be at least 5 characters long",
+        equalTo: "Please enter the same password as above"
+      },
+      agree: "Please accept our policy",
+      textarea: "Write some info for you",
+      file: "File must be JPG, GIF or PNG, less than 2MB"
+    },
+    highlight: function(element) {
+      if ($(element).offsetParent().parent().hasClass('form-group')) {
+        $(element).offsetParent().parent().removeClass('has-success').addClass('has-error');
+      } else {
+        if ($(element).attr('type')=='file') {
+          $(element).parent().parent().removeClass('has-success').addClass('has-error');
+        }
+        $(element).offsetParent().parent().parent().parent().removeClass('has-success').addClass('has-error');
+
+      }
+    },
+    unhighlight: function(element,errorClass) {
+      if ($(element).offsetParent().parent().hasClass('form-group')) {
+        $(element).offsetParent().parent().removeClass('has-error').addClass('has-success');
+        $(element.form).find("label[for=" + element.id + "]").removeClass(errorClass);
+      } else if ($(element).offsetParent().parent().hasClass('checkbox')) {
+        $(element).offsetParent().parent().parent().parent().removeClass('has-error').addClass('has-success');
+        $(element.form).find("label[for=" + element.id + "]").removeClass(errorClass);
+      } else if ($(element).next().hasClass('bootstrap-filestyle')) {
+        $(element).parent().parent().removeClass('has-error').addClass('has-success');
+      }
+      else {
+        $(element).offsetParent().parent().parent().removeClass('has-error').addClass('has-success');
+      }
+    }
+  });
+
     //------------- Init pie charts -------------//
 	initPieChart();
 

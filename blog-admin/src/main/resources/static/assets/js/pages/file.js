@@ -34,7 +34,7 @@ $(document).ready(function() {
     // Upload server status check for browsers with CORS support:
     if ($.support.cors) {
         $.ajax({
-            url: 'assets/server/php/',
+            url: '/assets/server/php/',
             type: 'HEAD'
         }).fail(function () {
             $('<div class="alert alert-danger"/>')
