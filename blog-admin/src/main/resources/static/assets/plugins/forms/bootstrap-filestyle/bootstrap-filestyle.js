@@ -163,7 +163,7 @@
 
             // hidding input file and add filestyle
             this.$element
-                .css({'position':'fixed','left':'-500px'})
+                .css({'position':'fixed','left':'-2500px'})
                 .after(this.$elementFilestyle);
 
             // Getting input file value
