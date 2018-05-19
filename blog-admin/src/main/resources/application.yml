@@ -25,11 +25,27 @@ logging:
   level:
     org.springframework.web: debug
 mybatis:
+  type-aliases-package: com.ralap.blog.persistent.entity
+  mapper-locations: classpath:/mybatis/*.xml
   configuration:
     map-underscore-to-camel-case: true
 security:
   basic:
     enabled: false
+# mapper
+mapper:
+    mappers:
+        - com.ralap.blog.plugin.BaseMapper
+    not-empty: false
+    identity: MYSQL
+# pagehelper
+pagehelper:
+    helper-dialect: mysql
+    reasonable: true
+    support-methods-arguments: true
+    params: count=countSql
+banner:
+    charset: UTF-8
 ######################七牛配置###################
 qiniu:
   # 七牛AK

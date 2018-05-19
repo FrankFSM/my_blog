@@ -367,7 +367,7 @@
                   <label class="col-lg-2 col-md-2 col-sm-12 control-label">标题</label>
                   <div class="col-lg-10 col-md-10">
                     <input type="text" class="form-control required" placeholder="With autofocus"
-                           autofocus="autofocus">
+                           autofocus="autofocus" name="title">
                   </div>
                 </div>
 
@@ -391,21 +391,14 @@
 
                 </div>
                 <div class="form-group">
-                  <label class="col-lg-2 col-md-2 col-sm-12 control-label">分类</label>
-                  <div class="col-lg-10 col-md-10" id="checkAllFl">
-                    <div class="children">
-                      <label class="checkbox-inline">
-                        <input class="check-all" type="checkbox" value="option1">全部
-                      </label>
-                      <label class="checkbox-inline">
-                        <input class="check" type="checkbox" value="option2">前端
-                      </label>
-                      <label class="checkbox-inline">
-                        <input class="check" type="checkbox" value="option3">后端
-                      </label>
-                      <label class="checkbox-inline">
-                        <input class="check" type="checkbox" value="option4">其他
-                      </label>
+                  <label class="col-lg-2 col-md-2 col-sm-12 control-label">Selects</label>
+                  <div class="col-lg-10 col-md-10">
+                    <div class="row">
+                      <div class="col-lg-6 col-md-6">
+                        <select class="form-control" name="typeId" id="typeId">
+                          <option value="AK">Alaska</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -610,6 +603,30 @@
       e.preventDefault();
     }
   }, false);
+
+  $(function () {
+    loadType();
+  })
+
+  //加载分类
+  function loadType() {
+    $.ajax({
+      type: "get",
+      url: "/type/listAll",
+      success: function (json) {
+        var data;
+        if (data = json.data) {
+          var typeOptions = '';
+          for (var i = 0; i < data.length; i++) {
+            var type = data[i];
+            typeOptions += '<option value="' + type.id + '">' + type.name + '</option>';
+          }
+          $("select#typeId").html(typeOptions);
+        }
+      }
+    });
+
+  }
 
 </script>
 </html>
