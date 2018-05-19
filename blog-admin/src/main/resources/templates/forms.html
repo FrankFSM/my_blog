@@ -374,9 +374,15 @@
                 <div class="form-group">
                   <label class="col-lg-2 col-md-2 col-sm-12 control-label">封面</label>
                   <div class="col-lg-10 col-md-10">
-                    <input type="file" class="form-control">
+                    <input type="file" class="form-control" name="coverFile" id="coverFile"
+                           onchange="uploadCover()">
                   </div>
+                  <label class="col-lg-2 col-md-2 col-sm-12 control-label"></label>
+                  <div class="col-lg-2 col-md-2 col-sm-12" style="margin: 10px"
+                       id="converImg"></div>
+                  <input type="hidden" name="converUrl" id="converUrl">
                 </div>
+
                 <div class="form-group">
                   <label class="col-lg-2 col-md-2 col-sm-12 control-label">内容</label>
                   <div class="col-lg-10 col-md-10">
@@ -608,6 +614,29 @@
     loadType();
   })
 
+  function uploadCover() {
+    var form = new FormData(),
+        url = '/article/uploadCover', //服务器上传地址
+        file = ($("#coverFile")[0].files)[0];
+    form.append('file', file);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("post", url, true);
+    xhr.addEventListener("readystatechange", function () {
+      var result = xhr;
+      if (result.status != 200) { //error
+      } else {
+        var resultData = xhr.responseText;
+        console.log(resultData);
+        var json = JSON.parse(resultData);
+        $('#converImg').html('<img src="' + json.data + '" style="width: 100%">')
+
+        $("#converUrl").value = json.data;
+      }
+    });
+    xhr.send(form); //开始上传
+  }
+
   //加载分类
   function loadType() {
     $.ajax({
@@ -625,7 +654,6 @@
         }
       }
     });
-
   }
 
 </script>
