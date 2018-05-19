@@ -389,7 +389,7 @@
                     <div id="test-editormd">
                       <div class="form-group">
                         <textarea name="article" id="articleCtn" cols="20" rows="10"></textarea>
-                        <textarea name="articleContent" id="articleContent" cols="20" rows="10"
+                        <textarea name="content" id="articleContent" cols="20" rows="10"
                                   style="display: none"></textarea>
                       </div>
                     </div>
@@ -588,13 +588,13 @@
     var data = new FormData();
     data.append("file", fileObj);
     var xhr = new XMLHttpRequest();
-    xhr.open("post", "/upload", true);
+    xhr.open("post", "/article/uploadCover", true);
     xhr.onreadystatechange = function () {
 
       if (xhr.readyState == 4) {
         var result = xhr.responseText;
         var json = eval("(" + result + ")");
-        var pic = "![" + json.name + "](" + json.url + ")";
+        var pic = "![" + json.data.fileName + "](" + json.data.filePath + ")";
         simplemde.codemirror.setValue(simplemde.codemirror.getValue() + "\n" + pic);
       }
     };
@@ -614,6 +614,7 @@
     loadType();
   })
 
+  // 上传封面
   function uploadCover() {
     var form = new FormData(),
         url = '/article/uploadCover', //服务器上传地址
@@ -629,7 +630,7 @@
         var resultData = xhr.responseText;
         console.log(resultData);
         var json = JSON.parse(resultData);
-        $('#converImg').html('<img src="' + json.data + '" style="width: 100%">')
+        $('#converImg').html('<img src="' + json.data.filePath + '" style="width: 100%">')
 
         $("#converUrl").value = json.data;
       }

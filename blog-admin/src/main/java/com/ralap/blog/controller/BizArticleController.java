@@ -1,6 +1,7 @@
 package com.ralap.blog.controller;
 
 import com.qiniu.util.StringMap;
+import com.ralap.blog.bussiness.vo.FileConditionVO;
 import com.ralap.blog.framework.objecct.ResponseVO;
 import com.ralap.blog.persistent.entity.BizArticle;
 import com.ralap.blog.persistent.mapper.BizArticleMapper;
@@ -43,6 +44,9 @@ public class BizArticleController {
     @ResponseBody
     public ResponseVO upload2Qiniu(@RequestParam("file") MultipartFile file) {
         String filePath = FileUtils.uploadPicFile(file, null);
-        return ResultUtil.success("图片上传成功", filePath);
+        FileConditionVO fileCondition = new FileConditionVO();
+        fileCondition.setFileName(file.getOriginalFilename());
+        fileCondition.setFilePath(filePath);
+        return ResultUtil.success("图片上传成功", fileCondition);
     }
 }
