@@ -25,4 +25,6 @@ public abstract class AbstractDO implements Serializable {
     
     private Date updateTime;
 
+
+
 }

@@ -17,7 +17,7 @@ public class BizArticle extends AbstractDO {
 
     private String content;
 
-    private Boolean status;
+    private Integer status;
 
     private Integer typeId;
 
@@ -32,6 +32,4 @@ public class BizArticle extends AbstractDO {
     private String keywords;
 
     private String remake;
-
-
 }

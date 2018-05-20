@@ -3,6 +3,7 @@ package com.ralap.blog.controller;
 import com.qiniu.util.StringMap;
 import com.ralap.blog.bussiness.vo.FileConditionVO;
 import com.ralap.blog.framework.objecct.ResponseVO;
+import com.ralap.blog.persistent.beans.Article;
 import com.ralap.blog.persistent.entity.BizArticle;
 import com.ralap.blog.persistent.mapper.BizArticleMapper;
 import com.ralap.blog.util.FileUtils;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author: ralap
@@ -31,6 +33,12 @@ public class BizArticleController {
     @Autowired
     private BizArticleMapper bizArticleMapper;
     private static final Logger LOG = LoggerFactory.getLogger(BizArticleController.class);
+
+
+    @RequestMapping(value = "/publish")
+    public ModelAndView publish() {
+        return ResultUtil.view("forms");
+    }
 
     @RequestMapping("/getAll")
     @ResponseBody
@@ -48,5 +56,12 @@ public class BizArticleController {
         fileCondition.setFileName(file.getOriginalFilename());
         fileCondition.setFilePath(filePath);
         return ResultUtil.success("图片上传成功", fileCondition);
+    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseVO save(Article article) {
+        LOG.info(article.getBizArticle().toString());
+        return null;
     }
 }
