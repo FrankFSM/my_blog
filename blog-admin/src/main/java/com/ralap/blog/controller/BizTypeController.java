@@ -11,14 +11,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author: ralap
  * @date: created at 2018/5/19 10:11
  */
-@Controller
+@RestController
 @RequestMapping("/type")
 public class BizTypeController {
 
@@ -26,9 +29,8 @@ public class BizTypeController {
     private BizTypeService bizTypeService;
     private static final Logger LOG = LoggerFactory.getLogger(BizTypeController.class);
 
-    @RequestMapping("/listAll")
-    @ResponseBody
-    public ResponseVO getAll() {
+    @GetMapping("/listAll")
+    public ResponseVO listAll() {
         List<BizType> list = bizTypeService.listAll();
         return ResultUtil.success(null, list);
     }
