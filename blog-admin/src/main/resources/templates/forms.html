@@ -369,7 +369,7 @@
                     <input type="text" class="form-control required" placeholder="With autofocus"
                            autofocus="autofocus" name="title">
                   </div>
-                  <div class="col-lg-2 col-md-2" id="234">
+                  <div class="col-lg-2 col-md-2">
                     <input class="check" type="checkbox" name="original">原创
                   </div>
                 </div>
@@ -412,20 +412,12 @@
                 <!-- End .form-group  -->
                 <div class="form-group">
                   <label class="col-lg-2 col-md-2 col-sm-12 control-label">标签</label>
-                  <div class="col-lg-10 col-md-10" id="checkAllExample">
-                    <div class="children">
-                      <label class="checkbox-inline">
-                        <input class="check-all" type="checkbox" value="option1">全部
-                      </label>
-                      <label class="checkbox-inline">
-                        <input class="check" type="checkbox" value="option2">Java
-                      </label>
-                      <label class="checkbox-inline">
-                        <input class="check" type="checkbox" value="option3">Linux
-                      </label>
-                      <label class="checkbox-inline">
-                        <input class="check" type="checkbox" value="option4">Android
-                      </label>
+                  <div class="col-lg-10 col-md-10">
+                    <div class="row">
+                      <div class="col-lg-6 col-md-6">
+                        <select class="form-control" name="tags" id="tags">
+                        </select>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -624,16 +616,24 @@
       var articlePlain = simplemde.value();
       var articleMarkdown = simplemde.markdown(articlePlain);
       $("#articleContent").val(articleMarkdown);
-      $('#validate').ajaxSubmit({
+      $('#validate').ajaxForm({
         type: "post",
         url: "/article/save",
-        success: function (json) {
+        datatype: 'json',
+        resetForm:true,
+        clearForm:false,
+        success: function (result) {
           alert("success");
+        },
+        error: function (result) {
+          console.log(result);
+          alert(result);
         }
       });
     });
 
     loadType();
+    loadTags();
   })
 
   // 上传封面
@@ -642,21 +642,18 @@
         url = '/article/uploadCover', //服务器上传地址
         file = ($("#coverFile")[0].files)[0];
     form.append('file', file);
-
     var xhr = new XMLHttpRequest();
     xhr.open("post", url, true);
-    xhr.addEventListener("readystatechange", function () {
+    xhr.onreadystatechange = function () {
       var result = xhr;
-      if (result.status != 200) { //error
-      } else {
+      if (xhr.readyState == 4) {
         var resultData = xhr.responseText;
-        console.log(resultData);
-        var json = JSON.parse(resultData);
+        var json = eval("(" + resultData + ")");
         $('#converImg').html('<img src="' + json.data.filePath + '" style="width: 100%">')
 
         $("#coverUrl").val(json.data.filePath);
       }
-    });
+    }
     xhr.send(form); //开始上传
   }
 
@@ -678,6 +675,26 @@
       }
     });
   }
+
+  //加载标签
+  function loadTags() {
+    $.ajax({
+      type: "get",
+      url: "/tags/listAll",
+      success: function (json) {
+        var data;
+        if (data = json.data) {
+          var tagsOptions = '';
+          for (var i = 0; i < data.length; i++) {
+            var tags = data[i];
+            tagsOptions += '<option value="' + tags.id + '">' + tags.name + '</option>';
+          }
+          $("select#tags").html(tagsOptions);
+        }
+      }
+    });
+  }
+
 
 </script>
 </html>

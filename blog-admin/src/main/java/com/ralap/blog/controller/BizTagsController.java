@@ -1,5 +1,6 @@
 package com.ralap.blog.controller;
 
+import com.ralap.blog.bussiness.service.BizTagsService;
 import com.ralap.blog.framework.objecct.ResponseVO;
 import com.ralap.blog.persistent.entity.BizTags;
 import com.ralap.blog.persistent.mapper.BizTagsMapper;
@@ -19,11 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class BizTagsController {
 
     @Autowired
-    private BizTagsMapper bizTagsMapper;
+    private BizTagsService bizTagsService;
 
     @GetMapping("listAll")
     public ResponseVO listAll() {
-        List<BizTags> bizTags = bizTagsMapper.selectAll();
+        List<BizTags> bizTags = bizTagsService.listAll();
         return ResultUtil.success(null, bizTags);
     }
 }

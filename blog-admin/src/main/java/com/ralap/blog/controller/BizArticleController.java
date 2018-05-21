@@ -1,20 +1,18 @@
 package com.ralap.blog.controller;
 
-import com.qiniu.util.StringMap;
+import com.ralap.blog.bussiness.enums.ResponseStatus;
+import com.ralap.blog.bussiness.service.BizArticleService;
 import com.ralap.blog.bussiness.vo.FileConditionVO;
 import com.ralap.blog.framework.objecct.ResponseVO;
 import com.ralap.blog.persistent.beans.Article;
 import com.ralap.blog.persistent.entity.BizArticle;
-import com.ralap.blog.persistent.mapper.BizArticleMapper;
 import com.ralap.blog.util.FileUtils;
 import com.ralap.blog.util.ResultUtil;
-import java.util.Arrays;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,7 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class BizArticleController {
 
     @Autowired
-    private BizArticleMapper bizArticleMapper;
+    private BizArticleService bizArticleService;
     private static final Logger LOG = LoggerFactory.getLogger(BizArticleController.class);
 
 
@@ -43,14 +41,14 @@ public class BizArticleController {
     @RequestMapping("/getAll")
     @ResponseBody
     public List<BizArticle> getAll() {
-        List<BizArticle> list = bizArticleMapper.selectAll();
+        List<BizArticle> list = bizArticleService.listAll();
         LOG.info("---------------------" + list);
         return list;
     }
 
     @RequestMapping(value = "/uploadCover", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO upload2Qiniu(@RequestParam("file") MultipartFile file) {
+    public ResponseVO uploadCover(@RequestParam("file") MultipartFile file) {
         String filePath = FileUtils.uploadPicFile(file, null);
         FileConditionVO fileCondition = new FileConditionVO();
         fileCondition.setFileName(file.getOriginalFilename());
@@ -60,8 +58,11 @@ public class BizArticleController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO save(Article article) {
+    public ResponseVO save(Article article, String[] tags) {
+        article.setOriginal(article.getOriginal());
+        bizArticleService.insert(article.getBizArticle());
         LOG.info(article.getBizArticle().toString());
-        return null;
+        ResponseVO success = ResultUtil.success(ResponseStatus.SUCCESS);
+        return success;
     }
 }
