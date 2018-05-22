@@ -18,9 +18,9 @@ public interface AbstractService<T, PK> {
     /**
      * 批量保存
      *
-     * @param eneityList 实体集合
+     * @param entityList 实体集合
      */
-    int insertList(List<T> eneityList);
+    int insertList(List<T> entityList);
 
     /**
      * 根据主键删除
@@ -39,9 +39,9 @@ public interface AbstractService<T, PK> {
     /**
      * 根据主键修改不为null的属性
      *
-     * @param eneity 实体
+     * @param entity 实体
      */
-    boolean updateSelective(T eneity);
+    boolean updateSelective(T entity);
 
     /**
      * 根据主键查询
@@ -53,9 +53,9 @@ public interface AbstractService<T, PK> {
     /**
      * 根据实体属性查询实体，（查询结果唯一）
      *
-     * @param eneity 实体
+     * @param entity 实体
      */
-    T getOneByEntity(T eneity);
+    T getOneByEntity(T entity);
 
 
     /**

@@ -16,7 +16,7 @@
         $.alert({
           title: '警告',
           content: content,
-          confrimButton: '关闭',
+          confirmButton: '关闭',
           autoClose: delayTime,
           confirm: callback
         });

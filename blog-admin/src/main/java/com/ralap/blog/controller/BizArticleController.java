@@ -2,12 +2,16 @@ package com.ralap.blog.controller;
 
 import com.ralap.blog.bussiness.enums.ResponseStatus;
 import com.ralap.blog.bussiness.service.BizArticleService;
+import com.ralap.blog.bussiness.service.BizArticleTagsService;
 import com.ralap.blog.bussiness.vo.FileConditionVO;
 import com.ralap.blog.framework.objecct.ResponseVO;
 import com.ralap.blog.persistent.beans.Article;
 import com.ralap.blog.persistent.entity.BizArticle;
+import com.ralap.blog.persistent.entity.BizArticleTags;
 import com.ralap.blog.util.FileUtils;
 import com.ralap.blog.util.ResultUtil;
+import com.ralap.blog.util.StringUtil;
+import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +34,9 @@ public class BizArticleController {
 
     @Autowired
     private BizArticleService bizArticleService;
+    @Autowired
+    private BizArticleTagsService bizArticleTagsService;
+
     private static final Logger LOG = LoggerFactory.getLogger(BizArticleController.class);
 
 
@@ -59,9 +66,28 @@ public class BizArticleController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     public ResponseVO save(Article article, String[] tags) {
+        if (tags == null || tags.length <= 0) {
+            return ResultUtil.error("至少选择一个标签");
+        }
         article.setOriginal(article.getOriginal());
-        bizArticleService.insert(article.getBizArticle());
-        LOG.info(article.getBizArticle().toString());
+        if (article.getId() == null) {
+            bizArticleService.insert(article.getBizArticle());
+        } else {
+            bizArticleService.updateSelective(article.getBizArticle());
+        }
+        Long articleId = article.getId();
+        if (!StringUtil.isEmpty(article.getId())) {
+            bizArticleTagsService.removeByArticleId(articleId);
+            BizArticleTags articleTags;
+            List<BizArticleTags> articleTagsList = new ArrayList<>();
+            for (String tag : tags) {
+                articleTags = new BizArticleTags();
+                articleTags.setArticleId(articleId);
+                articleTags.setTagsId(Long.parseLong(tag));
+                articleTagsList.add(articleTags);
+            }
+            bizArticleTagsService.insertList(articleTagsList);
+        }
         ResponseVO success = ResultUtil.success(ResponseStatus.SUCCESS);
         return success;
     }

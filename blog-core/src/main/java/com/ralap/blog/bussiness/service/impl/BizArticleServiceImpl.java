@@ -46,7 +46,9 @@ public class BizArticleServiceImpl implements BizArticleService {
 
     @Override
     public boolean updateSelective(BizArticle eneity) {
-        return false;
+        Assert.notNull(eneity,"article不能为空");
+        int update = bizArticleMapper.updateByPrimaryKeySelective(eneity);
+        return update > 0;
     }
 
     @Override
