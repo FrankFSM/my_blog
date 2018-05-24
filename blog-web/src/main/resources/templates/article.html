@@ -50,76 +50,53 @@
 <div class="container" style="margin-top: 65px;">
   <section>
     <div class="row">
-      <div class="col-md-9 blog-main" >
-
-        <!--/*@thymesVar id="articleList" type="com.ralap.blog.persistent.entity.BizArticle"*/-->
-        <article class="fade-in" th:each="article:${articleList}">
-          <span class="title-l"></span>
-          <figure class="thumbnail">
-            <a href="">
-              <img width="150" height="150"
-                   th:src="${article.coverUrl}+'-eq_150'"
-                   class="img-responsive lazy-img"/>
-            </a>
-            <span class="cat"><a href="">后端开发</a></span>
-          </figure>
-          <header class="entry-header">
-            <h2 class="entry-title">
-              <a href="" rel="bookmark" title="点击查看文章详情" data-toggle="tooltip"
-                 data-placement="bottom" th:text="${article.title}"></a>
-            </h2>
-          </header>
-          <div class="entry-content">
-            <div class="archive-content" th:text="${article.description}">
+      <div class="col-md-9 blog-main">
+        <div class="blog-body overflow-initial fade-in">
+          <div class="blog-info overflow-initial">
+            <div class="bottom-line">
+              <h1 class="blog-info-title">
+                <strong th:text="${article.title}"></strong>
+              </h1>
             </div>
-            <span class="title-l"></span>
-            <span class="entry-meta">
-              <span class="date" title="文章发表日期" data-toggle="tooltip" data-placement="bottom">
-                <i class="fa-calendar-empty" style="padding: 5px"></i> 2018-02-11</font>
-              </span>
-              <span style="padding-left:10px ;" class="views" title="文章阅读数" data-toggle="tooltip"
-                    data-placement="bottom"><i class="fa-eye-open"
-                                               style="padding: 5px"></i>浏览(0) </span>
-              <span style="padding-left: 10px" class="comment" title="文章评论次数" data-toggle="tooltip"
-                    data-placement="bottom">
-                <a href=""><i class="fa-comment-alt" style="padding: 5px"></i>评论</a>
-              </span>
-            </span>
-            <div class="clear"></div>
-            <span class="entry-more">
-                                <a href="/article/48" rel="bookmark"
-                                   title="点击查看文章详情" data-toggle="tooltip" data-placement="bottom">阅读全文</a>
-                            </span>
+            <div class="blog-info-body" th:utext="${article.content}">
 
-
+            </div>
+            <div class="separateline"><span>正文到此结束</span></div>
           </div>
-        </article>
-        <!-- article -->
 
-
+        </div>
       </div>
       <div class="col-md-3 sidebar-gutter">
         <div class="sidebar-module" style="position: relative;">
-          <a href='https://gitee.com/itFanRalap/my_blog' target="_blank" rel="external nofollow"><img src='https://gitee.com/itFanRalap/my_blog/widgets/widget_1.svg?color=C71D24' alt='Fork me on Gitee' style="position: absolute;right: 0;"/></a>
+          <a href='https://gitee.com/itFanRalap/my_blog' target="_blank"
+             rel="external nofollow"><img
+              src='https://gitee.com/itFanRalap/my_blog/widgets/widget_1.svg?color=C71D24'
+              alt='Fork me on Gitee' style="position: absolute;right: 0;"/></a>
           <h5 class="sidebar-title"><i class="fa fa-home icon"></i><strong>关于我</strong></h5>
           <div class="widget">
             <div id="feed_widget">
               <div class="feed-about">
                 <div class="about-main">
-                  <div class="about-img"><a href="${config.staticWebSite}/img/wx_300px.png" class="showImage" title="微信公众号"><img src="/assets/img/blog/WX.jpg" alt="微信公众号"></a></div>
+                  <div class="about-img"><a href="${config.staticWebSite}/img/wx_300px.png"
+                                            class="showImage" title="微信公众号"><img
+                      src="/assets/img/blog/WX.jpg" alt="微信公众号"></a></div>
                   <div class="about-name">Ralap</div>
-                  <div class="about-the">我就是我,不一样的烟火 </div>
+                  <div class="about-the">我就是我,不一样的烟火</div>
                 </div>
                 <div class="clear"></div>
                 <ul class="widget-icon" style="align-content: center">
                   <li class="tqq auto-shake">
-                    <a class="tag-icon" href="javascript:window.open('tencent://message/?uin=843977358&Site=www.${config.domain}&Menu=yes')" title="点击QQ联系我" target="blank" rel="external nofollow"><i class="en-qq"></i></a>
+                    <a class="tag-icon"
+                       href="javascript:window.open('tencent://message/?uin=843977358&Site=www.${config.domain}&Menu=yes')"
+                       title="点击QQ联系我" target="blank" rel="external nofollow"><i class="en-qq"></i></a>
                   </li>
                   <li class="tsina auto-shake">
-                    <a class="tag-icon" href="http://weibo.com/211230415" title="点击查看我的微博" target="_blank" rel="external nofollow"><i class="fa-weibo"></i></a>
+                    <a class="tag-icon" href="http://weibo.com/211230415" title="点击查看我的微博"
+                       target="_blank" rel="external nofollow"><i class="fa-weibo"></i></a>
                   </li>
                   <li class="github auto-shake">
-                    <a class="tag-icon" href="https://github.com/Noing/my_blog" title="点击查看我的github" target="_blank" rel="external nofollow"><i class="en-github"></i></a>
+                    <a class="tag-icon" href="https://github.com/Noing/my_blog" title="点击查看我的github"
+                       target="_blank" rel="external nofollow"><i class="en-github"></i></a>
                   </li>
                 </ul>
               </div>
@@ -139,7 +116,8 @@
                                              title="七牛云-国内领先的企业级云服务商" data-toggle="tooltip"
                                              data-placement="bottom" rel="external nofollow">七牛云</a>
       · <a href="http://www.miitbeian.gov.cn/publish/query/indexFirst.action" target="_blank"
-           title="查看备案信息" data-toggle="tooltip" data-placement="bottom" rel="external nofollow"> </a>
+           title="查看备案信息" data-toggle="tooltip" data-placement="bottom"
+           rel="external nofollow"> </a>
     </p>
     <p>Copyright&copy;2016-</p>
   </div>

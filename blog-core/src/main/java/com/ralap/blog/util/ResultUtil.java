@@ -17,22 +17,22 @@ public class ResultUtil {
         return new ModelAndView(view);
     }
 
+
     public static ModelAndView view(String view, StringMap model) {
         return new ModelAndView(view, model.map());
     }
 
     public static ResponseVO error(String msg) {
-        return result(CommonConst.DEFAULT_ERROR_CODE,msg,null);
+        return result(CommonConst.DEFAULT_ERROR_CODE, msg, null);
     }
-
 
 
     public static ResponseVO success(String msg, Object obj) {
-        return result(CommonConst.DEFAULT_SUCCESS_CODE,msg,obj);
+        return result(CommonConst.DEFAULT_SUCCESS_CODE, msg, obj);
     }
 
     public static ResponseVO success(ResponseStatus status) {
-        return result(status.getCode(),status.getMsg(),null);
+        return result(status.getCode(), status.getMsg(), null);
     }
 
     public static ResponseVO result(int code, String msg, Object object) {

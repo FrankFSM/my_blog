@@ -53,7 +53,7 @@ public class BizArticleServiceImpl implements BizArticleService {
 
     @Override
     public BizArticle getByPrimaryKey(Long primaryKey) {
-        return null;
+        return bizArticleMapper.selectByPrimaryKey(primaryKey);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class BizArticleServiceImpl implements BizArticleService {
 
     @Override
     public List<BizArticle> listAll() {
-        return null;
+        return bizArticleMapper.selectAll();
     }
 
     @Override
