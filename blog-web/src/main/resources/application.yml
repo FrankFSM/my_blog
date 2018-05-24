@@ -25,7 +25,7 @@ logging:
   level:
     org.springframework.web: debug
 mybatis:
-  type-aliases-package: com.ralap.blog.persistent.entity
+  type-aliases-package: com.ralap.blog.persistent.beans
   mapper-locations: classpath:/mybatis/*.xml
   configuration:
     map-underscore-to-camel-case: true

@@ -1,9 +1,8 @@
 package com.ralap.blog.bussiness.service.impl;
 
 import com.ralap.blog.bussiness.service.BizTypeService;
-import com.ralap.blog.persistent.entity.BizType;
+import com.ralap.blog.persistent.beans.BizType;
 import com.ralap.blog.persistent.mapper.BizTypeMapper;
-import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

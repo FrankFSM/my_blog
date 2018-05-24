@@ -1,7 +1,7 @@
 package com.ralap.blog.bussiness.service.impl;
 
 import com.ralap.blog.bussiness.service.BizTagsService;
-import com.ralap.blog.persistent.entity.BizTags;
+import com.ralap.blog.persistent.beans.BizTags;
 import com.ralap.blog.persistent.mapper.BizTagsMapper;
 import java.util.Date;
 import java.util.List;

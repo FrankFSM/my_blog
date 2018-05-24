@@ -1,8 +1,7 @@
 package com.ralap.blog.bussiness.service;
 
 import com.ralap.blog.framework.objecct.AbstractService;
-import com.ralap.blog.persistent.entity.BizType;
-import java.util.List;
+import com.ralap.blog.persistent.beans.BizType;
 
 /**
  * @author: ralap

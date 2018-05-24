@@ -1,9 +1,9 @@
-package com.ralap.blog.persistent.beans;
+package com.ralap.blog.persistent.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ralap.blog.bussiness.enums.ArticleStatusEnum;
-import com.ralap.blog.persistent.entity.BizArticle;
+import com.ralap.blog.persistent.beans.BizArticle;
 import java.util.Date;
 
 /**

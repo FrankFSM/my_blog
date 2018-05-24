@@ -17,7 +17,6 @@ public class ResultUtil {
         return new ModelAndView(view);
     }
 
-
     public static ModelAndView view(String view, StringMap model) {
         return new ModelAndView(view, model.map());
     }

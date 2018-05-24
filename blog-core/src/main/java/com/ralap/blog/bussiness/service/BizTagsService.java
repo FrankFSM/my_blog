@@ -1,7 +1,7 @@
 package com.ralap.blog.bussiness.service;
 
 import com.ralap.blog.framework.objecct.AbstractService;
-import com.ralap.blog.persistent.entity.BizTags;
+import com.ralap.blog.persistent.beans.BizTags;
 
 /**
  * @author: ralap

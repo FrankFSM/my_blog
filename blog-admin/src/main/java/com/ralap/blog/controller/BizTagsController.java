@@ -2,8 +2,7 @@ package com.ralap.blog.controller;
 
 import com.ralap.blog.bussiness.service.BizTagsService;
 import com.ralap.blog.framework.objecct.ResponseVO;
-import com.ralap.blog.persistent.entity.BizTags;
-import com.ralap.blog.persistent.mapper.BizTagsMapper;
+import com.ralap.blog.persistent.beans.BizTags;
 import com.ralap.blog.util.ResultUtil;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

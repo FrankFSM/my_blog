@@ -1,7 +1,6 @@
 package com.ralap.blog;
 
-import com.ralap.blog.persistent.entity.BizArticle;
-import com.ralap.blog.persistent.entity.BizType;
+import com.ralap.blog.persistent.beans.BizArticle;
 import com.ralap.blog.persistent.mapper.BizArticleMapper;
 import java.util.List;
 import org.junit.Test;

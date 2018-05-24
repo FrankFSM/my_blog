@@ -1,9 +1,8 @@
 package com.ralap.blog.bussiness.service.impl;
 
 import com.ralap.blog.bussiness.service.BizArticleTagsService;
-import com.ralap.blog.persistent.entity.BizArticleTags;
+import com.ralap.blog.persistent.beans.BizArticleTags;
 import com.ralap.blog.persistent.mapper.BizArticleTagsMapper;
-import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

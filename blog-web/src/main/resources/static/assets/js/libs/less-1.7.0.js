@@ -952,7 +952,7 @@ less.Parser = function Parser(env) {
                 },
 
                 //
-                // A Variable entity, such as `@fink`, in
+                // A Variable beans, such as `@fink`, in
                 //
                 //     width: @fink + 2px
                 //
@@ -967,7 +967,7 @@ less.Parser = function Parser(env) {
                     }
                 },
 
-                // A variable entity useing the protective {} e.g. @{var}
+                // A variable beans useing the protective {} e.g. @{var}
                 variableCurly: function () {
                     var curly, index = i;
 

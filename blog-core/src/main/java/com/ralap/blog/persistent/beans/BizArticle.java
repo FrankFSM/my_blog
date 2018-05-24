@@ -1,10 +1,11 @@
-package com.ralap.blog.persistent.entity;
+package com.ralap.blog.persistent.beans;
 
 import com.ralap.blog.framework.objecct.AbstractDO;
-import java.util.Date;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class BizArticle extends AbstractDO {
 
     private String title;
