@@ -40,12 +40,12 @@
 }
 
 ul, ol {
-    list-style-type: none;
+    /*list-style-type: none;*/
     -webkit-margin-before: 0px;
     -webkit-margin-after: 0px;
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
-    -webkit-padding-start: 0px;
+    /*-webkit-padding-start: 0px;*/
 }
 
 .tooltip.right .tooltip-arrow {
@@ -2775,4 +2775,9 @@ nav a:first-child .meta-nav {
     width: 356px;
     height: 230px;
 }
+
+.blog-info p{
+    text-align: center;
+}
+
 
