@@ -13,7 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @EqualsAndHashCode(callSuper = false)
 public abstract class BaseConditionVO {
 
-    public static final int DEFAULT_PAGE_SIZE = 2;
+    public static final int DEFAULT_PAGE_SIZE = 1;
     private int pageNum = 1;
     private int pageSize = 0;
     private int pageStart = 0;

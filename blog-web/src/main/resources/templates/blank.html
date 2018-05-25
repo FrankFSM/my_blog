@@ -56,7 +56,7 @@
         <article class="fade-in" th:each="article:${page.list}">
           <span class="title-l"></span>
           <figure class="thumbnail">
-            <a href="">
+            <a th:href="@{'/article/' + ${article.id}}">
               <img width="150" height="150"
                    th:src="${article.coverUrl}+'-eq_150'"
                    class="img-responsive lazy-img"/>
@@ -65,7 +65,8 @@
           </figure>
           <header class="entry-header">
             <h2 class="entry-title">
-              <a href="" rel="bookmark" title="点击查看文章详情" data-toggle="tooltip"
+              <a th:href="@{'/article/' + ${article.id}}" rel="bookmark" title="点击查看文章详情"
+                 data-toggle="tooltip"
                  data-placement="bottom" th:text="${article.title}"></a>
             </h2>
           </header>
@@ -95,16 +96,13 @@
 
           </div>
         </article>
-        <div id="addArticle">
-
-
-
-        </div>
+        <div id="addArticle"></div>
         <!-- article -->
-        <div style="text-align: center">
-          <button type="button" id="loadMore" data-loading-text="Loading..." class="btn btn-primary"
+
+        <div style="text-align: center" th:if="${page.hasNextPage}">
+          <button type="button" id="loadMore" data-loading-text="加载中..." class="btn btn-primary"
                   autocomplete="off">
-            Loading state
+            加载更多
           </button>
         </div>
 
@@ -216,10 +214,12 @@
 <script src="/assets/js/blog.tool.js"></script>
 <script src="https://cdn.bootcss.com/jquery-confirm/2.5.1/jquery-confirm.min.js"></script>
 <script>
+  var pageN = $("#pageNum");
+  pageN.val(Number(1));
   $('#loadMore').click(function () {
     var pageNum = $("#pageNum");
     var loadMore = $("#loadMore");
-    var pateNumber = Number(pageNum.val())+1;
+    var pateNumber = Number(pageNum.val()) + 1;
     var data = jQuery.param({"pageNum": pateNumber});
     loadMore.button('loading');
 
@@ -229,60 +229,65 @@
 
       data: data,
       success: function (result) {
+        if (!result.data.hasNextPage) {
+          loadMore.hide();
+        }
+
         pageNum.val(pateNumber);
         console.log(result);
         console.log(result.data);
         var addArticle = $('#addArticle');
         var articleList = '';
-        console.log( result.data.list.length);
+        console.log(result.data.list.length);
 
-        for (var i=0; i< result.data.list.length; i++) {
+        for (var i = 0; i < result.data.list.length; i++) {
 
           var article = result.data.list[i];
 
           articleList += "<article class=\"fade-in\">\n"
               + "          <span class=\"title-l\"></span>\n"
               + "          <figure class=\"thumbnail\">\n"
-              + "            <a href=\"\">\n"
+              + "            <a href=\"/article/" + article.id + "\">\n"
               + "              <img width=\"150\" height=\"150\"\n"
-              + "                   src=\""+article.coverUrl+"-eq_150\"\n"
-          + "                   class=\"img-responsive lazy-img\"/>\n"
-          + "            </a>\n"
-          + "            <span class=\"cat\"><a href=\"\">后端开发</a></span>\n"
-          + "          </figure>\n"
-          + "          <header class=\"entry-header\">\n"
-          + "            <h2 class=\"entry-title\">\n"
-          + "              <a href=\"\" rel=\"bookmark\" title=\"点击查看文章详情\" data-toggle=\"tooltip\"\n"
-          + "                 data-placement=\"bottom\">"+article.title+"</a>\n"
-          + "            </h2>\n"
-          + "          </header>\n"
-          + "          <div class=\"entry-content\">\n"
-          + "            <div class=\"archive-content\">"+article.description+"\n"
-          + "            </div>\n"
-          + "            <span class=\"title-l\"></span>\n"
-          + "            <span class=\"entry-meta\">\n"
-          + "              <span class=\"date\" title=\"文章发表日期\" data-toggle=\"tooltip\" data-placement=\"bottom\">\n"
-          + "                <i class=\"fa-calendar-empty\" style=\"padding: 5px\"></i><span\n"
-          + "                  >"+article.createTime+"</span>\n"
-          + "              </span>\n"
-          + "              <span style=\"padding-left:10px ;\" class=\"views\" title=\"文章阅读数\" data-toggle=\"tooltip\"\n"
-          + "                    data-placement=\"bottom\"><i class=\"fa-eye-open\"\n"
-          + "                                               style=\"padding: 5px\"></i>浏览(0) </span>\n"
-          + "              <span style=\"padding-left: 10px\" class=\"comment\" title=\"文章评论次数\" data-toggle=\"tooltip\"\n"
-          + "                    data-placement=\"bottom\">\n"
-          + "                <a href=\"\"><i class=\"fa-comment-alt\" style=\"padding: 5px\"></i>评论</a>\n"
-          + "              </span>\n"
-          + "            </span>\n"
-          + "            <div class=\"clear\"></div>\n"
-          + "            <span class=\"entry-more\">\n"
-          + "                                <a href=\"/article/"+article.id+"\" rel=\"bookmark\"\n"
-          + "                                   title=\"点击查看文章详情\" data-toggle=\"tooltip\" data-placement=\"bottom\">阅读全文</a>\n"
-          + "                            </span>\n"
-          + "\n"
-          + "\n"
-          + "          </div>\n"
-          + "        </article>";
-
+              + "                   src=\"" + article.coverUrl + "-eq_150\"\n"
+              + "                   class=\"img-responsive lazy-img\"/>\n"
+              + "            </a>\n"
+              + "            <span class=\"cat\"><a href=\"\">后端开发</a></span>\n"
+              + "          </figure>\n"
+              + "          <header class=\"entry-header\">\n"
+              + "            <h2 class=\"entry-title\">\n"
+              + "              <a href=\"/article/" + article.id
+              + "\" rel=\"bookmark\" title=\"点击查看文章详情\" data-toggle=\"tooltip\"\n"
+              + "                 data-placement=\"bottom\">" + article.title + "</a>\n"
+              + "            </h2>\n"
+              + "          </header>\n"
+              + "          <div class=\"entry-content\">\n"
+              + "            <div class=\"archive-content\">" + article.description + "\n"
+              + "            </div>\n"
+              + "            <span class=\"title-l\"></span>\n"
+              + "            <span class=\"entry-meta\">\n"
+              + "              <span class=\"date\" title=\"文章发表日期\" data-toggle=\"tooltip\" data-placement=\"bottom\">\n"
+              + "                <i class=\"fa-calendar-empty\" style=\"padding: 5px\"></i><span\n"
+              + "                  >" + article.createTime + "</span>\n"
+              + "              </span>\n"
+              + "              <span style=\"padding-left:10px ;\" class=\"views\" title=\"文章阅读数\" data-toggle=\"tooltip\"\n"
+              + "                    data-placement=\"bottom\"><i class=\"fa-eye-open\"\n"
+              + "                                               style=\"padding: 5px\"></i>浏览(0) </span>\n"
+              + "              <span style=\"padding-left: 10px\" class=\"comment\" title=\"文章评论次数\" data-toggle=\"tooltip\"\n"
+              + "                    data-placement=\"bottom\">\n"
+              + "                <a href=\"\"><i class=\"fa-comment-alt\" style=\"padding: 5px\"></i>评论</a>\n"
+              + "              </span>\n"
+              + "            </span>\n"
+              + "            <div class=\"clear\"></div>\n"
+              + "            <span class=\"entry-more\">\n"
+              + "                                <a href=\"/article/" + article.id
+              + "\" rel=\"bookmark\"\n"
+              + "                                   title=\"点击查看文章详情\" data-toggle=\"tooltip\" data-placement=\"bottom\">阅读全文</a>\n"
+              + "                            </span>\n"
+              + "\n"
+              + "\n"
+              + "          </div>\n"
+              + "        </article>";
 
         }
         addArticle.append(articleList);
@@ -290,8 +295,10 @@
       error: $.tool.ajaxError
 
     });
+    setTimeout(function () {
+      loadMore.button('reset');
+    }, 100);
 
-    loadMore.button('reset');
   });
 </script>
 </body>
