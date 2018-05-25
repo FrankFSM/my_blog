@@ -1,19 +1,18 @@
 package com.ralap.blog.bussiness.vo;
 
 import com.ralap.blog.framework.objecct.BaseConditionVO;
+import com.ralap.blog.persistent.entity.Article;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
  * @author: ralap
- * @date: created at 2018/5/19 22:17
+ * @date: created at 2018/5/24 22:38
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class FileConditionVO extends BaseConditionVO {
+public class ArticleConditionVO extends BaseConditionVO {
 
-
-    private String fileName;
-    private String filePath;
+    private Article article;
 
 }

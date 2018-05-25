@@ -40,10 +40,10 @@ mapper:
     identity: MYSQL
 # pagehelper
 pagehelper:
-    helper-dialect: mysql
-    reasonable: true
-    support-methods-arguments: true
-    params: count=countSql
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
 banner:
     charset: UTF-8
 ######################七牛配置###################

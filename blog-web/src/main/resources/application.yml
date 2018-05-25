@@ -40,12 +40,12 @@ mapper:
     identity: MYSQL
 # pagehelper
 pagehelper:
-    helper-dialect: mysql
-    reasonable: true
-    support-methods-arguments: true
-    params: count=countSql
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
 banner:
-    charset: UTF-8
+  charset: UTF-8
 ######################七牛配置###################
 qiniu:
   # 七牛AK
@@ -54,3 +54,6 @@ qiniu:
   secretKey: -nUimhcyf-XK7E4XJb6dMKnNEzZpf9H2DyiVHMQS
   # 七牛BucketName
   bucketName: blog
+management:
+  security:
+    enabled: false

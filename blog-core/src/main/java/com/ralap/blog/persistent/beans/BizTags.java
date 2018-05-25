@@ -10,4 +10,5 @@ public class BizTags extends AbstractDO{
 
     private String name;
     private String description;
+
 }

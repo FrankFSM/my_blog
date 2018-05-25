@@ -45,14 +45,6 @@ public class BizArticleController {
         return ResultUtil.view("forms");
     }
 
-    @RequestMapping("/getAll")
-    @ResponseBody
-    public List<BizArticle> getAll() {
-        List<BizArticle> list = bizArticleService.listAll();
-        LOG.info("---------------------" + list);
-        return list;
-    }
-
     @RequestMapping(value = "/uploadCover", method = RequestMethod.POST)
     @ResponseBody
     public ResponseVO uploadCover(@RequestParam("file") MultipartFile file) {
@@ -71,9 +63,9 @@ public class BizArticleController {
         }
         article.setOriginal(article.getOriginal());
         if (article.getId() == null) {
-            bizArticleService.insert(article.getBizArticle());
+            bizArticleService.insert(article);
         } else {
-            bizArticleService.updateSelective(article.getBizArticle());
+            bizArticleService.updateSelective(article);
         }
         Long articleId = article.getId();
         if (!StringUtil.isEmpty(article.getId())) {
