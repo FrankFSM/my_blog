@@ -1,11 +1,12 @@
 package com.ralap.blog.persistent.beans;
 
 import com.ralap.blog.framework.objecct.AbstractDO;
+import javax.persistence.Transient;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class BizArticle extends AbstractDO {
 
     private String title;
@@ -33,4 +34,10 @@ public class BizArticle extends AbstractDO {
     private String keywords;
 
     private String remake;
+
+    @Transient
+    private BizType bizType;
+
+    @Transient
+    private Integer lookCount;
 }

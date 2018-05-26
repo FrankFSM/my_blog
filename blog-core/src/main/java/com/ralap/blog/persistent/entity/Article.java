@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ralap.blog.bussiness.enums.ArticleStatusEnum;
 import com.ralap.blog.persistent.beans.BizArticle;
+import com.ralap.blog.persistent.beans.BizType;
 import java.util.Date;
 
 /**
@@ -163,6 +164,22 @@ public class Article {
 
     public void setRemake(String remake) {
         this.bizArticle.setRemake(remake);
+    }
+
+    public BizType getBizType() {
+        return this.bizArticle.getBizType();
+    }
+
+    public void setBizArticle(BizType bizArticle) {
+        this.bizArticle.setBizType(bizArticle);
+    }
+
+    public Integer getLookCount() {
+        return this.bizArticle.getLookCount();
+    }
+
+    public void setLookCount(Integer lookCount) {
+        this.bizArticle.setLookCount(lookCount);
     }
 
 }

@@ -89,10 +89,8 @@ public class BizArticleServiceImpl implements BizArticleService {
 
     @Override
     public PageInfo<Article> findPageBreakByCondition(ArticleConditionVO vo) {
-        int pageNum = vo.getPageNum();
-        int pageSize = vo.getPageSize();
         PageHelper.startPage(vo.getPageNum(), vo.getPageSize());
-        List<BizArticle> bizArticles = bizArticleMapper.selectAll();
+        List<BizArticle> bizArticles = bizArticleMapper.findPageBreakByCondition(vo);
         if (CollectionUtils.isEmpty(bizArticles)) {
             return null;
         }

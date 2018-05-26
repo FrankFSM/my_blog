@@ -1,27 +1,68 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.ralap.blog.persistent.mapper.BizArticleMapper" >
-  <resultMap id="BaseResultMap" type="com.ralap.blog.persistent.beans.BizArticle" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="user_id" property="userId" jdbcType="BIGINT" />
-    <result column="cover_url" property="coverUrl" jdbcType="VARCHAR" />
-    <result column="qrcode_url" property="qrcodeUrl" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="BIT" />
-    <result column="type_id" property="typeId" jdbcType="INTEGER" />
-    <result column="top" property="top" jdbcType="BIT" />
-    <result column="recommend" property="recommend" jdbcType="BIT" />
-    <result column="original" property="original" jdbcType="BIT" />
-    <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="keywords" property="keywords" jdbcType="VARCHAR" />
-    <result column="remake" property="remake" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ralap.blog.persistent.mapper.BizArticleMapper">
+  <resultMap id="BaseResultMap" type="com.ralap.blog.persistent.beans.BizArticle">
+    <id column="id" property="id" jdbcType="BIGINT"/>
+    <result column="title" property="title" jdbcType="VARCHAR"/>
+    <result column="user_id" property="userId" jdbcType="BIGINT"/>
+    <result column="cover_url" property="coverUrl" jdbcType="VARCHAR"/>
+    <result column="qrcode_url" property="qrcodeUrl" jdbcType="VARCHAR"/>
+    <result column="status" property="status" jdbcType="BIT"/>
+    <result column="type_id" property="typeId" jdbcType="INTEGER"/>
+    <result column="top" property="top" jdbcType="BIT"/>
+    <result column="recommend" property="recommend" jdbcType="BIT"/>
+    <result column="original" property="original" jdbcType="BIT"/>
+    <result column="description" property="description" jdbcType="VARCHAR"/>
+    <result column="keywords" property="keywords" jdbcType="VARCHAR"/>
+    <result column="remake" property="remake" jdbcType="VARCHAR"/>
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    <result column="content" property="content" jdbcType="LONGVARCHAR"/>
   </resultMap>
 
-  <sql id="Base_Column_List" >
-    id, title, user_id, cover_url, qrcode_url, status, type_id, top, recommend, original,  content,
+  <resultMap id="rm" type="com.ralap.blog.persistent.beans.BizArticle">
+    <id column="id" property="id" jdbcType="BIGINT"/>
+    <result column="title" property="title" jdbcType="VARCHAR"/>
+    <result column="user_id" property="userId" jdbcType="BIGINT"/>
+    <result column="cover_url" property="coverUrl" jdbcType="VARCHAR"/>
+    <result column="qrcode_url" property="qrcodeUrl" jdbcType="VARCHAR"/>
+    <result column="status" property="status" jdbcType="BIT"/>
+    <result column="type_id" property="typeId" jdbcType="INTEGER"/>
+    <result column="top" property="top" jdbcType="BIT"/>
+    <result column="recommend" property="recommend" jdbcType="BIT"/>
+    <result column="original" property="original" jdbcType="BIT"/>
+    <result column="description" property="description" jdbcType="VARCHAR"/>
+    <result column="keywords" property="keywords" jdbcType="VARCHAR"/>
+    <result column="remake" property="remake" jdbcType="VARCHAR"/>
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    <result column="content" property="content" jdbcType="LONGVARCHAR"/>
+    <result column="look_count" property="lookCount" jdbcType="INTEGER"/>
+    <association property="bizType" javaType="com.ralap.blog.persistent.beans.BizType">
+      <id column="btype_id" property="id" jdbcType="BIGINT"/>
+      <result column="type_name" property="name" jdbcType="VARCHAR"/>
+      <result column="type_description" property="description" jdbcType="VARCHAR"/>
+    </association>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, title, user_id, cover_url, qrcode_url, status, type_id, top, recommend, original, content,
     description, keywords, remake, create_time, update_time
   </sql>
+
+  <select id="findPageBreakByCondition"
+    parameterType="com.ralap.blog.bussiness.vo.ArticleConditionVO" resultMap="rm">
+    SELECT
+      a.*,
+      b.id          AS btype_id,
+      b.name        AS type_name,
+      b.description AS type_description,
+      IFNULL(l.look_count,0) AS look_count
+    FROM biz_article a
+      INNER JOIN biz_type b ON a.type_id = b.id
+    LEFT JOIN (
+      SELECT IFNULL(COUNT(1),0) AS look_count,article_id FROM `biz_article_look`
+    ) l ON a.id=l.article_id
+  </select>
 </mapper>

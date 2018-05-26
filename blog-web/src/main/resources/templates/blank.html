@@ -61,7 +61,7 @@
                    th:src="${article.coverUrl}+'-eq_150'"
                    class="img-responsive lazy-img"/>
             </a>
-            <span class="cat"><a href="">后端开发</a></span>
+            <span class="cat"><a href="" th:text="${article.bizType.name}"></a></span>
           </figure>
           <header class="entry-header">
             <h2 class="entry-title">
@@ -81,7 +81,7 @@
               </span>
               <span style="padding-left:10px ;" class="views" title="文章阅读数" data-toggle="tooltip"
                     data-placement="bottom"><i class="fa-eye-open"
-                                               style="padding: 5px"></i>浏览(0) </span>
+                                               style="padding: 5px" th:text="'浏览('+${article.lookCount}+')'"></i></span>
               <span style="padding-left: 10px" class="comment" title="文章评论次数" data-toggle="tooltip"
                     data-placement="bottom">
                 <a href=""><i class="fa-comment-alt" style="padding: 5px"></i>评论</a>
@@ -122,7 +122,7 @@
                                             class="showImage" title="微信公众号"><img
                       src="/assets/img/blog/WX.jpg" alt="微信公众号"></a></div>
                   <div class="about-name">Ralap</div>
-                  <div class="about-the">我就是我,不一样的烟火</div>
+                  <div class="about-the">我就是我,不一样的烟火,我若成佛，天下无魔，我若成魔，佛奈我何</div>
                 </div>
                 <div class="clear"></div>
                 <ul class="widget-icon" style="align-content: center">
@@ -252,7 +252,7 @@
               + "                   src=\"" + article.coverUrl + "-eq_150\"\n"
               + "                   class=\"img-responsive lazy-img\"/>\n"
               + "            </a>\n"
-              + "            <span class=\"cat\"><a href=\"\">后端开发</a></span>\n"
+              + "            <span class=\"cat\"><a href=\"\">"+ article.bizType.name+"</a></span>\n"
               + "          </figure>\n"
               + "          <header class=\"entry-header\">\n"
               + "            <h2 class=\"entry-title\">\n"
@@ -272,7 +272,7 @@
               + "              </span>\n"
               + "              <span style=\"padding-left:10px ;\" class=\"views\" title=\"文章阅读数\" data-toggle=\"tooltip\"\n"
               + "                    data-placement=\"bottom\"><i class=\"fa-eye-open\"\n"
-              + "                                               style=\"padding: 5px\"></i>浏览(0) </span>\n"
+              + "                                               style=\"padding: 5px\"></i>浏览("+article.lookCount+") </span>\n"
               + "              <span style=\"padding-left: 10px\" class=\"comment\" title=\"文章评论次数\" data-toggle=\"tooltip\"\n"
               + "                    data-placement=\"bottom\">\n"
               + "                <a href=\"\"><i class=\"fa-comment-alt\" style=\"padding: 5px\"></i>评论</a>\n"
