@@ -14,6 +14,14 @@ public class ArticleLook {
 
     private BizArticleLook bizArticleLook;
 
+    public ArticleLook() {
+        this.bizArticleLook = new BizArticleLook();
+    }
+
+
+    public ArticleLook(BizArticleLook bizArticleLook) {
+        this.bizArticleLook = bizArticleLook;
+    }
 
     @JsonIgnore
     public BizArticleLook getBizArticleLook() {

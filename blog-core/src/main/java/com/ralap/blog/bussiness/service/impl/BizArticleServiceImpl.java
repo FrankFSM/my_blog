@@ -102,4 +102,10 @@ public class BizArticleServiceImpl implements BizArticleService {
         page.setList(articles);
         return page;
     }
+
+    @Override
+    public boolean isExist(Long articleId) {
+        Integer count = bizArticleMapper.isExist(articleId);
+        return count != null && count > 0;
+    }
 }

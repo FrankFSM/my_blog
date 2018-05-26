@@ -46,7 +46,7 @@ public class JumpController {
     }
 
     /**
-     * 首页
+     * 文章详情
      */
     @RequestMapping("/article/{id}")
     public ModelAndView article(@PathVariable("id") Long id, Model model) {

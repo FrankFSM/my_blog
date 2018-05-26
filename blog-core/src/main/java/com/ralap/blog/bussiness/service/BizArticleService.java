@@ -12,4 +12,6 @@ import com.ralap.blog.persistent.entity.Article;
 public interface BizArticleService extends AbstractService<Article, Long> {
 
     PageInfo<Article> findPageBreakByCondition(ArticleConditionVO vo);
+
+    boolean isExist(Long articleId);
 }
