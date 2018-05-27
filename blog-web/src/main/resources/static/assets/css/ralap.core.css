@@ -2776,8 +2776,8 @@ nav a:first-child .meta-nav {
     height: 230px;
 }
 
-/*.blog-info p{*/
-    /*text-align: center;*/
-/*}*/
+.blog-info p img{
+    max-width: 100%;
+}
 
 

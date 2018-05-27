@@ -12,4 +12,6 @@ public interface BizArticleMapper extends BaseMapper<BizArticle> {
     List<BizArticle> findPageBreakByCondition(ArticleConditionVO vo);
 
     Integer isExist(Long articleId);
+
+    BizArticle selectById(Long id);
 }

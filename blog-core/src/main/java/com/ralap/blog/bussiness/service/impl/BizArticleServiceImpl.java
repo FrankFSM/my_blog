@@ -108,4 +108,11 @@ public class BizArticleServiceImpl implements BizArticleService {
         Integer count = bizArticleMapper.isExist(articleId);
         return count != null && count > 0;
     }
+
+    @Override
+    public Article selectById(Long id) {
+        Assert.notNull(id, "id不能为空");
+        BizArticle bizArticle = bizArticleMapper.selectById(id);
+        return bizArticle == null ? null : new Article(bizArticle);
+    }
 }

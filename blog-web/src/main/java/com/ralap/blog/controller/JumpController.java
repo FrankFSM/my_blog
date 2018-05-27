@@ -50,7 +50,7 @@ public class JumpController {
      */
     @RequestMapping("/article/{id}")
     public ModelAndView article(@PathVariable("id") Long id, Model model) {
-        Article article = bizArticleService.getByPrimaryKey(id);
+        Article article = bizArticleService.selectById(id);
         model.addAttribute("article", article);
         return ResultUtil.view("article");
 

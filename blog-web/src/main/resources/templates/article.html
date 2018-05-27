@@ -51,8 +51,36 @@
   <section>
     <div class="row">
       <div class="col-md-9 blog-main">
+
         <div class="blog-body overflow-initial fade-in">
-          <div class="blog-info overflow-initial" >
+          <div class="article-flag" th:if="${article.original}">
+            <span class="article-blockquote article-blockquote-green"></span>
+            <span class="article-original article-original-green">
+                            <a href="">原创</a>
+            </span>
+            <div class="blog-info-meta pull-right">
+              <ul class="list-unstyled list-inline">
+                <li><i class="en-clock" style="margin: 5px"></i><span th:text="${'发表于'+#dates.format(article.createTime,'yyyy-MM-dd HH:mm')}"></span></li>
+                <li><i class="fa-eye-open" style="margin: 5px"></i><a class="pointer" th:data-original-title="${'('+article.lookCount +')人浏览了该文章'}" data-toggle="tooltip" data-placement="bottom">浏览 (<span th:text="${article.lookCount == null ?0:article.lookCount}"></span>)</a></li>
+                <li><a href="#comment-box" th:data-original-title="${'('+article.lookCount +')人评论了该文章'}" data-toggle="tooltip" data-placement="bottom"><i class="fa-comment-alt" style="margin: 5px"></i>评论 (<span th:text="${article.lookCount == null ?0:article.lookCount}"></span>)</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="article-flag" th:if="${!article.original}">
+            <span class="article-blockquote article-blockquote-red"></span>
+            <span class="article-original article-original-red">
+                            <a href="">转载</a>
+                        </span>
+            <div class="blog-info-meta pull-right">
+              <ul class="list-unstyled list-inline">
+                <li><i class="en-clock" style="margin: 5px"></i><span th:text="${'发表于'+#dates.format(article.createTime,'yyyy-MM-dd HH:mm')}"></span></li>
+                <li><i class="fa-eye-open" style="margin: 5px"></i><a class="pointer" th:data-original-title="${'('+article.lookCount +')人浏览了该文章'}" data-toggle="tooltip" data-placement="bottom">浏览 (<span th:text="${article.lookCount == null ?0:article.lookCount}"></span>)</a></li>
+                <li><a href="#comment-box" th:data-original-title="${'('+article.lookCount +')人评论了该文章'}" data-toggle="tooltip" data-placement="bottom"><i class="fa-comment-alt" style="margin: 5px"></i>评论 (<span th:text="${article.lookCount == null ?0:article.lookCount}"></span>)</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="blog-info overflow-initial">
             <div class="bottom-line">
               <h1 class="blog-info-title">
                 <strong th:text="${article.title}"></strong>
