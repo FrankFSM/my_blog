@@ -182,4 +182,12 @@ public class Article {
         this.bizArticle.setLookCount(lookCount);
     }
 
+    public Integer getLoveCount() {
+        return this.bizArticle.getLoveCount();
+    }
+
+    public void setLoveCount(Integer loveCount) {
+        this.bizArticle.setLoveCount(loveCount);
+    }
+
 }
