@@ -60,9 +60,20 @@
             </span>
             <div class="blog-info-meta pull-right">
               <ul class="list-unstyled list-inline">
-                <li><i class="en-clock" style="margin: 5px"></i><span th:text="${'发表于'+#dates.format(article.createTime,'yyyy-MM-dd HH:mm')}"></span></li>
-                <li><i class="fa-eye-open" style="margin: 5px"></i><a class="pointer" th:data-original-title="${'('+article.lookCount +')人浏览了该文章'}" data-toggle="tooltip" data-placement="bottom">浏览 (<span th:text="${article.lookCount == null ?0:article.lookCount}"></span>)</a></li>
-                <li><a href="#comment-box" th:data-original-title="${'('+article.lookCount +')人评论了该文章'}" data-toggle="tooltip" data-placement="bottom"><i class="fa-comment-alt" style="margin: 5px"></i>评论 (<span th:text="${article.lookCount == null ?0:article.lookCount}"></span>)</a></li>
+                <li><i class="en-clock" style="margin: 5px"></i><span
+                    th:text="${'发表于'+#dates.format(article.createTime,'yyyy-MM-dd HH:mm')}"></span>
+                </li>
+                <li><i class="fa-eye-open" style="margin: 5px"></i><a class="pointer"
+                                                                      th:data-original-title="${'('+article.lookCount +')人浏览了该文章'}"
+                                                                      data-toggle="tooltip"
+                                                                      data-placement="bottom">浏览
+                  (<span th:text="${article.lookCount == null ?0:article.lookCount}"></span>)</a>
+                </li>
+                <li><a href="#comment-box"
+                       th:data-original-title="${'('+article.lookCount +')人评论了该文章'}"
+                       data-toggle="tooltip" data-placement="bottom"><i class="fa-comment-alt"
+                                                                        style="margin: 5px"></i>评论 (<span
+                    th:text="${article.lookCount == null ?0:article.lookCount}"></span>)</a></li>
               </ul>
             </div>
           </div>
@@ -73,9 +84,20 @@
                         </span>
             <div class="blog-info-meta pull-right">
               <ul class="list-unstyled list-inline">
-                <li><i class="en-clock" style="margin: 5px"></i><span th:text="${'发表于'+#dates.format(article.createTime,'yyyy-MM-dd HH:mm')}"></span></li>
-                <li><i class="fa-eye-open" style="margin: 5px"></i><a class="pointer" th:data-original-title="${'('+article.lookCount +')人浏览了该文章'}" data-toggle="tooltip" data-placement="bottom">浏览 (<span th:text="${article.lookCount == null ?0:article.lookCount}"></span>)</a></li>
-                <li><a href="#comment-box" th:data-original-title="${'('+article.lookCount +')人评论了该文章'}" data-toggle="tooltip" data-placement="bottom"><i class="fa-comment-alt" style="margin: 5px"></i>评论 (<span th:text="${article.lookCount == null ?0:article.lookCount}"></span>)</a></li>
+                <li><i class="en-clock" style="margin: 5px"></i><span
+                    th:text="${'发表于'+#dates.format(article.createTime,'yyyy-MM-dd HH:mm')}"></span>
+                </li>
+                <li><i class="fa-eye-open" style="margin: 5px"></i><a class="pointer"
+                                                                      th:data-original-title="${'('+article.lookCount +')人浏览了该文章'}"
+                                                                      data-toggle="tooltip"
+                                                                      data-placement="bottom">浏览
+                  (<span th:text="${article.lookCount == null ?0:article.lookCount}"></span>)</a>
+                </li>
+                <li><a href="#comment-box"
+                       th:data-original-title="${'('+article.lookCount +')人评论了该文章'}"
+                       data-toggle="tooltip" data-placement="bottom"><i class="fa-comment-alt"
+                                                                        style="margin: 5px"></i>评论 (<span
+                    th:text="${article.lookCount == null ?0:article.lookCount}"></span>)</a></li>
               </ul>
             </div>
           </div>
@@ -93,22 +115,33 @@
             <div id="social" style="margin-bottom: 45px;">
               <div class="social-main">
                             <span class="like">
-                              <a href="javascript:;" data-id="${article.id?c}" title="点赞" ><i class="fa-thumbs-up"></i>赞 <i class="count" th:text="${'('+article.loveCount+')'}"></i> </a>
+                              <a href="javascript:;" data-id="${article.id?c}" title="点赞"><i
+                                  class="fa-thumbs-up"></i>赞 <i class="count"
+                                                                th:text="${'('+article.loveCount+')'}"></i> </a>
                             </span>
                 <div class="shang-p">
                   <div class="shang-empty"><span></span></div>
-                  <span class="shang-s"><a onclick="PaymentUtils.show();" style="cursor:pointer">赏</a> </span>
+                  <span class="shang-s"><a onclick="PaymentUtils.show();"
+                                           style="cursor:pointer">赏</a> </span>
                 </div>
                 <div class="share-sd">
-                  <span class="share-s"><a href="javascript:void(0)" id="share-s" title="分享"><i class="fa-share-sign"></i>分享</a></span>
+                  <span class="share-s"><a href="javascript:void(0)" id="share-s" title="分享"><i
+                      class="fa-share-sign"></i>分享</a></span>
                   <div id="share" style="display: none">
-                    <ul class="bdsharebuttonbox bdshare-button-style1-16" data-bd-bind="1516426362121">
-                      <li><a title="分享到人人网" class="fa fa-renren" data-cmd="renren" onclick="return false;" href="#"></a></li>
-                      <li><a title="分享到腾讯微博" class="fa fa-pinterest-square" data-cmd="tqq" onclick="return false;" href="#"></a></li>
-                      <li><a title="分享到QQ空间" class="fa fa-qq" data-cmd="qzone" onclick="return false;" href="#"></a></li>
-                      <li><a title="分享到新浪微博" class="fa fa-weibo" data-cmd="tsina" onclick="return false;" href="#"></a></li>
-                      <li><a title="分享到微信" class="fa fa-weixin" data-cmd="weixin" onclick="return false;" href="#"></a></li>
-                      <li><a title="更多" class="bds_more fa fa-plus-square" data-cmd="more" onclick="return false;" href="#"></a></li>
+                    <ul class="bdsharebuttonbox bdshare-button-style1-16"
+                        data-bd-bind="1516426362121">
+                      <li><a title="分享到人人网" class="fa fa-renren" data-cmd="renren"
+                             onclick="return false;" href="#"></a></li>
+                      <li><a title="分享到腾讯微博" class="fa fa-pinterest-square" data-cmd="tqq"
+                             onclick="return false;" href="#"></a></li>
+                      <li><a title="分享到QQ空间" class="fa fa-qq" data-cmd="qzone"
+                             onclick="return false;" href="#"></a></li>
+                      <li><a title="分享到新浪微博" class="fa fa-weibo" data-cmd="tsina"
+                             onclick="return false;" href="#"></a></li>
+                      <li><a title="分享到微信" class="fa fa-weixin" data-cmd="weixin"
+                             onclick="return false;" href="#"></a></li>
+                      <li><a title="更多" class="bds_more fa fa-plus-square" data-cmd="more"
+                             onclick="return false;" href="#"></a></li>
                     </ul>
                   </div>
                 </div>
@@ -121,37 +154,17 @@
       </div>
       <div class="col-md-3 sidebar-gutter">
         <div class="sidebar-module" style="position: relative;">
-          <a href='https://gitee.com/itFanRalap/my_blog' target="_blank"
-             rel="external nofollow"><img
-              src='https://gitee.com/itFanRalap/my_blog/widgets/widget_1.svg?color=C71D24'
-              alt='Fork me on Gitee' style="position: absolute;right: 0;"/></a>
-          <h5 class="sidebar-title"><i class="fa fa-home icon"></i><strong>关于我</strong></h5>
+
+          <h5 class="sidebar-title"><i class="fa-hand-right icon"></i><strong>说给你听</strong></h5>
           <div class="widget">
             <div id="feed_widget">
               <div class="feed-about">
                 <div class="about-main">
-                  <div class="about-img"><a href="${config.staticWebSite}/img/wx_300px.png"
-                                            class="showImage" title="微信公众号"><img
-                      src="/assets/img/blog/WX.jpg" alt="微信公众号"></a></div>
-                  <div class="about-name">Ralap</div>
-                  <div class="about-the">我就是我,不一样的烟火</div>
+                  <div class="div-quote">
+                    <i class="fa-quote-left"></i>
+                    <p style="margin-left: 10px" id="hitokoto"></p>
+                  </div>
                 </div>
-                <div class="clear"></div>
-                <ul class="widget-icon" style="align-content: center">
-                  <li class="tqq auto-shake">
-                    <a class="tag-icon"
-                       href="javascript:window.open('tencent://message/?uin=843977358&Site=www.${config.domain}&Menu=yes')"
-                       title="点击QQ联系我" target="blank" rel="external nofollow"><i class="en-qq"></i></a>
-                  </li>
-                  <li class="tsina auto-shake">
-                    <a class="tag-icon" href="http://weibo.com/211230415" title="点击查看我的微博"
-                       target="_blank" rel="external nofollow"><i class="fa-weibo"></i></a>
-                  </li>
-                  <li class="github auto-shake">
-                    <a class="tag-icon" href="https://github.com/Noing/my_blog" title="点击查看我的github"
-                       target="_blank" rel="external nofollow"><i class="en-github"></i></a>
-                  </li>
-                </ul>
               </div>
             </div>
           </div>
@@ -223,4 +236,22 @@
 <script src="/assets/js/ralap.core.js"></script>
 <script src="/assets/js/ralap.js"></script>
 </body>
+<script type="text/javascript">
+  $(function () {
+    loadHitokoto();
+  });
+
+  //加载Hitokoto
+  function loadHitokoto() {
+    var hitokotoUrl = "https://v1.hitokoto.cn/?c=d&encode=text";
+    var hitokoto = $('#hitokoto');
+    $.ajax({
+      type: 'get',
+      url: hitokotoUrl,
+      success: function (text) {
+        hitokoto.text(text);
+      }
+    })
+  }
+</script>
 </html>

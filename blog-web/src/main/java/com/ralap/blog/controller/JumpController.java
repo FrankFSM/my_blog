@@ -38,7 +38,19 @@ public class JumpController {
 
     }
 
-    @RequestMapping(value = "/web/articlePage",method = RequestMethod.POST)
+    /**
+     * 首页
+     */
+    @RequestMapping("/type/{id}")
+    public ModelAndView index(ArticleConditionVO vo, Model model, @PathVariable("id") Long id) {
+        vo.setTypeId(id);
+        PageInfo<Article> page = bizArticleService.findPageBreakByCondition(vo);
+        model.addAttribute("page", page);
+        return ResultUtil.view("blank");
+
+    }
+
+    @RequestMapping(value = "/web/articlePage", method = RequestMethod.POST)
     @ResponseBody
     public ResponseVO<PageInfo> articlePage(ArticleConditionVO vo) {
         PageInfo<Article> page = bizArticleService.findPageBreakByCondition(vo);

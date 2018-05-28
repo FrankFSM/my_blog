@@ -2,18 +2,19 @@ package com.ralap.blog.bussiness.vo;
 
 import com.ralap.blog.framework.objecct.BaseConditionVO;
 import com.ralap.blog.persistent.entity.Article;
+import com.ralap.blog.persistent.entity.Type;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * @author: ralap
- * @date: created at 2018/5/24 22:38
+ * TypeConditionVO
+ * @author: ralap 
+ * @date: created at 2018/5/28 21:46
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class ArticleConditionVO extends BaseConditionVO {
+public class TypeConditionVO extends BaseConditionVO {
 
-    private Article article;
+    private Type type;
 
-    private Long typeId;
 }

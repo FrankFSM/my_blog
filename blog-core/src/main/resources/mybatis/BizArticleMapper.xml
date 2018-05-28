@@ -55,28 +55,33 @@
   <select id="findPageBreakByCondition"
     parameterType="com.ralap.blog.bussiness.vo.ArticleConditionVO" resultMap="rm">
     SELECT
-      a.*,
-      b.id                    AS btype_id,
-      b.name                  AS type_name,
-      b.description           AS type_description,
-      IFNULL(l.look_count, 0) AS look_count,
-      IFNULL(v.love_count, 0) AS love_count
+    a.*,
+    b.id AS btype_id,
+    b.name AS type_name,
+    b.description AS type_description,
+    IFNULL(l.look_count, 0) AS look_count,
+    IFNULL(v.love_count, 0) AS love_count
     FROM biz_article a
-      INNER JOIN biz_type b ON a.type_id = b.id
-      LEFT JOIN (
-                  SELECT
-                    IFNULL(COUNT(1), 0) AS look_count,
-                    article_id
-                  FROM `biz_article_look`
-                  GROUP BY article_id
-                ) l ON a.id = l.article_id
-      LEFT JOIN (
-                  SELECT
-                    IFNULL(COUNT(1), 0) AS love_count,
-                    article_id
-                  FROM `biz_article_love`
-                  GROUP BY article_id
-                ) v ON a.id = v.article_id
+    INNER JOIN biz_type b ON a.type_id = b.id
+    LEFT JOIN (
+    SELECT
+    IFNULL(COUNT(1), 0) AS look_count,
+    article_id
+    FROM `biz_article_look`
+    GROUP BY article_id
+    ) l ON a.id = l.article_id
+    LEFT JOIN (
+    SELECT
+    IFNULL(COUNT(1), 0) AS love_count,
+    article_id
+    FROM `biz_article_love`
+    GROUP BY article_id
+    ) v ON a.id = v.article_id
+    <where>
+      <if test="typeId != null">
+        type_id = #{typeId}
+      </if>
+    </where>
   </select>
 
   <select id="isExist" parameterType="Long" resultType="Integer">
@@ -109,7 +114,7 @@
                   FROM `biz_article_love`
                   GROUP BY article_id
                 ) v ON a.id = v.article_id
-    where a.id = #{id}
+    WHERE a.id = #{id}
   </select>
 
 </mapper>

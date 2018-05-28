@@ -12,16 +12,14 @@
     <result column="remake" property="remake" jdbcType="VARCHAR"/>
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
-
-
-    <association property="bizType"
-      javaType="com.ralap.blog.persistent.beans.BizType">
-
-
-
-    </association>
   </resultMap>
   <sql id="Base_Column_List">
     id, name, icon, description, sort, available, remake, create_time, update_time
   </sql>
+
+  <select id="findPageBreakByCondition" parameterType="com.ralap.blog.bussiness.vo.TypeConditionVO"
+    resultMap="BaseResultMap">
+    SELECT *
+    FROM biz_type
+  </select>
 </mapper>
