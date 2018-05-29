@@ -1,19 +1,27 @@
 package com.ralap.blog.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.ralap.blog.bussiness.enums.ResponseStatus;
+import com.ralap.blog.bussiness.service.BizArticleLoveService;
 import com.ralap.blog.bussiness.service.BizArticleService;
 import com.ralap.blog.bussiness.service.BizTypeService;
 import com.ralap.blog.bussiness.vo.ArticleConditionVO;
 import com.ralap.blog.bussiness.vo.TypeConditionVO;
+import com.ralap.blog.framework.holder.RequestHolder;
 import com.ralap.blog.framework.objecct.ResponseVO;
 import com.ralap.blog.persistent.entity.Article;
+import com.ralap.blog.persistent.entity.ArticleLook;
+import com.ralap.blog.persistent.entity.ArticleLove;
 import com.ralap.blog.persistent.entity.Type;
+import com.ralap.blog.util.IpUtil;
 import com.ralap.blog.util.ResultUtil;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,6 +38,8 @@ public class JumpController {
     private BizArticleService bizArticleService;
     @Autowired
     private BizTypeService bizTypeService;
+    @Autowired
+    private BizArticleLoveService bizArticleLoveService;
 
 
     /**
@@ -89,6 +99,16 @@ public class JumpController {
         model.addAttribute("typeList", pageInfo.getList());
         return ResultUtil.view("article");
 
+    }
+
+    @RequestMapping("/love/{id}")
+    @ResponseBody
+    public ResponseVO lovd(@PathVariable("id") Long id) {
+        ArticleLove articleLove = new ArticleLove();
+        articleLove.setArticleId(id);
+        articleLove.setUserIp(IpUtil.getRealIp(RequestHolder.getRequest()));
+        bizArticleLoveService.insert(articleLove);
+        return ResultUtil.success(ResponseStatus.SUCCESS);
     }
 
 }

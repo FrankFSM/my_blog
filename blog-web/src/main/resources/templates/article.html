@@ -53,6 +53,7 @@
       <div class="col-md-9 blog-main">
 
         <div class="blog-body overflow-initial fade-in">
+          <input type="hidden" id="articleId" th:value="${article.id}"/>
           <div class="article-flag" th:if="${article.original}">
             <span class="article-blockquote article-blockquote-green"></span>
             <span class="article-original article-original-green">
@@ -115,13 +116,14 @@
             <div id="social" style="margin-bottom: 45px;">
               <div class="social-main">
                             <span class="like">
-                              <a href="javascript:;" data-id="${article.id?c}" title="点赞"><i
-                                  class="fa-thumbs-up"></i>赞 <i class="count"
-                                                                th:text="${'('+article.loveCount+')'}"></i> </a>
+                              <a onclick="love()" id="love"
+                                 title="点赞"><i
+                                  class="fa-thumbs-up"></i>赞 <i class="count" id="loveCount"
+                                                                th:text="${'('+article.loveCount+')'}"></i></a>
                             </span>
                 <div class="shang-p">
                   <div class="shang-empty"><span></span></div>
-                  <span class="shang-s"><a onclick="PaymentUtils.show();"
+                  <span class="shang-s"><a onclick=""
                                            style="cursor:pointer">赏</a> </span>
                 </div>
                 <div class="share-sd">
@@ -250,6 +252,23 @@
       url: hitokotoUrl,
       success: function (text) {
         hitokoto.text(text);
+      }
+    })
+  }
+
+  function love() {
+    var articleId = $('#articleId').val();
+    var loveCountStr = $('#loveCount')[0].innerText;
+    var loveCount = Number(loveCountStr.substring(1, loveCountStr.length - 1));
+
+    var loveUrl = "/love/" + articleId;
+    $.ajax({
+      type: 'get',
+      url: loveUrl,
+      success: function () {
+        $('#loveCount')[0].innerText = '(' + ++loveCount + ')';
+        $('#love').removeAttr('href');
+        $('#love').removeAttr('onclick');
       }
     })
   }
