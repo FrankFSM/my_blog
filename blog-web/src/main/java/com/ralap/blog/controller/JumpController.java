@@ -39,13 +39,16 @@ public class JumpController {
     }
 
     /**
-     * 首页
+     * 文章分类
      */
     @RequestMapping("/type/{id}")
     public ModelAndView index(ArticleConditionVO vo, Model model, @PathVariable("id") Long id) {
         vo.setTypeId(id);
         PageInfo<Article> page = bizArticleService.findPageBreakByCondition(vo);
         model.addAttribute("page", page);
+        if (page != null && page.getList() != null && page.getList().size() > 0) {
+            model.addAttribute("typeId", page.getList().get(0).getTypeId());
+        }
         return ResultUtil.view("blank");
 
     }

@@ -89,16 +89,18 @@ public class BizArticleServiceImpl implements BizArticleService {
 
     @Override
     public PageInfo<Article> findPageBreakByCondition(ArticleConditionVO vo) {
+        PageInfo page;
         PageHelper.startPage(vo.getPageNum(), vo.getPageSize());
         List<BizArticle> bizArticles = bizArticleMapper.findPageBreakByCondition(vo);
         if (CollectionUtils.isEmpty(bizArticles)) {
-            return null;
+             page = new PageInfo<BizArticle>(bizArticles);
+            return page;
         }
         List<Article> articles = new ArrayList<>();
         for (BizArticle bizArticle : bizArticles) {
             articles.add(new Article(bizArticle));
         }
-        PageInfo page = new PageInfo<BizArticle>(bizArticles);
+        page = new PageInfo<BizArticle>(bizArticles);
         page.setList(articles);
         return page;
     }

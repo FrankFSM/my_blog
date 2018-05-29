@@ -52,6 +52,7 @@
     <div class="row">
       <div class="col-md-9 blog-main">
         <input type="hidden" id="pageNum" th:value="${page.pageNum}">
+        <input type="hidden" id="typeId" th:value="${typeId}">
         <!--/*@thymesVar id="articleList" type="com.ralap.blog.persistent.beans.BizArticle"*/-->
         <article class="fade-in" th:each="article:${page.list}">
           <span class="title-l"></span>
@@ -219,8 +220,10 @@
   $('#loadMore').click(function () {
     var pageNum = $("#pageNum");
     var loadMore = $("#loadMore");
+    var typeN = $("#typeId");
+    var typeId = typeN.val();
     var pateNumber = Number(pageNum.val()) + 1;
-    var data = jQuery.param({"pageNum": pateNumber});
+    var data = jQuery.param({"pageNum": pateNumber,"typeId":typeId});
     loadMore.button('loading');
 
     $.ajax({
