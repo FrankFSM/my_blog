@@ -158,7 +158,7 @@
         <div class="sidebar-module" style="position: relative;">
 
           <h5 class="sidebar-title"><i class="fa-hand-right icon"></i><strong>说给你听</strong></h5>
-          <div class="widget">
+          <div class="widget" onclick="loadHitokoto()" style="cursor:pointer ">
             <div id="feed_widget">
               <div class="feed-about">
                 <div class="about-main">
@@ -245,7 +245,7 @@
 
   //加载Hitokoto
   function loadHitokoto() {
-    var hitokotoUrl = "https://v1.hitokoto.cn/?c=d&encode=text";
+    var hitokotoUrl = "https://v1.hitokoto.cn/?c=f&encode=text";
     var hitokoto = $('#hitokoto');
     $.ajax({
       type: 'get',

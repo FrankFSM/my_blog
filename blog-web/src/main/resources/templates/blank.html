@@ -100,6 +100,10 @@
         <div id="addArticle"></div>
         <!-- article -->
 
+        <div th:style="'display:' + @{(${page.list.size()} ? 'none' : 'block')}">
+            <img  style="width: 100%"  src="/assets/img/blog/no-article.jpg">
+        </div>
+
         <div style="text-align: center" th:if="${page.hasNextPage}">
           <button type="button" id="loadMore" data-loading-text="加载中..." class="btn btn-success"
                   autocomplete="off">
@@ -235,18 +239,11 @@
         if (!result.data.hasNextPage) {
           loadMore.hide();
         }
-
         pageNum.val(pateNumber);
-        console.log(result);
-        console.log(result.data);
         var addArticle = $('#addArticle');
         var articleList = '';
-        console.log(result.data.list.length);
-
         for (var i = 0; i < result.data.list.length; i++) {
-
           var article = result.data.list[i];
-
           articleList += "<article class=\"fade-in\">\n"
               + "          <span class=\"title-l\"></span>\n"
               + "          <figure class=\"thumbnail\">\n"
