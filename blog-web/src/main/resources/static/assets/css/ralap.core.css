@@ -2780,4 +2780,7 @@ nav a:first-child .meta-nav {
     max-width: 100%;
 }
 
+i {
+    margin: auto 3px;
+}
 

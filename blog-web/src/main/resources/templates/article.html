@@ -47,125 +47,133 @@
 <!-- Start #header -->
 <div th:replace="/layout/header"></div>
 <!-- End #header -->
-<div class="container" style="margin-top: 65px;">
-  <section>
-    <div class="row">
-      <div class="col-md-9 blog-main">
+<div class="container custome-container">
+  <nav class="breadcrumb">
+    <a class="crumbs" title="返回首页" th:href="@{/}" data-toggle="tooltip" data-placement="bottom"><i
+        class="fa-home"></i>首页</a>
+    <i class="fa-angle-right"></i>
+    <a class="crumbs" title="点击查看该分类文章" th:href="@{'/type/' + ${article.bizType.id}}" data-toggle="tooltip" data-placement="bottom"><span th:text="${article.bizType.name}"></span></a>
+    <i class="fa-angle-right"></i>正文
+  </nav>
 
-        <div class="blog-body overflow-initial fade-in">
-          <input type="hidden" id="articleId" th:value="${article.id}"/>
-          <div class="article-flag" th:if="${article.original}">
-            <span class="article-blockquote article-blockquote-green"></span>
-            <span class="article-original article-original-green">
+  <div class="row">
+
+    <div class="col-md-9 blog-main">
+      <div class="blog-body overflow-initial fade-in">
+        <input type="hidden" id="articleId" th:value="${article.id}"/>
+        <div class="article-flag" th:if="${article.original}">
+          <span class="article-blockquote article-blockquote-green"></span>
+          <span class="article-original article-original-green">
                             <a href="">原创</a>
             </span>
-            <div class="blog-info-meta pull-right">
-              <ul class="list-unstyled list-inline">
-                <li><i class="en-clock" style="margin: 5px"></i><span
-                    th:text="${'发表于'+#dates.format(article.createTime,'yyyy-MM-dd HH:mm')}"></span>
-                </li>
-                <li><i class="fa-eye-open" style="margin: 5px"></i><a class="pointer"
-                                                                      th:data-original-title="${'('+article.lookCount +')人浏览了该文章'}"
-                                                                      data-toggle="tooltip"
-                                                                      data-placement="bottom">浏览
-                  (<span th:text="${article.lookCount == null ?0:article.lookCount}"></span>)</a>
-                </li>
-                <li><a href="#comment-box"
-                       th:data-original-title="${'('+article.lookCount +')人评论了该文章'}"
-                       data-toggle="tooltip" data-placement="bottom"><i class="fa-comment-alt"
-                                                                        style="margin: 5px"></i>评论 (<span
+          <div class="blog-info-meta pull-right">
+            <ul class="list-unstyled list-inline">
+              <li><i class="en-clock" style="margin: 5px"></i><span
+                  th:text="${'发表于'+#dates.format(article.createTime,'yyyy-MM-dd HH:mm')}"></span>
+              </li>
+              <li><i class="fa-eye-open" style="margin: 5px"></i><a class="pointer"
+                                                                    th:data-original-title="${'('+article.lookCount +')人浏览了该文章'}"
+                                                                    data-toggle="tooltip"
+                                                                    data-placement="bottom">浏览
+                (<span th:text="${article.lookCount == null ?0:article.lookCount}"></span>)</a>
+              </li>
+              <li><a href="#comment-box"
+                     th:data-original-title="${'('+article.lookCount +')人评论了该文章'}"
+                     data-toggle="tooltip" data-placement="bottom"><i class="fa-comment-alt"
+                                                                      style="margin: 5px"></i>评论
+                (<span
                     th:text="${article.lookCount == null ?0:article.lookCount}"></span>)</a></li>
-              </ul>
-            </div>
+            </ul>
           </div>
-          <div class="article-flag" th:if="${!article.original}">
-            <span class="article-blockquote article-blockquote-red"></span>
-            <span class="article-original article-original-red">
+        </div>
+        <div class="article-flag" th:if="${!article.original}">
+          <span class="article-blockquote article-blockquote-red"></span>
+          <span class="article-original article-original-red">
                             <a href="">转载</a>
                         </span>
-            <div class="blog-info-meta pull-right">
-              <ul class="list-unstyled list-inline">
-                <li><i class="en-clock" style="margin: 5px"></i><span
-                    th:text="${'发表于'+#dates.format(article.createTime,'yyyy-MM-dd HH:mm')}"></span>
-                </li>
-                <li><i class="fa-eye-open" style="margin: 5px"></i><a class="pointer"
-                                                                      th:data-original-title="${'('+article.lookCount +')人浏览了该文章'}"
-                                                                      data-toggle="tooltip"
-                                                                      data-placement="bottom">浏览
-                  (<span th:text="${article.lookCount == null ?0:article.lookCount}"></span>)</a>
-                </li>
-                <li><a href="#comment-box"
-                       th:data-original-title="${'('+article.lookCount +')人评论了该文章'}"
-                       data-toggle="tooltip" data-placement="bottom"><i class="fa-comment-alt"
-                                                                        style="margin: 5px"></i>评论 (<span
+          <div class="blog-info-meta pull-right">
+            <ul class="list-unstyled list-inline">
+              <li><i class="en-clock" style="margin: 5px"></i><span
+                  th:text="${'发表于'+#dates.format(article.createTime,'yyyy-MM-dd HH:mm')}"></span>
+              </li>
+              <li><i class="fa-eye-open" style="margin: 5px"></i><a class="pointer"
+                                                                    th:data-original-title="${'('+article.lookCount +')人浏览了该文章'}"
+                                                                    data-toggle="tooltip"
+                                                                    data-placement="bottom">浏览
+                (<span th:text="${article.lookCount == null ?0:article.lookCount}"></span>)</a>
+              </li>
+              <li><a href="#comment-box"
+                     th:data-original-title="${'('+article.lookCount +')人评论了该文章'}"
+                     data-toggle="tooltip" data-placement="bottom"><i class="fa-comment-alt"
+                                                                      style="margin: 5px"></i>评论
+                (<span
                     th:text="${article.lookCount == null ?0:article.lookCount}"></span>)</a></li>
-              </ul>
-            </div>
+            </ul>
           </div>
+        </div>
 
-          <div class="blog-info overflow-initial">
-            <div class="bottom-line">
-              <h1 class="blog-info-title">
-                <strong th:text="${article.title}"></strong>
-              </h1>
-            </div>
-            <div class="blog-info-body" th:utext="${article.content}">
+        <div class="blog-info overflow-initial">
+          <div class="bottom-line">
+            <h1 class="blog-info-title">
+              <strong th:text="${article.title}"></strong>
+            </h1>
+          </div>
+          <div class="blog-info-body" th:utext="${article.content}">
 
-            </div>
-            <div class="separateline"><span>正文到此结束</span></div>
-            <div id="social" style="margin-bottom: 45px;">
-              <div class="social-main">
+          </div>
+          <div class="separateline"><span>正文到此结束</span></div>
+          <div id="social" style="margin-bottom: 45px;">
+            <div class="social-main">
                             <span class="like">
                               <a onclick="love()" id="love"
                                  title="点赞"><i
                                   class="fa-thumbs-up"></i>赞 <i class="count" id="loveCount"
                                                                 th:text="${'('+article.loveCount+')'}"></i></a>
                             </span>
-                <div class="shang-p">
-                  <div class="shang-empty"><span></span></div>
-                  <span class="shang-s"><a onclick=""
-                                           style="cursor:pointer">赏</a> </span>
-                </div>
-                <div class="share-sd">
+              <div class="shang-p">
+                <div class="shang-empty"><span></span></div>
+                <span class="shang-s"><a onclick=""
+                                         style="cursor:pointer">赏</a> </span>
+              </div>
+              <div class="share-sd">
                   <span class="share-s"><a href="javascript:void(0)" id="share-s" title="分享"><i
                       class="fa-share-sign"></i>分享</a></span>
-                  <div id="share" style="display: none">
-                    <ul class="bdsharebuttonbox bdshare-button-style1-16"
-                        data-bd-bind="1516426362121">
-                      <li><a title="分享到人人网" class="fa fa-renren" data-cmd="renren"
-                             onclick="return false;" href="#"></a></li>
-                      <li><a title="分享到腾讯微博" class="fa fa-pinterest-square" data-cmd="tqq"
-                             onclick="return false;" href="#"></a></li>
-                      <li><a title="分享到QQ空间" class="fa fa-qq" data-cmd="qzone"
-                             onclick="return false;" href="#"></a></li>
-                      <li><a title="分享到新浪微博" class="fa fa-weibo" data-cmd="tsina"
-                             onclick="return false;" href="#"></a></li>
-                      <li><a title="分享到微信" class="fa fa-weixin" data-cmd="weixin"
-                             onclick="return false;" href="#"></a></li>
-                      <li><a title="更多" class="bds_more fa fa-plus-square" data-cmd="more"
-                             onclick="return false;" href="#"></a></li>
-                    </ul>
-                  </div>
+                <div id="share" style="display: none">
+                  <ul class="bdsharebuttonbox bdshare-button-style1-16"
+                      data-bd-bind="1516426362121">
+                    <li><a title="分享到人人网" class="fa fa-renren" data-cmd="renren"
+                           onclick="return false;" href="#"></a></li>
+                    <li><a title="分享到腾讯微博" class="fa fa-pinterest-square" data-cmd="tqq"
+                           onclick="return false;" href="#"></a></li>
+                    <li><a title="分享到QQ空间" class="fa fa-qq" data-cmd="qzone"
+                           onclick="return false;" href="#"></a></li>
+                    <li><a title="分享到新浪微博" class="fa fa-weibo" data-cmd="tsina"
+                           onclick="return false;" href="#"></a></li>
+                    <li><a title="分享到微信" class="fa fa-weixin" data-cmd="weixin"
+                           onclick="return false;" href="#"></a></li>
+                    <li><a title="更多" class="bds_more fa fa-plus-square" data-cmd="more"
+                           onclick="return false;" href="#"></a></li>
+                  </ul>
                 </div>
-                <div class="clear"></div>
               </div>
+              <div class="clear"></div>
             </div>
           </div>
-
         </div>
-      </div>
-      <div class="col-md-3 sidebar-gutter">
-        <div class="sidebar-module" style="position: relative;">
 
-          <h5 class="sidebar-title"><i class="fa-hand-right icon"></i><strong>说给你听</strong></h5>
-          <div class="widget" onclick="loadHitokoto()" style="cursor:pointer ">
-            <div id="feed_widget">
-              <div class="feed-about">
-                <div class="about-main">
-                  <div class="div-quote">
-                    <i class="fa-quote-left"></i>
-                    <p style="margin-left: 10px" id="hitokoto"></p>
-                  </div>
+      </div>
+    </div>
+    <div class="col-md-3 sidebar-gutter">
+      <div class="sidebar-module" style="position: relative;">
+
+        <h5 class="sidebar-title"><i class="fa-hand-right icon"></i><strong>说给你听</strong></h5>
+        <div class="widget" onclick="loadHitokoto()" style="cursor:pointer ">
+          <div id="feed_widget">
+            <div class="feed-about">
+              <div class="about-main">
+                <div class="div-quote">
+                  <i class="fa-quote-left"></i>
+                  <p style="margin-left: 10px" id="hitokoto"></p>
                 </div>
               </div>
             </div>
@@ -173,7 +181,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </div>
 <footer class="footer">
   <div class="clear">
