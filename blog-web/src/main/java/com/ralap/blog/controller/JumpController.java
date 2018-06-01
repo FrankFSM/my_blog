@@ -54,7 +54,7 @@ public class JumpController {
         typeVo.setPageNum(1);
         PageInfo<Type> pageInfo = bizTypeService.findPageBreakByCondition(typeVo);
         model.addAttribute("typeList", pageInfo.getList());
-        return ResultUtil.view("blank");
+        return ResultUtil.view("home");
 
     }
 
@@ -74,7 +74,7 @@ public class JumpController {
         typeVo.setPageNum(1);
         PageInfo<Type> pageInfo = bizTypeService.findPageBreakByCondition(typeVo);
         model.addAttribute("typeList", pageInfo.getList());
-        return ResultUtil.view("blank");
+        return ResultUtil.view("home");
 
     }
 
