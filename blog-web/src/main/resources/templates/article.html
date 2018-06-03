@@ -180,6 +180,17 @@
           </div>
         </div>
       </div>
+      <div class="sidebar-module">
+        <h5 class="sidebar-title"><i class="fa-tags icon"></i><strong>文章标签</strong></h5>
+        <ul class="list-unstyled list-inline">
+          <li class="tag-li" th:each="tags:${tagsList}">
+            <a  class="btn btn-default btn-xs" href=""
+                th:title="${tags.name}" data-toggle="tooltip" data-placement="bottom" th:text="${tags.name}">
+            </a>
+          </li>
+
+        </ul>
+      </div>
     </div>
   </div>
 </div>

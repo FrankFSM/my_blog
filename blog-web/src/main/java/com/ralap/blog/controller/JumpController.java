@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.ralap.blog.bussiness.enums.ResponseStatus;
 import com.ralap.blog.bussiness.service.BizArticleLoveService;
 import com.ralap.blog.bussiness.service.BizArticleService;
+import com.ralap.blog.bussiness.service.BizTagsService;
 import com.ralap.blog.bussiness.service.BizTypeService;
 import com.ralap.blog.bussiness.vo.ArticleConditionVO;
 import com.ralap.blog.bussiness.vo.TypeConditionVO;
@@ -40,6 +41,8 @@ public class JumpController {
     private BizTypeService bizTypeService;
     @Autowired
     private BizArticleLoveService bizArticleLoveService;
+    @Autowired
+    private BizTagsService bizTagsService;
 
 
     /**
@@ -54,6 +57,7 @@ public class JumpController {
         typeVo.setPageNum(1);
         PageInfo<Type> pageInfo = bizTypeService.findPageBreakByCondition(typeVo);
         model.addAttribute("typeList", pageInfo.getList());
+        model.addAttribute("tagsList", bizTagsService.listAll());
         return ResultUtil.view("home");
 
     }
@@ -74,6 +78,7 @@ public class JumpController {
         typeVo.setPageNum(1);
         PageInfo<Type> pageInfo = bizTypeService.findPageBreakByCondition(typeVo);
         model.addAttribute("typeList", pageInfo.getList());
+        model.addAttribute("tagsList", bizTagsService.listAll());
         return ResultUtil.view("home");
 
     }
@@ -97,6 +102,7 @@ public class JumpController {
         typeVo.setPageNum(1);
         PageInfo<Type> pageInfo = bizTypeService.findPageBreakByCondition(typeVo);
         model.addAttribute("typeList", pageInfo.getList());
+        model.addAttribute("tagsList", bizTagsService.listAll());
         return ResultUtil.view("article");
 
     }
