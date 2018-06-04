@@ -21,7 +21,7 @@ public class BizArticle extends AbstractDO {
 
     private Integer status;
 
-    private Integer typeId;
+    private Long typeId;
 
     private Boolean top;
 

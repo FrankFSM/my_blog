@@ -107,11 +107,11 @@ public class Article {
     }
 
 
-    public Integer getTypeId() {
+    public Long getTypeId() {
         return this.bizArticle.getTypeId();
     }
 
-    public void setTypeId(Integer typeId) {
+    public void setTypeId(Long typeId) {
         this.bizArticle.setTypeId(typeId);
     }
 

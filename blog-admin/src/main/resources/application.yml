@@ -29,9 +29,9 @@ mybatis:
   mapper-locations: classpath:/mybatis/*.xml
   configuration:
     map-underscore-to-camel-case: true
-security:
-  basic:
-    enabled: false
+#security:
+#  basic:
+#    enabled: false
 # mapper
 mapper:
     mappers:
