@@ -62,6 +62,15 @@ public class ErrorPagesController implements ErrorController {
         return new ModelAndView("401",model);
     }
 
+    @RequestMapping("/403")
+    public ModelAndView errorHtml403(HttpServletRequest request, HttpServletResponse response) {
+        response.setStatus(HttpStatus.FORBIDDEN.value());
+        Map<String, Object> model = getErrorAttributes(request,
+                isIncludeStackTrace(request, MediaType.TEXT_HTML));
+
+        return new ModelAndView("403",model);
+    }
+
     @RequestMapping("/500")
     public ModelAndView errorHtml500(HttpServletRequest request, HttpServletResponse response) {
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
