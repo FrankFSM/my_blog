@@ -29,9 +29,10 @@ mybatis:
   mapper-locations: classpath:/mybatis/*.xml
   configuration:
     map-underscore-to-camel-case: true
-#security:
-#  basic:
-#    enabled: false
+# 监控节点是否要安全认证
+management:
+  security:
+    enabled: false
 # mapper
 mapper:
     mappers:
