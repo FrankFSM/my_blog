@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="_csrf" th:content="${_csrf.token}"/>
   <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-  <title>Forms</title>
+  <title sec:authentication="name"></title>
   <!-- Mobile specific metas -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <!-- Force IE9 to render in normal mode -->
@@ -634,7 +634,7 @@
         datatype: 'json',
         resetForm: true,
         clearForm: false,
-        beforeSend : function(xhr) {
+        beforeSend: function (xhr) {
           xhr.setRequestHeader(header, token);
         },
         success: function (result) {
