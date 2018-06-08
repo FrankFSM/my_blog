@@ -36,4 +36,9 @@
     company, blog, location, source, privacy, notification, score, experience, reg_ip,
     last_login_ip, last_login_time, login_count, remark, status, create_time, update_time
   </sql>
+  <select id="findPageBreakByCondition" parameterType="com.ralap.blog.bussiness.vo.UserConditionVO"
+    resultMap="BaseResultMap">
+    SELECT *
+    FROM sys_user
+  </select>
 </mapper>

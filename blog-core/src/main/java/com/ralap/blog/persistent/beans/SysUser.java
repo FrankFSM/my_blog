@@ -58,4 +58,6 @@ public class SysUser extends AbstractDO {
 
     private Integer status;
 
+
+
 }

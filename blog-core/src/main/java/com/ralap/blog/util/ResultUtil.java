@@ -1,9 +1,12 @@
 package com.ralap.blog.util;
 
+import com.github.pagehelper.PageInfo;
 import com.qiniu.util.StringMap;
 import com.ralap.blog.bussiness.consts.CommonConst;
 import com.ralap.blog.bussiness.enums.ResponseStatus;
+import com.ralap.blog.framework.objecct.PageResult;
 import com.ralap.blog.framework.objecct.ResponseVO;
+import java.util.List;
 import java.util.Map;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -38,5 +41,12 @@ public class ResultUtil {
         return new ResponseVO(code, msg, object);
     }
 
+    public static PageResult tablePage(Long total, List<?> rows) {
+        return new PageResult(total, rows);
+    }
+
+    public static PageResult tablePage(PageInfo pageInfo) {
+        return new PageResult(pageInfo.getTotal(), pageInfo.getList());
+    }
 
 }

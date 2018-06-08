@@ -1,12 +1,19 @@
 package com.ralap.blog.bussiness.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.ralap.blog.bussiness.service.SysUserService;
+import com.ralap.blog.bussiness.vo.UserConditionVO;
 import com.ralap.blog.persistent.beans.SysUser;
+import com.ralap.blog.persistent.entity.User;
 import com.ralap.blog.persistent.mapper.SysUserMapper;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
 
 /**
  * @author: ralap
@@ -56,11 +63,28 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public List<SysUser> listAll() {
-        return null;
+        return sysUserMapper.selectAll();
     }
 
     @Override
     public List<SysUser> listByEntity(SysUser entity) {
         return null;
+    }
+
+    @Override
+    public PageInfo<User> findPageBreakByCondition(UserConditionVO vo) {
+        PageHelper.startPage(vo.getPageNum(), vo.getPageSize());
+        List<SysUser> userList = sysUserMapper.findPageBreakByCondition(vo);
+        PageInfo pageInfo;
+        if (CollectionUtils.isEmpty(userList)) {
+            pageInfo = new PageInfo(userList);
+            return pageInfo;
+        }
+        List<User> users = new ArrayList<>();
+        for (SysUser user : userList) {
+            users.add(new User(user));
+        }
+        pageInfo  = new PageInfo(users);
+        return pageInfo;
     }
 }
