@@ -65,6 +65,7 @@
           },
           columns: options.columns
         });
+        // $('#tablelist').bootstrapTable('hideColumn', 'id');
       },
       queryParams: function (params) {
         params = $.extend({}, params);
@@ -75,5 +76,117 @@
             {url: $.tableUtil._option.url});
       }
     },
+    buttonUtil: {
+      init: function (options) {
+        $("#tablelist").on('click', '.btn-update', function () {
+          var $this = $(this);
+          var userId = $this.attr("data-id");
+          $.ajax({
+            type: 'post',
+            url: options.getInfoUrl.replace("{id}", userId),
+            beforeSend: function (xhr) {
+              xhr.setRequestHeader(header, token);
+            },
+            success: function (json) {
+              var info = json.data;
+              resetForm(info);
+              initUserInfo(info);
+              $("#addOrUpdateModal").modal('show');
+              $("#addOrUpdateModal").find(
+                  ".modal-dialog .modal-content .modal-header h4.modal-title").html("修改"
+                  + options.modalName);
+              if ($("#password") && $("#password")[0]) {
+                $("#password").removeAttr("required");
+              }
+              if ($("#username") && $("#username")[0]) {
+                $("#username").attr("readonly", "readonly");
+              }
+              bindSaveInfoEvent(options.updateUrl);
+            }
+          })
+          ;
+        });
+      }
+    }
   });
 })(jQuery);
+
+function initUserInfo(info) {
+  $('#id').val(info.id);
+  $('#password').val('');
+  $('#username').val(info.username);
+  $('#nickname').val(info.nickname);
+  $('#mobile').val(info.mobile);
+  $('#email').val(info.email);
+  $('#qq').val(info.qq);
+}
+
+function bindSaveInfoEvent(url) {
+  $(".addOrUpdateBtn").unbind('click');
+  $(".addOrUpdateBtn").click(function () {
+    if (true) {
+      $.ajax({
+        type: 'post',
+        url: url,
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader(header, token);
+        },
+        data: $("#addOrUpdateForm").serialize(),
+        success: function (json) {
+          $.tool.ajaxSuccess(json);
+          $('#addOrUpdateModal').modal('hide');
+          $.tableUtil.refresh();
+        },
+        error: function () {
+          $.tool.ajaxError();
+        }
+
+      })
+      ;
+    }
+  });
+}
+
+function resetForm(info) {
+  $("#addOrUpdateModal form input,#addOrUpdateModal form select,#addOrUpdateModal form textarea").each(
+      function () {
+        var $this = $(this);
+        clearText($this, this.type, info);
+      });
+}
+
+function clearText($this, type, info) {
+  var $div = $this.parents(".item");
+  if ($div.hasClass("bad")) {
+    $div.toggleClass("bad");
+    $div.find("div.alert").remove();
+  }
+  if (info) {
+    var thisName = $this.attr("name");
+    var thisValue = info[thisName];
+    if (type == 'radio') {
+      if ((thisValue && thisValue == $this.val())) {
+        $this.iCheck('check');
+      } else {
+        $this.iCheck('uncheck');
+      }
+      return;
+    } else if (type == 'checkbox') {
+      if ((thisValue || thisValue == 1)) {
+        $this.iCheck('check');
+      } else {
+        $this.iCheck('uncheck');
+      }
+    } else {
+      if (thisValue && thisName != 'password') {
+        $this.val(thisValue);
+      }
+    }
+  } else {
+    if (type == 'radio' || type == 'checkbox') {
+      $this.iCheck('uncheck');
+    } else {
+      $this.val('');
+    }
+  }
+}

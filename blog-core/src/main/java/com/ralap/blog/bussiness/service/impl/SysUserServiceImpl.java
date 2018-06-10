@@ -3,11 +3,15 @@ package com.ralap.blog.bussiness.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.ralap.blog.bussiness.enums.ResponseStatus;
 import com.ralap.blog.bussiness.service.SysUserService;
 import com.ralap.blog.bussiness.vo.UserConditionVO;
+import com.ralap.blog.framework.objecct.ResponseVO;
 import com.ralap.blog.persistent.beans.SysUser;
 import com.ralap.blog.persistent.entity.User;
 import com.ralap.blog.persistent.mapper.SysUserMapper;
+import com.ralap.blog.util.ResultUtil;
+import com.ralap.blog.util.StringUtil;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +31,9 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public SysUser insert(SysUser entity) {
-        return null;
+        Assert.notNull(entity, "SysUser  cannot for null ");
+        sysUserMapper.insert(entity);
+        return entity;
     }
 
     @Override
@@ -42,7 +48,9 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public boolean update(SysUser entity) {
-        return false;
+        Assert.notNull(entity, "SysUser  cannot for null ");
+        int count = sysUserMapper.updateByPrimaryKeySelective(entity);
+        return count > 0 ? true : false;
     }
 
     @Override
@@ -52,7 +60,9 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public SysUser getByPrimaryKey(Long primaryKey) {
-        return null;
+        Assert.notNull(primaryKey, "userId 不能为空");
+        SysUser sysUser = sysUserMapper.selectByPrimaryKey(primaryKey);
+        return sysUser;
     }
 
     @Override
@@ -84,7 +94,7 @@ public class SysUserServiceImpl implements SysUserService {
         for (SysUser user : userList) {
             users.add(new User(user));
         }
-        pageInfo  = new PageInfo(users);
+        pageInfo = new PageInfo(users);
         return pageInfo;
     }
 }

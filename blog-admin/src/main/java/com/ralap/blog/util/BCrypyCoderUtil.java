@@ -14,7 +14,11 @@ public class BCrypyCoderUtil {
      * @param raw 未加密
      * @return 加密密码
      */
-    public String encoder(String raw) {
+    public static String encoder(String raw) {
         return new BCryptPasswordEncoder().encode(raw);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(encoder("123456"));
     }
 }
