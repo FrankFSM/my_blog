@@ -124,7 +124,7 @@ function initUserInfo(info) {
 function bindSaveInfoEvent(url) {
   $(".addOrUpdateBtn").unbind('click');
   $(".addOrUpdateBtn").click(function () {
-    if (true) {
+    if (validator.checkAll($('#addOrUpdateForm'))) {
       $.ajax({
         type: 'post',
         url: url,

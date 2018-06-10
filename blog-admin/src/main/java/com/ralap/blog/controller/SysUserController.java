@@ -56,6 +56,8 @@ public class SysUserController {
     public ResponseVO edit(User user) {
         if (!StringUtil.isEmpty(user.getPassword())) {
             user.setPassword(BCrypyCoderUtil.encoder(user.getPassword()));
+        }else{
+            user.setPassword(null);
         }
         boolean result = sysUserService.update(user.getSysUser());
         if (!result) {
