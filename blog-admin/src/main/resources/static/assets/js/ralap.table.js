@@ -4,7 +4,6 @@
       _option: {},
       init: function (options) {
         $.tableUtil._option = options;
-        console.log(options.token);
         $('#tablelist').bootstrapTable({
           url: options.url,
           method: 'post',                      //请求方式（*）
@@ -78,6 +77,9 @@
     },
     buttonUtil: {
       init: function (options) {
+        /**
+         * 修改用户
+         */
         $("#tablelist").on('click', '.btn-update', function () {
           var $this = $(this);
           var userId = $this.attr("data-id");
@@ -106,6 +108,53 @@
           })
           ;
         });
+
+        /**
+         * 添加用户
+         */
+        $("#btn_add").click(function () {
+          resetForm();
+          $("#addOrUpdateModal").modal('show');
+          $("#addOrUpdateModal").find(
+              ".modal-dialog .modal-content .modal-header h4.modal-title").html("添加"
+              + options.modalName);
+          bindSaveInfoEvent(options.createUrl);
+
+        });
+
+        $("#btn_delete_ids").click(function () {
+          var selectedId = getSelectedId();
+          if (!selectedId || selectedId == '[]' || selectedId.length == 0) {
+            $.tool.ajaxError("请最少选项一条记录");
+            return;
+          }
+          remove(selectedId)
+        });
+
+        function remove(selectedId) {
+          $.tool.confirm("确定删除该" + options.modalName + "信息?", function () {
+            $.ajax({
+              type: "post",
+              url: options.removeUrl,
+              traditional: true,
+              data: {'ids': selectedId},
+              beforeSend: function (xhr) {
+                xhr.setRequestHeader(header, token);
+              },
+              success: function (json) {
+                $.tool.ajaxSuccess(json);
+                $.tableUtil.refresh();
+              },
+              error: function () {
+                $.tool.ajaxError();
+              }
+            })
+
+          }, function () {
+
+          }, 5000)
+        }
+
       }
     }
   });
@@ -189,4 +238,16 @@ function clearText($this, type, info) {
       $this.val('');
     }
   }
+}
+
+/**
+ * 获取选中ID
+ */
+function getSelectedId() {
+  var selectedJson = $("#tablelist").bootstrapTable('getAllSelections');
+  var ids = [];
+  $.each(selectedJson, function (i) {
+    ids.push(selectedJson[i].id);
+  });
+  return ids;
 }

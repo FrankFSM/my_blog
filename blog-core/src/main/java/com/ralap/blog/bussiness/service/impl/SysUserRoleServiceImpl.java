@@ -10,7 +10,11 @@ import java.util.List;
 import org.aspectj.lang.annotation.SuppressAjWarnings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import tk.mybatis.mapper.entity.Example;
+import tk.mybatis.mapper.entity.Example.Criteria;
 
 /**
  * @author: ralap
@@ -24,7 +28,9 @@ public class SysUserRoleServiceImpl implements SysUserRoleService {
 
     @Override
     public SysUserRole insert(SysUserRole entity) {
-        return null;
+        Assert.notNull(entity, "SysUserRole cannot for null");
+        sysUserRoleMapper.insert(entity);
+        return entity;
     }
 
     @Override
@@ -67,5 +73,15 @@ public class SysUserRoleServiceImpl implements SysUserRoleService {
         Assert.notNull(entity, "SysUserRole is null");
         List<SysUserRole> userRoleList = sysUserRoleMapper.select(entity);
         return userRoleList;
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false, rollbackFor = {
+            Exception.class})
+    public void removeByUserId(Long userId) {
+        Example example = new Example(SysUserRole.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("userId", userId);
+        sysUserRoleMapper.deleteByExample(example);
     }
 }

@@ -4,15 +4,21 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ralap.blog.bussiness.enums.ResponseStatus;
+import com.ralap.blog.bussiness.service.SysRoleService;
+import com.ralap.blog.bussiness.service.SysUserRoleService;
 import com.ralap.blog.bussiness.service.SysUserService;
 import com.ralap.blog.bussiness.vo.UserConditionVO;
 import com.ralap.blog.framework.objecct.ResponseVO;
+import com.ralap.blog.persistent.beans.SysRole;
 import com.ralap.blog.persistent.beans.SysUser;
+import com.ralap.blog.persistent.beans.SysUserRole;
 import com.ralap.blog.persistent.entity.User;
 import com.ralap.blog.persistent.mapper.SysUserMapper;
 import com.ralap.blog.util.ResultUtil;
 import com.ralap.blog.util.StringUtil;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,10 +35,29 @@ public class SysUserServiceImpl implements SysUserService {
     @Autowired
     private SysUserMapper sysUserMapper;
 
+    @Autowired
+    private SysUserRoleService sysUserRoleService;
+
+    @Autowired
+    private SysRoleService sysRoleService;
+
     @Override
     public SysUser insert(SysUser entity) {
-        Assert.notNull(entity, "SysUser  cannot for null ");
+        Assert.notNull(entity, "SysUser cannot for null ");
+        entity.setCreateTime(new Date());
+        entity.setUserType("USER");
         sysUserMapper.insert(entity);
+
+        SysRole sysRole = new SysRole();
+        sysRole.setDescription("ROLE_USER");
+        sysRole = sysRoleService.getOneByEntity(sysRole);
+        Assert.notNull(sysRole, "SysRole cannot for null");
+
+        SysUserRole sysUserRole = new SysUserRole();
+        sysUserRole.setUserId(entity.getId());
+        sysUserRole.setRoleId(sysRole.getId());
+        sysUserRole.setCreateTime(new Date());
+        sysUserRoleService.insert(sysUserRole);
         return entity;
     }
 
@@ -43,7 +68,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public boolean removeByPrimaryKey(Long primaryKey) {
-        return false;
+        return sysUserMapper.deleteByPrimaryKey(primaryKey) > 0 ? true : false;
     }
 
     @Override

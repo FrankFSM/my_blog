@@ -3,10 +3,13 @@ package com.ralap.blog.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ralap.blog.bussiness.enums.ResponseStatus;
+import com.ralap.blog.bussiness.service.SysRoleService;
+import com.ralap.blog.bussiness.service.SysUserRoleService;
 import com.ralap.blog.bussiness.service.SysUserService;
 import com.ralap.blog.bussiness.vo.UserConditionVO;
 import com.ralap.blog.framework.objecct.PageResult;
 import com.ralap.blog.framework.objecct.ResponseVO;
+import com.ralap.blog.persistent.beans.SysRole;
 import com.ralap.blog.persistent.beans.SysUser;
 import com.ralap.blog.persistent.entity.User;
 import com.ralap.blog.util.BCrypyCoderUtil;
@@ -33,6 +36,9 @@ public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
 
+    @Autowired
+    private SysUserRoleService sysUserRoleService;
+
     @PostMapping("/list")
     public PageResult list(UserConditionVO vo) {
         PageHelper.startPage(vo.getPageNum() - 1, vo.getPageSize());
@@ -56,7 +62,7 @@ public class SysUserController {
     public ResponseVO edit(User user) {
         if (!StringUtil.isEmpty(user.getPassword())) {
             user.setPassword(BCrypyCoderUtil.encoder(user.getPassword()));
-        }else{
+        } else {
             user.setPassword(null);
         }
         boolean result = sysUserService.update(user.getSysUser());
@@ -66,5 +72,35 @@ public class SysUserController {
         return ResultUtil.success(ResponseStatus.SUCCESS);
 
     }
+
+    @PostMapping("/add")
+    public ResponseVO add(User user) {
+        if (!StringUtil.isEmpty(user.getPassword())) {
+            user.setPassword(BCrypyCoderUtil.encoder(user.getPassword()));
+        } else {
+            user.setPassword(null);
+        }
+        SysUser sysUser = sysUserService.insert(user.getSysUser());
+        if (sysUser == null) {
+            return ResultUtil.error("系统异常");
+        }
+        return ResultUtil.success(ResponseStatus.SUCCESS);
+
+    }
+
+    @PostMapping("/remove")
+    public ResponseVO remove(Long[] ids) {
+
+        if (ids == null || ids.length < 0) {
+            return ResultUtil.error("请最少选择一条记录");
+        }
+        for (int i = 0; i < ids.length; i++) {
+            sysUserService.removeByPrimaryKey(ids[i]);
+            sysUserRoleService.removeByUserId(ids[i]);
+        }
+        return ResultUtil.success("成功删除[" + ids.length + "]条记录", null);
+
+    }
+
 
 }

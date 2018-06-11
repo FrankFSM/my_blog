@@ -10,4 +10,8 @@ import com.ralap.blog.persistent.beans.SysUserRole;
  */
 public interface SysUserRoleService extends AbstractService<SysUserRole, Long> {
 
+    /**
+     * 根据用户ID删除
+     */
+    void removeByUserId(Long ids);
 }
