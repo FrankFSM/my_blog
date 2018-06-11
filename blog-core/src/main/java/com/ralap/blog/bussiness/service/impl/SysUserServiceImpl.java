@@ -108,7 +108,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public PageInfo<User> findPageBreakByCondition(UserConditionVO vo) {
-        PageHelper.startPage(vo.getPageNum(), vo.getPageSize());
+        PageHelper.startPage(vo.getPageNumber(), vo.getPageSize());
         List<SysUser> userList = sysUserMapper.findPageBreakByCondition(vo);
         PageInfo pageInfo;
         if (CollectionUtils.isEmpty(userList)) {
@@ -119,7 +119,7 @@ public class SysUserServiceImpl implements SysUserService {
         for (SysUser user : userList) {
             users.add(new User(user));
         }
-        pageInfo = new PageInfo(users);
+        pageInfo = new PageInfo(userList);
         return pageInfo;
     }
 }

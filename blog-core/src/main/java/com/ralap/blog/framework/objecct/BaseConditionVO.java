@@ -13,8 +13,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 @EqualsAndHashCode(callSuper = false)
 public abstract class BaseConditionVO {
 
-    public static final int DEFAULT_PAGE_SIZE = 1;
-    private int pageNum = 1;
+    public static final int DEFAULT_PAGE_SIZE = 10;
+    private int pageNumber = 1;
     private int pageSize = 0;
     private int pageStart = 0;
     private String orderField;
@@ -31,6 +31,6 @@ public abstract class BaseConditionVO {
     }
 
     public int getPageStart() {
-        return pageNum > 0 ? (pageNum - 1) * getPageSize() : 0;
+        return pageNumber > 0 ? (pageNumber - 1) * getPageSize() : 0;
     }
 }

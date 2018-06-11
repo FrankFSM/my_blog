@@ -378,7 +378,8 @@ $(document).ready(function() {
     }
   });
 
-    //------------- Init pie charts -------------//
+
+  //------------- Init pie charts -------------//
 	initPieChart();
 
  	

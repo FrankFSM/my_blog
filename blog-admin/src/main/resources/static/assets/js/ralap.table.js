@@ -117,6 +117,10 @@
           $("#addOrUpdateModal").find(
               ".modal-dialog .modal-content .modal-header h4.modal-title").html("添加"
               + options.modalName);
+
+            $("#password").attr("required","required");
+            $("#username").attr("required","required");
+            $("#username").removeAttr("readonly");
           bindSaveInfoEvent(options.createUrl);
 
         });
@@ -124,7 +128,7 @@
         $("#btn_delete_ids").click(function () {
           var selectedId = getSelectedId();
           if (!selectedId || selectedId == '[]' || selectedId.length == 0) {
-            $.tool.ajaxError("请最少选项一条记录");
+            $.tool.alertError("请最少选项一条记录");
             return;
           }
           remove(selectedId)

@@ -41,7 +41,7 @@ public class SysUserController {
 
     @PostMapping("/list")
     public PageResult list(UserConditionVO vo) {
-        PageHelper.startPage(vo.getPageNum() - 1, vo.getPageSize());
+        PageHelper.startPage(vo.getPageNumber() - 1, vo.getPageSize());
         PageInfo<User> userPage = sysUserService.findPageBreakByCondition(vo);
         PageResult pageResult = ResultUtil.tablePage(userPage);
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()

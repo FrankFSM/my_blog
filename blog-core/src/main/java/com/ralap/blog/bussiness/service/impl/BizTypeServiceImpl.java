@@ -77,9 +77,9 @@ public class BizTypeServiceImpl implements BizTypeService {
 
     @Override
     public PageInfo<Type> findPageBreakByCondition(TypeConditionVO vo) {
-        vo.setPageNum(1);
+        vo.setPageNumber(1);
         vo.setPageSize(20);
-        PageHelper.startPage(vo.getPageNum(), vo.getPageSize());
+        PageHelper.startPage(vo.getPageNumber(), vo.getPageSize());
         List<BizType> bizTypeList = bizTypeMapper.findPageBreakByCondition(vo);
         List<Type> typeList = new ArrayList<>();
         for (BizType type : bizTypeList) {
