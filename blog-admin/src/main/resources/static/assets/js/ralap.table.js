@@ -64,7 +64,6 @@
           },
           columns: options.columns
         });
-        // $('#tablelist').bootstrapTable('hideColumn', 'id');
       },
       queryParams: function (params) {
         params = $.extend({}, params);
