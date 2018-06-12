@@ -109,6 +109,15 @@
         });
 
         /**
+         * 删除用户
+         */
+        $("#tablelist").on('click', '.btn-remove', function () {
+          var $this = $(this);
+          var userId = $this.attr("data-id");
+          remove(userId);
+        });
+
+        /**
          * 添加用户
          */
         $("#btn_add").click(function () {
@@ -118,9 +127,9 @@
               ".modal-dialog .modal-content .modal-header h4.modal-title").html("添加"
               + options.modalName);
 
-            $("#password").attr("required","required");
-            $("#username").attr("required","required");
-            $("#username").removeAttr("readonly");
+          $("#password").attr("required", "required");
+          $("#username").attr("required", "required");
+          $("#username").removeAttr("readonly");
           bindSaveInfoEvent(options.createUrl);
 
         });
@@ -134,6 +143,10 @@
           remove(selectedId)
         });
 
+        /**
+         * 删除用户
+         * @param selectedId
+         */
         function remove(selectedId) {
           $.tool.confirm("确定删除该" + options.modalName + "信息?", function () {
             $.ajax({

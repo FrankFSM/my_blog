@@ -11,7 +11,8 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class UserConditionVO extends BaseConditionVO{
+public class UserConditionVO extends BaseConditionVO {
 
     private User user;
+    private String searchText;
 }

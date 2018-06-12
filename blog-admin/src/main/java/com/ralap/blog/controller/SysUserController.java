@@ -16,6 +16,7 @@ import com.ralap.blog.util.BCrypyCoderUtil;
 import com.ralap.blog.util.ResultUtil;
 import com.ralap.blog.util.StringUtil;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.util.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author: ralap
  * @date: created at 2018/6/4 15:26
  */
+@Slf4j
 @RestController
 @RequestMapping("/user")
 public class SysUserController {

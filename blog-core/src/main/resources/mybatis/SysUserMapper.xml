@@ -40,5 +40,11 @@
     resultMap="BaseResultMap">
     SELECT *
     FROM sys_user
+    <where>
+      <if test="searchText != null and searchText != ''">
+        AND username = #{searchText}
+      </if>
+
+    </where>
   </select>
 </mapper>
