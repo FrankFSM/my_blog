@@ -54,7 +54,7 @@ public class JumpController {
         model.addAttribute("page", page);
         TypeConditionVO typeVo = new TypeConditionVO();
         typeVo.setPageSize(20);
-        typeVo.setPageNum(1);
+        typeVo.setPageNumber(1);
         PageInfo<Type> pageInfo = bizTypeService.findPageBreakByCondition(typeVo);
         model.addAttribute("typeList", pageInfo.getList());
         model.addAttribute("tagsList", bizTagsService.listAll());
@@ -75,7 +75,7 @@ public class JumpController {
         }
         TypeConditionVO typeVo = new TypeConditionVO();
         typeVo.setPageSize(20);
-        typeVo.setPageNum(1);
+        typeVo.setPageNumber(1);
         PageInfo<Type> pageInfo = bizTypeService.findPageBreakByCondition(typeVo);
         model.addAttribute("typeList", pageInfo.getList());
         model.addAttribute("tagsList", bizTagsService.listAll());
@@ -99,7 +99,7 @@ public class JumpController {
         model.addAttribute("article", article);
         TypeConditionVO typeVo = new TypeConditionVO();
         typeVo.setPageSize(20);
-        typeVo.setPageNum(1);
+        typeVo.setPageNumber(1);
         PageInfo<Type> pageInfo = bizTypeService.findPageBreakByCondition(typeVo);
         model.addAttribute("typeList", pageInfo.getList());
         model.addAttribute("tagsList", bizTagsService.listAll());
