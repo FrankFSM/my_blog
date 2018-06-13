@@ -16,9 +16,10 @@ public class CurrentUser extends User {
 
     private Long id;
 
-    public CurrentUser(String username, String password,
+    public CurrentUser(String username, String password, Long id,
             Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
+        this.id = id;
     }
 
     public CurrentUser(String username, String password, boolean enabled, boolean accountNonExpired,

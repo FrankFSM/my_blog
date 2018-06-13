@@ -45,7 +45,7 @@ public class SysUserServiceImpl implements SysUserService {
     public SysUser insert(SysUser entity) {
         Assert.notNull(entity, "SysUser cannot for null ");
         entity.setCreateTime(new Date());
-        entity.setUserType("USER");
+        entity.setUserType("ROLE_USER");
         sysUserMapper.insert(entity);
 
         SysRole sysRole = new SysRole();

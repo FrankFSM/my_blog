@@ -3,6 +3,7 @@ package com.ralap.blog.core.config;
 import com.ralap.blog.bussiness.service.SysRoleService;
 import com.ralap.blog.bussiness.service.SysUserRoleService;
 import com.ralap.blog.bussiness.service.SysUserService;
+import com.ralap.blog.core.bean.CurrentUser;
 import com.ralap.blog.persistent.beans.SysRole;
 import com.ralap.blog.persistent.beans.SysUser;
 import com.ralap.blog.persistent.beans.SysUserRole;
@@ -39,7 +40,8 @@ public class SysUserDetailsService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("用户不存在");
         }
-        UserDetails userDetails = new User(user.getUsername(), user.getPassword(),
+        UserDetails userDetails = new CurrentUser(user.getUsername(), user.getPassword(),
+                user.getId(),
                 createAuthority(user.getId()));
         return userDetails;
     }
