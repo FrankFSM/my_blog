@@ -57,18 +57,17 @@ public class SysUserController {
     @Autowired
     private SysRoleService sysRoleService;
 
-    @RequestMapping(value = "/userList", method = RequestMethod.GET)
     @BusinessLog("进入用户管理")
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
     public ModelAndView userList() {
         CurrentUser userDetails = (CurrentUser) SecurityContextHolder.getContext()
-                .getAuthentication()
-                .getPrincipal();
+                .getAuthentication().getPrincipal();
         Collection<GrantedAuthority> authorities = userDetails.getAuthorities();
         StringMap map = new StringMap();
         map.put("currentUser", userDetails);
         GrantedAuthority grantedAuthority = authorities.iterator().next();
         map.put("role", grantedAuthority.getAuthority());
-        return ResultUtil.view("/user", map);
+        return ResultUtil.view("user/list", map);
     }
 
 

@@ -7,6 +7,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 /**
+ * 当前登录用户
+ *
  * @author: ralap
  * @date: created at 2018/6/12 14:23
  */

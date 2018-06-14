@@ -15,10 +15,12 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 /**
  * 日志切面
  * BusinessLogAspect
+ *
  * @author: ralap
  * @date: created at 2018/6/12 21:32
  */
@@ -60,11 +62,11 @@ public class BusinessLogAspect {
         msig = (MethodSignature) sig;
         Object target = point.getTarget();
         String className = target.getClass().getName();
-        Method currentMethod = target.getClass().getDeclaredMethod(msig.getName(), msig.getParameterTypes());
+        Method currentMethod = target.getClass()
+                .getDeclaredMethod(msig.getName(), msig.getParameterTypes());
         String methodName = currentMethod.getName();
         BusinessLog annotation = currentMethod.getAnnotation(BusinessLog.class);
         String businessName = annotation.value();
-        log.info("{}---{}----{}", className, businessName, methodName);
         Object[] args = point.getArgs();
         StringBuffer sb = new StringBuffer();
         for (Object arg : args) {
@@ -76,10 +78,14 @@ public class BusinessLogAspect {
         }
 
         HttpServletRequest request = RequestHolder.getRequest();
-        log.info("IP: {}, Method: {}, Request URL: {}", IpUtil.getRealIp(request),
-                request.getMethod(), request.getRequestURL().toString());
-        log.info("User-Agent: {}", request.getHeader("User-Agent"));
-        log.info("请求参数: {}", sb.toString());
+        log.info("Class-Name------>【{}】", className);
+        log.info("Method-Name----->【{}】", methodName);
+        log.info("Business-Name--->【{}】", businessName);
+        log.info("Request-IP------>【{}】", IpUtil.getRealIp(request));
+        log.info("Request-Url----->【{}】", request.getRequestURL().toString());
+        log.info("Request-Tyep---->【{}】", request.getMethod());
+        log.info("User-Agent------>【{}】", request.getHeader("User-Agent"));
+        log.info("Request-Param--->【{}】", StringUtils.isEmpty(sb.toString()) ? "NULL" : sb.toString());
 
     }
 

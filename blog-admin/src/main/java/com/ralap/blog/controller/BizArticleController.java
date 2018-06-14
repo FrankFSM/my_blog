@@ -36,14 +36,6 @@ public class BizArticleController {
     @Autowired
     private BizArticleTagsService bizArticleTagsService;
 
-    private static final Logger LOG = LoggerFactory.getLogger(BizArticleController.class);
-
-
-    @RequestMapping(value = "/publish")
-    public ModelAndView publish() {
-        return ResultUtil.view("forms");
-    }
-
     @RequestMapping(value = "/uploadCover", method = RequestMethod.POST)
     @ResponseBody
     public ResponseVO uploadCover(@RequestParam("file") MultipartFile file) {
