@@ -50,7 +50,11 @@ public class SysUserRoleServiceImpl implements SysUserRoleService {
 
     @Override
     public boolean updateSelective(SysUserRole entity) {
-        return false;
+        Example example = new Example(SysUserRole.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("userId", entity.getUserId());
+        sysUserRoleMapper.updateByExampleSelective(entity, example);
+        return true;
     }
 
     @Override

@@ -15,11 +15,13 @@ import com.ralap.blog.framework.objecct.PageResult;
 import com.ralap.blog.framework.objecct.ResponseVO;
 import com.ralap.blog.persistent.beans.SysRole;
 import com.ralap.blog.persistent.beans.SysUser;
+import com.ralap.blog.persistent.beans.SysUserRole;
 import com.ralap.blog.persistent.entity.User;
 import com.ralap.blog.util.BCrypyCoderUtil;
 import com.ralap.blog.util.ResultUtil;
 import com.ralap.blog.util.StringUtil;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -52,6 +54,8 @@ public class SysUserController {
 
     @Autowired
     private SysUserRoleService sysUserRoleService;
+    @Autowired
+    private SysRoleService sysRoleService;
 
     @RequestMapping(value = "/userList", method = RequestMethod.GET)
     @BusinessLog("进入用户管理")
@@ -135,4 +139,23 @@ public class SysUserController {
     }
 
 
+    @RequestMapping(value = "/saveUserRoles", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseVO saveUserRoles(String userId, String roleIds) {
+        String[] roleIdList = roleIds.split(",");
+        SysUserRole sysUserRole = new SysUserRole();
+        sysUserRole.setUserId(Long.parseLong(userId));
+        sysUserRole.setRoleId(Long.parseLong(roleIdList[0]));
+        sysUserRole.setUpdateTime(new Date());
+        sysUserRoleService.updateSelective(sysUserRole);
+
+        SysRole role = sysRoleService.getByPrimaryKey(Long.parseLong(roleIds));
+
+        SysUser user = new SysUser();
+        user.setId(Long.parseLong(userId));
+        user.setUserType(role.getDescription());
+        sysUserService.updateSelective(user);
+        return ResultUtil.success(ResponseStatus.SUCCESS);
+
+    }
 }

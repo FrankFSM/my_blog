@@ -80,7 +80,9 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public boolean updateSelective(SysUser entity) {
-        return false;
+        Assert.notNull(entity, "SysUser cannot for null");
+        int count = sysUserMapper.updateByPrimaryKeySelective(entity);
+        return count > 0 ? true : false;
     }
 
     @Override

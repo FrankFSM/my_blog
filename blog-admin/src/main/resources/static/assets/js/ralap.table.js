@@ -143,6 +143,70 @@
           remove(selectedId)
         });
 
+        $('#tablelist').on('click', '.btn-allot', function () {
+          console.log("分配权限");
+          var $this = $(this);
+          var userId = $this.attr("data-id");
+          $.ajax({
+            async: false,
+            type: "POST",
+            data: {uid: userId},
+            url: '/role/rolesWithSelected',
+            beforeSend: function (xhr) {
+              xhr.setRequestHeader(header, token);
+            },
+            dataType: 'json',
+            success: function (json) {
+              var data = json.data;
+              console.log(data);
+              var setting = {
+                check: {
+                  enable: true,
+                  chkboxType: {"Y": "ps", "N": "ps"},
+                  chkStyle: "radio"
+                },
+                data: {
+                  simpleData: {
+                    enable: true
+                  }
+                },
+                callback: {
+                  onCheck: function (event, treeId, treeNode) {
+                    console.log(treeNode.tId + ", " + treeNode.name + ","
+                        + treeNode.checked);
+                    var treeObj = $.fn.zTree.getZTreeObj(treeId);
+                    var nodes = treeObj.getCheckedNodes(true);
+                    var ids = new Array();
+                    for (var i = 0; i < nodes.length; i++) {
+                      //获取选中节点的值
+                      ids.push(nodes[i].id);
+                    }
+                    $.ajax({
+                      type: "post",
+                      url: options.saveRolesUrl,
+                      data: {"userId": userId, "roleIds": ids.join(",")},
+                      dataType: 'json',
+                      beforeSend: function (xhr) {
+                        xhr.setRequestHeader(header, token);
+                      },
+                      success: function (json) {
+                        $.tool.ajaxSuccess(json);
+                        $.tableUtil.refresh();
+                      },
+                      error: function () {
+                        $.tool.ajaxError();
+                      }
+                    });
+                  }
+                }
+              };
+              var tree = $.fn.zTree.init($("#treeRole"), setting, data);
+              tree.expandAll(true);//全部展开
+
+              $('#selectRole').modal('show');
+            }
+          });
+        });
 
         /**
          * 删除用户

@@ -3,12 +3,16 @@ package com.ralap.blog.bussiness.service.impl;
 import com.ralap.blog.bussiness.service.SysRoleService;
 import com.ralap.blog.persistent.beans.SysRole;
 import com.ralap.blog.persistent.mapper.SysRoleMapper;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
 import tk.mybatis.mapper.entity.Example;
 
 /**
@@ -69,5 +73,24 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public List<SysRole> listByEntity(SysRole entity) {
         return null;
+    }
+
+    @Override
+    public List<Map<String, Object>> queryRoleListWithSelected(Integer userId) {
+        List<SysRole> sysRole = sysRoleMapper.selectAll();
+        if (CollectionUtils.isEmpty(sysRole)) {
+            return null;
+        }
+        List<Map<String, Object>> mapList = new ArrayList<Map<String, Object>>();
+        Map<String, Object> map = null;
+        for (SysRole role : sysRole) {
+            map = new HashMap<String, Object>(3);
+            map.put("id", role.getId());
+            map.put("pId", 0);
+            map.put("checked", false);
+            map.put("name", role.getDescription());
+            mapList.add(map);
+        }
+        return mapList;
     }
 }
