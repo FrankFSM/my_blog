@@ -58,7 +58,6 @@ public class BusinessLogAspect {
         if (!(sig instanceof MethodSignature)) {
             throw new IllegalArgumentException("该注解只能用于方法");
         }
-
         msig = (MethodSignature) sig;
         Object target = point.getTarget();
         String className = target.getClass().getName();
@@ -84,7 +83,8 @@ public class BusinessLogAspect {
         log.info("Request-Url----->【{}】", request.getRequestURL().toString());
         log.info("Request-Tyep---->【{}】", request.getMethod());
         log.info("User-Agent------>【{}】", request.getHeader("User-Agent"));
-        log.info("Request-Param--->【{}】", StringUtils.isEmpty(sb.toString()) ? "NULL" : sb.toString());
+        log.info("Request-Param--->【{}】",
+                StringUtils.isEmpty(sb.toString()) ? "NULL" : sb.toString());
 
     }
 

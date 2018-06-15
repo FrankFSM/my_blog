@@ -14,5 +14,4 @@ import lombok.EqualsAndHashCode;
 public class UserConditionVO extends BaseConditionVO {
 
     private User user;
-    private String searchText;
 }

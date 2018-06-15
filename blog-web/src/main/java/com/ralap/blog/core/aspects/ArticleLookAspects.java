@@ -49,6 +49,7 @@ public class ArticleLookAspects {
             ArticleLook articleLook = new ArticleLook();
             articleLook.setArticleId(articleId);
             articleLook.setUserIp(realIp);
+            articleLook.setLookTime(new Date());
             articleLook.setCreateTime(new Date());
             articleLook.setUpdateTime(new Date());
             bizArticleLookService.insert(articleLook);

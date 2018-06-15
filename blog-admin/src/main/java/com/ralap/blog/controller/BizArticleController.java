@@ -1,9 +1,15 @@
 package com.ralap.blog.controller;
 
+import com.github.pagehelper.PageInfo;
+import com.qiniu.util.StringMap;
+import com.ralap.blog.bussiness.annotation.BusinessLog;
 import com.ralap.blog.bussiness.enums.ResponseStatus;
 import com.ralap.blog.bussiness.service.BizArticleService;
 import com.ralap.blog.bussiness.service.BizArticleTagsService;
+import com.ralap.blog.bussiness.vo.ArticleConditionVO;
 import com.ralap.blog.bussiness.vo.FileConditionVO;
+import com.ralap.blog.core.bean.CurrentUser;
+import com.ralap.blog.framework.objecct.PageResult;
 import com.ralap.blog.framework.objecct.ResponseVO;
 import com.ralap.blog.persistent.beans.BizArticleTags;
 import com.ralap.blog.persistent.entity.Article;
@@ -11,15 +17,21 @@ import com.ralap.blog.util.FileUtils;
 import com.ralap.blog.util.ResultUtil;
 import com.ralap.blog.util.StringUtil;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,7 +39,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author: ralap
  * @date: created at 2018/5/19 10:11
  */
-@Controller
+@RestController
 @RequestMapping("/article")
 public class BizArticleController {
 
@@ -36,8 +48,7 @@ public class BizArticleController {
     @Autowired
     private BizArticleTagsService bizArticleTagsService;
 
-    @RequestMapping(value = "/uploadCover", method = RequestMethod.POST)
-    @ResponseBody
+    @PostMapping("/uploadCover")
     public ResponseVO uploadCover(@RequestParam("file") MultipartFile file) {
         String filePath = FileUtils.uploadPicFile(file, null);
         FileConditionVO fileCondition = new FileConditionVO();
@@ -46,8 +57,7 @@ public class BizArticleController {
         return ResultUtil.success("图片上传成功", fileCondition);
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    @ResponseBody
+    @PostMapping("/save")
     public ResponseVO save(Article article, String[] tags) {
         if (tags == null || tags.length <= 0) {
             return ResultUtil.error("至少选择一个标签");
@@ -73,5 +83,28 @@ public class BizArticleController {
         }
         ResponseVO success = ResultUtil.success(ResponseStatus.SUCCESS);
         return success;
+    }
+
+    @BusinessLog("进入文章列表页")
+    @GetMapping("/articles")
+    public ModelAndView articleList() {
+        CurrentUser userDetails = (CurrentUser) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+        Collection<GrantedAuthority> authorities = userDetails.getAuthorities();
+        StringMap map = new StringMap();
+        map.put("currentUser", userDetails);
+        GrantedAuthority grantedAuthority = authorities.iterator().next();
+        map.put("role", grantedAuthority.getAuthority());
+        return ResultUtil.view("article/list", map);
+    }
+
+    @PostMapping("/list")
+    public PageResult list(ArticleConditionVO vo) {
+        PageInfo<Article> pageInfo = bizArticleService.findPageBreakByCondition(vo);
+        PageResult pageResult = new PageResult();
+        pageResult.setRows(pageInfo.getList());
+        pageResult.setTotal(pageInfo.getTotal());
+        return pageResult;
+
     }
 }

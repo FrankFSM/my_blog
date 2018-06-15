@@ -20,6 +20,7 @@ public abstract class BaseConditionVO {
     private String orderField;
     private String orderDirection;
     private String keywords;
+    private String searchText;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date startDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
