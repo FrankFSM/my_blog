@@ -73,7 +73,6 @@ public class SysUserController {
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    @BusinessLog("获取用户列表")
     public PageResult list(UserConditionVO vo) {
         PageHelper.startPage(vo.getPageNumber() - 1, vo.getPageSize());
         PageInfo<User> userPage = sysUserService.findPageBreakByCondition(vo);

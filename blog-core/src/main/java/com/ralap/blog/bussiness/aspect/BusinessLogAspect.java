@@ -76,7 +76,6 @@ public class BusinessLogAspect {
         if (sb.length() > 0) {
             sb.setLength(sb.length() - PARAM_SEPARTOR.length());
         }
-
         HttpServletRequest request = RequestHolder.getRequest();
         log.info("Class-Name------>【{}】", className);
         log.info("Method-Name----->【{}】", methodName);

@@ -12,12 +12,15 @@ import com.ralap.blog.framework.properties.QiniuProperties;
 import com.ralap.blog.util.DateUtils;
 import com.ralap.blog.util.FileUtils;
 import java.util.Date;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * QiniuApi
- * @author: ralap 
+ *
+ * @author: ralap
  * @date: created at 2018/5/19 14:19
  */
+@Slf4j
 public class QiniuApi {
 
     private static Object object = new Object();
@@ -54,18 +57,21 @@ public class QiniuApi {
 
     public String upload(byte[] bytes) {
         try {
+            log.info("七牛云图片上传开始······");
             Response response = this.uploadManager.put(bytes, filePath, uploadToken);
             StringMap resMap = qiniuResponseAnaly(response);
             String url = String.valueOf(resMap.get("key"));
-            return QiniuApi.QINIU_SERVER_PATH + url;
+            String picUrl = QiniuApi.QINIU_SERVER_PATH + url;
+            log.info("七牛云图片上传成功,路径【{}】", picUrl);
+            return picUrl;
         } catch (QiniuException e) {
-            e.printStackTrace();
+            log.error("七牛云图片上传失败");
         }
         return null;
     }
 
     /**
-     * 解析七牛放回结果
+     * 解析七牛返回结果
      */
     public StringMap qiniuResponseAnaly(Response response) {
 
