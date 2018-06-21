@@ -1,11 +1,78 @@
+spring:
+  profiles:
+    active: prod
+---
 server:
   port: 8000
 spring:
+  profiles: dev
   datasource:
      driver-class-name: com.mysql.jdbc.Driver
      url: jdbc:mysql://localhost:3306/my_blog?useUnicode=true&characterEncoding=utf8&useSSL=false
      username: root
      password: 123
+     hikari:
+       maximum-pool-size: 10
+       max-lifetime: 1765000
+  thymeleaf:
+    cache: false
+    mode: LEGACYHTML5
+    prefix:
+      classpath: /templates/
+    suffix: .html
+    encoding: UTF-8
+    content-type: text/html # ;charset=<encoding> is added
+  http:
+    multipart:
+      max-file-size: 10Mb
+      max-request-size: 10Mb
+logging:
+  level:
+    org.springframework.web: debug
+mybatis:
+  type-aliases-package: com.ralap.blog.persistent.beans
+  mapper-locations: classpath:/mybatis/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+security:
+  basic:
+    enabled: false
+# mapper
+mapper:
+    mappers:
+        - com.ralap.blog.plugin.BaseMapper
+    not-empty: false
+    identity: MYSQL
+# pagehelper
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+banner:
+  charset: UTF-8
+######################七牛配置###################
+qiniu:
+  # 七牛AK
+  accessKey: naOFjGoCktRjqyLyWdnqmkrpBOFMOcGYmNP0MuMh
+  # 七牛SK
+  secretKey: -nUimhcyf-XK7E4XJb6dMKnNEzZpf9H2DyiVHMQS
+  # 七牛BucketName
+  bucketName: blog
+management:
+  security:
+    enabled: false
+
+---
+server:
+  port: 80
+spring:
+  profiles: prod
+  datasource:
+     driver-class-name: com.mysql.jdbc.Driver
+     url: jdbc:mysql://localhost:3306/my_blog?useUnicode=true&characterEncoding=utf8&useSSL=false
+     username: root
+     password: hjx969190
      hikari:
        maximum-pool-size: 10
        max-lifetime: 1765000

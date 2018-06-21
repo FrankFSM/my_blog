@@ -79,7 +79,10 @@
     ) v ON a.id = v.article_id
     <where>
       <if test="typeId != null">
-        type_id = #{typeId}
+        AND type_id = #{typeId}
+      </if>
+      <if test="searchText != null and searchText != ''">
+        AND title LIKE CONCAT('%',#{searchText},'%')
       </if>
     </where>
   </select>
@@ -116,6 +119,6 @@
                 ) v ON a.id = v.article_id
     WHERE a.id = #{id}
   </select>
-  
+
 
 </mapper>

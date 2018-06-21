@@ -2,15 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
-<div th:replace="/layout/header"></div>
+<div th:replace="layout/header"></div>
 
-<div th:replace="/layout/sidebar"></div>
+<div th:replace="layout/sidebar"></div>
 
 <!-- Start #content -->
 <div id="content">
   <!-- Start .content-wrapper -->
   <div class="content-wrapper">
-    <div th:replace="/layout/topbar"></div>
+    <div th:replace="layout/topbar"></div>
     <!-- End .row -->
     <div class="outlet">
       <!-- Start .outlet -->
@@ -130,7 +130,7 @@
   </div>
   <!-- End .content-wrapper -->
 </div>
-<div th:replace="/layout/footer"></div>
+<div th:replace="layout/footer"></div>
 
 <script type="text/javascript">
 

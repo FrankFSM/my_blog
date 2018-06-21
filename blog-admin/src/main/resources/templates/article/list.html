@@ -3,10 +3,10 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <!-- Start #header -->
-<div th:replace="/layout/header"></div>
+<div th:replace="layout/header"></div>
 <!-- End #header -->
 <!-- Start #sidebar -->
-<div th:replace="/layout/sidebar"></div>
+<div th:replace="layout/sidebar"></div>
 
 <!-- End #sidebar -->
 <!-- Start #right-sidebar -->
@@ -16,7 +16,7 @@
 <div id="content">
   <!-- Start .content-wrapper -->
   <div class="content-wrapper">
-    <div th:replace="/layout/topbar"></div>
+    <div th:replace="layout/topbar"></div>
     <!-- End .row -->
     <div class="outlet">
       <!-- Start .outlet -->
@@ -31,9 +31,9 @@
               <div sec:authorize="hasRole('ROLE_ROOT')"
                    class="btn-group hidden-xs" id="toolbar">
 
-                <button id="btn_add" type="button" class="btn btn-default" title="新增文章">
-                  <i class="fa-plus"></i> 新增文章
-                </button>
+                <a class="btn btn-default" th:href="@{/article/publish}" title="发布文章"> <i
+                    class="fa-plus"></i>发布文章</a>
+
                 <button id="btn_delete_ids" type="button" class="btn btn-default" title="删除选中">
                   <i class="fa-trash"></i> 批量删除
                 </button>
@@ -54,7 +54,7 @@
 
 
     </div>
-    <div th:replace="/layout/footer"></div>
+    <div th:replace="layout/footer"></div>
     <div class="modal fade bs-example-modal-sm" id="selectRole" tabindex="-1" role="dialog"
          aria-labelledby="selectRoleLabel">
       <div class="modal-dialog modal-sm" role="document">
@@ -157,51 +157,64 @@
   /**
    * 添加operate
    */
-  // function operateFormatter(code, row, index) {
-  //   var trUserId = row.id;
-  //   var userType = row.userType;
-  //   var level;
-  //   var currentLevel;
-  //   switch (userType) {
-  //     case "ROLE_ROOT":
-  //       level = 0;
-  //       break;
-  //     case "ROLE_ADMIN":
-  //       level = 1;
-  //       break;
-  //     case "ROLE_USER":
-  //       level = 2;
-  //       break;
-  //   }
-  //
-  //   switch (role) {
-  //     case "ROLE_ROOT":
-  //       currentLevel = 0;
-  //       break;
-  //     case "ROLE_ADMIN":
-  //       currentLevel = 1;
-  //       break;
-  //     case "ROLE_USER":
-  //       currentLevel = 2;
-  //       break;
-  //   }
-  //
-  //   if (userType) {
-  //     var operateBtn = [];
-  //   }
-  //   if (currentLevel < level || currentId == trUserId) {
-  //     operateBtn.push('<a class="btn btn-xs btn-primary btn-update" data-id="'
-  //         + trUserId + '"><i class="fa-edit"></i>编辑</a>');
-  //     operateBtn.push('<a class="btn btn-xs btn-danger btn-remove" data-id="' + trUserId
-  //         + '"><i class="fa-trash"></i>删除</a>');
-  //   }
-  //   if (currentLevel == 0) {
-  //     operateBtn.push('<a class="btn btn-xs btn-info btn-allot" data-id="' + trUserId
-  //         + '"><i class="fa-circle-blank"></i>分配权限</a>');
-  //   }
-  //
-  //   return operateBtn.join('');
-  // }
+  function operateFormatter(code, row, index) {
+    var trArticleId = row.id;
+    // var userType = row.userType;
+    var level;
+    var currentLevel;
+    // switch (userType) {
+    //   case "ROLE_ROOT":
+    //     level = 0;
+    //     break;
+    //   case "ROLE_ADMIN":
+    //     level = 1;
+    //     break;
+    //   case "ROLE_USER":
+    //     level = 2;
+    //     break;
+    // }
+
+    // switch (role) {
+    //   case "ROLE_ROOT":
+    //     currentLevel = 0;
+    //     break;
+    //   case "ROLE_ADMIN":
+    //     currentLevel = 1;
+    //     break;
+    //   case "ROLE_USER":
+    //     currentLevel = 2;
+    //     break;
+    // }
+
+    // if (userType) {
+    //   var operateBtn = [];
+    // }
+    // if (currentLevel < level || currentId == trUserId) {
+    //   operateBtn.push('<a class="btn btn-xs btn-primary btn-update" data-id="'
+    //       + trUserId + '"><i class="fa-edit"></i>编辑</a>');
+    //   operateBtn.push('<a class="btn btn-xs btn-danger btn-remove" data-id="' + trUserId
+    //       + '"><i class="fa-trash"></i>删除</a>');
+    // }
+    // if (currentLevel == 0) {
+    //   operateBtn.push('<a class="btn btn-xs btn-info btn-allot" data-id="' + trUserId
+    //       + '"><i class="fa-circle-blank"></i>分配权限</a>');
+    // }
+
+    var operateBtn = ['<a class="btn btn-xs btn-info btn-top" data-id="' + trArticleId
+    + '"><i class="fa-edit"></i>置顶</a>',
+      '<a class="btn btn-xs btn-info btn-recommend" data-id="' + trArticleId
+      + '"><i class="fa-edit"></i>推荐</a>',
+      '<a class="btn btn-xs btn-primary btn-update" data-id="'
+      + trArticleId + '"><i class="fa-edit"></i>编辑</a>',
+      '<a class="btn btn-xs btn-danger btn-remove" data-id="'
+      + trArticleId + '"><i class="fa-edit"></i>删除</a>'];
+
+    operateBtn.push();
+    operateBtn.push();
+    operateBtn.push();
+
+    return operateBtn.join('');
+  }
 
   $(function () {
     var options = {
@@ -211,7 +224,7 @@
       getInfoUrl: "/user/get/{id}",
       updateUrl: "/user/edit",
       removeUrl: "/user/remove",
-      createUrl: "/user/add",
+      createUrl: "/article/publish",
       saveRolesUrl: "/user/saveUserRoles",
       token: token,
       header: header,
@@ -281,17 +294,16 @@
         }, {
           field: 'operate',
           title: '操作',
-          formatter: null //自定义方法，添加操作按钮
+          formatter: operateFormatter //自定义方法，添加操作按钮
         }
       ],
       modalName: "文章"
     };
     //1.初始化Table
     $.tableUtil.init(options);
-    // $.buttonUtil.init(options)
+    $.buttonUtil.init(options)
 
   });
-
 
 
 </script>
