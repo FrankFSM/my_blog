@@ -19,6 +19,7 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
     <result column="content" property="content" jdbcType="LONGVARCHAR"/>
+    <result column="content_plain" property="contentPlain" jdbcType="LONGVARCHAR"/>
   </resultMap>
 
   <resultMap id="rm" type="com.ralap.blog.persistent.beans.BizArticle">
@@ -38,6 +39,8 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
     <result column="content" property="content" jdbcType="LONGVARCHAR"/>
+    <result column="content_plain" property="contentPlain" jdbcType="LONGVARCHAR"/>
+
     <result column="look_count" property="lookCount" jdbcType="INTEGER"/>
     <result column="love_count" property="loveCount" jdbcType="INTEGER"/>
     <association property="bizType" javaType="com.ralap.blog.persistent.beans.BizType">
@@ -48,7 +51,7 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, title, user_id, cover_url, qrcode_url, status, type_id, top, recommend, original, content,
+    id, title, user_id, cover_url, qrcode_url, status, type_id, top, recommend, original, content_plain,content,
     description, keywords, remake, create_time, update_time
   </sql>
 

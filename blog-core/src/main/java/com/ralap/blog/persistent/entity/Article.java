@@ -86,6 +86,14 @@ public class Article {
         this.bizArticle.setQrcodeUrl(qrcodeUrl);
     }
 
+    public String getContentPlain() {
+        return this.bizArticle.getContentPlain();
+    }
+
+    public void setContentPlain(String contentPlain) {
+        this.bizArticle.setContentPlain(contentPlain);
+    }
+
     public String getContent() {
         return this.bizArticle.getContent();
     }
@@ -188,6 +196,14 @@ public class Article {
 
     public void setLoveCount(Integer loveCount) {
         this.bizArticle.setLoveCount(loveCount);
+    }
+
+    public Long getTagsId() {
+        return this.bizArticle.getTagsId();
+    }
+
+    public void setTagsId(Long tagsId) {
+        this.bizArticle.setTagsId(tagsId);
     }
 
 }

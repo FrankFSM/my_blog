@@ -70,7 +70,7 @@
             onclick: null,
             showDuration: "300",//显示动作时间
             hideDuration: "1000",//隐藏动作时间
-            timeOut: "2000",//自动关闭超时时间
+            timeOut: "3000",//自动关闭超时时间
             extendedTimeOut: "1000",
             showEasing: "swing",
             hideEasing: "linear",

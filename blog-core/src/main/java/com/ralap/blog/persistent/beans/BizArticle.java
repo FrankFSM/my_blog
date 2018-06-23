@@ -17,6 +17,8 @@ public class BizArticle extends AbstractDO {
 
     private String qrcodeUrl;
 
+    private String contentPlain;
+
     private String content;
 
     private Integer status;
@@ -37,6 +39,9 @@ public class BizArticle extends AbstractDO {
 
     @Transient
     private BizType bizType;
+
+    @Transient
+    private Long tagsId;
 
     @Transient
     private Integer lookCount;

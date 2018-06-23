@@ -54,7 +54,8 @@ public class BizTagsServiceImpl implements BizTagsService {
 
     @Override
     public BizTags getByPrimaryKey(Long primaryKey) {
-        return null;
+        Assert.notNull(primaryKey, "TagsId cannot for Null");
+        return bizTagsMapper.selectByPrimaryKey(primaryKey);
     }
 
     @Override

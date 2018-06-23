@@ -6,12 +6,14 @@ import com.ralap.blog.bussiness.annotation.BusinessLog;
 import com.ralap.blog.bussiness.enums.ResponseStatus;
 import com.ralap.blog.bussiness.service.BizArticleService;
 import com.ralap.blog.bussiness.service.BizArticleTagsService;
+import com.ralap.blog.bussiness.service.BizTagsService;
 import com.ralap.blog.bussiness.vo.ArticleConditionVO;
 import com.ralap.blog.bussiness.vo.FileConditionVO;
 import com.ralap.blog.core.bean.CurrentUser;
 import com.ralap.blog.framework.objecct.PageResult;
 import com.ralap.blog.framework.objecct.ResponseVO;
 import com.ralap.blog.persistent.beans.BizArticleTags;
+import com.ralap.blog.persistent.beans.BizTags;
 import com.ralap.blog.persistent.entity.Article;
 import com.ralap.blog.util.FileUtils;
 import com.ralap.blog.util.ResultUtil;
@@ -49,6 +51,9 @@ public class BizArticleController {
     private BizArticleService bizArticleService;
     @Autowired
     private BizArticleTagsService bizArticleTagsService;
+
+    @Autowired
+    private BizTagsService bizTagsService;
 
     @PostMapping("/uploadCover")
     public ResponseVO uploadCover(@RequestParam("file") MultipartFile file) {
@@ -127,6 +132,13 @@ public class BizArticleController {
     @PostMapping("/get/{articleId}")
     public ResponseVO get(@PathVariable("articleId") Long id) {
         Article article = bizArticleService.getByPrimaryKey(id);
+        BizArticleTags articleTags = new BizArticleTags();
+        articleTags.setArticleId(article.getId());
+        articleTags = bizArticleTagsService.getOneByEntity(articleTags);
+        Assert.notNull(articleTags, "BizArticleTags cannot for Null");
+        BizTags tags = bizTagsService.getByPrimaryKey(articleTags.getTagsId());
+        Assert.notNull(tags, "BizTags cannot for Null");
+        article.setTagsId(tags.getId());
         return ResultUtil.success("获取成功", article);
 
     }

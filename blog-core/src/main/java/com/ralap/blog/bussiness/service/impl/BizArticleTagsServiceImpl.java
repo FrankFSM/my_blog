@@ -61,7 +61,8 @@ public class BizArticleTagsServiceImpl implements BizArticleTagsService {
 
     @Override
     public BizArticleTags getOneByEntity(BizArticleTags eneity) {
-        return null;
+        Assert.notNull(eneity, "BizArticleTags cannot for Null ");
+        return bizArticleTagsMapper.selectOne(eneity);
     }
 
     @Override
