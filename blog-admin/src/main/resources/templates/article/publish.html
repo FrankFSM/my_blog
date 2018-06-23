@@ -26,14 +26,16 @@
             </div>
             <div class="panel-body">
               <form class="form-horizontal group-border hover-stripped" role="form" id="validate">
+                <input type="hidden" name="id" id="id" th:value="${id}">
+
                 <div class="form-group">
                   <label class="col-lg-2 col-md-2 col-sm-12 control-label">标题</label>
                   <div class="col-lg-8 col-md-8">
                     <input type="text" class="form-control required" placeholder=""
-                           autofocus="autofocus" name="title">
+                           autofocus="autofocus" id="title" name="title">
                   </div>
                   <div class="col-lg-2 col-md-2">
-                    <input class="check" type="checkbox" name="original">原创
+                    <input class="check" type="checkbox" id="original" name="original">原创
                   </div>
                 </div>
                 <div class="form-group">
@@ -219,7 +221,6 @@
       var articlePlain = simplemde.value();
       var articleMarkdown = simplemde.markdown(articlePlain);
       $("#articleContent").val(articleMarkdown);
-
       $('#validate').ajaxForm({
         type: "post",
         url: "/article/save",
@@ -300,6 +301,36 @@
         }
       }
     });
+  }
+
+  var articleId = $("#id").val();
+
+  console.log(articleId);
+  if (articleId) {
+    setTimeout(function () {
+
+      $.ajax({
+        type: "post",
+        url: "/article/get/" + articleId,
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader(header, token);
+        },
+        success: function (json) {
+          var data = json.data;
+          $("#title").val(data.title);
+          if (data.original) {
+            $("#original").attr("checked", "checked");
+            $(".icheckbox_flat-blue").addClass("checked");
+          }
+          $('#converImg').html('<img src="' + data.coverUrl + '" style="width: 100%">')
+          $("#coverUrl").val(data.coverUrl);
+          simplemde.codemirror.setValue(data.content);
+        },
+        error: function () {
+          $.tool.ajaxError();
+        }
+      })
+    }, 200)
   }
 
 

@@ -204,15 +204,10 @@
     + '"><i class="fa-upload"></i>置顶</a>',
       '<a class="btn btn-xs btn-info btn-recommend" data-id="' + trArticleId
       + '"><i class="fa-thumbs-up"></i>推荐</a>',
-      '<a class="btn btn-xs btn-primary btn-update" data-id="'
-      + trArticleId + '"><i class="fa-edit"></i>编辑</a>',
+      '<a class="btn btn-xs btn-primary" data-id="'
+      + trArticleId + '" href="/article/update/'+trArticleId+'"><i class="fa-edit"></i>编辑</a>',
       '<a class="btn btn-xs btn-danger btn-remove" data-id="'
       + trArticleId + '"><i class="fa-trash"></i>删除</a>'];
-
-    operateBtn.push();
-    operateBtn.push();
-    operateBtn.push();
-
     return operateBtn.join('');
   }
 
@@ -221,11 +216,7 @@
       header: header,
       token: token,
       url: "/article/list",
-      getInfoUrl: "/user/get/{id}",
-      updateUrl: "/user/edit",
       removeUrl: "/user/remove",
-      createUrl: "/article/publish",
-      saveRolesUrl: "/user/saveUserRoles",
       token: token,
       header: header,
       columns: [
@@ -301,7 +292,39 @@
     };
     //1.初始化Table
     $.tableUtil.init(options);
-    $.buttonUtil.init(options)
+    $.buttonUtil.init(options);
+    $('#tablelist').on('click', '.btn-top', function () {
+
+      var $this = $(this);
+      var id = $this.attr("data-id");
+      update("top", id);
+    });
+    $('#tablelist').on('click', '.btn-recommend', function () {
+
+      var $this = $(this);
+      var id = $this.attr("data-id");
+      update("recommend", id);
+    });
+
+    function update(type, id) {
+      $.ajax({
+        type: "post",
+        url: "/article/update/" + type,
+        traditional: true,
+        data: {'id': id},
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader(header, token);
+        },
+        success: function (json) {
+          $.tool.ajaxSuccess(json);
+          $.tableUtil.refresh();
+
+        },
+        error: function () {
+          $.tool.ajaxError();
+        }
+      })
+    }
 
   });
 

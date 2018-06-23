@@ -25,7 +25,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -105,6 +107,27 @@ public class BizArticleController {
         pageResult.setRows(pageInfo.getList());
         pageResult.setTotal(pageInfo.getTotal());
         return pageResult;
+
+    }
+
+    @PostMapping("/update/{type}")
+    public ResponseVO update(@PathVariable("type") String type, Long id) {
+        Article article = bizArticleService.getByPrimaryKey(id);
+        Assert.notNull(article, "Article cannot for NULL");
+        if ("top".equals(type)) {
+            article.setTop(!article.getTop());
+        } else {
+            article.setRecommend(!article.getRecommend());
+        }
+        bizArticleService.updateSelective(article);
+        return ResultUtil.success(ResponseStatus.SUCCESS);
+
+    }
+
+    @PostMapping("/get/{articleId}")
+    public ResponseVO get(@PathVariable("articleId") Long id) {
+        Article article = bizArticleService.getByPrimaryKey(id);
+        return ResultUtil.success("获取成功", article);
 
     }
 }
