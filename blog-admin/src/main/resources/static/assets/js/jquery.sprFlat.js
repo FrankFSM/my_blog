@@ -607,7 +607,6 @@
           // var afterDomain = window.location.pathname.split("/");
           // afterDomain = afterDomain.pop();
           var afterDomain = window.location.pathname;
-          var afterDomain = window.location.pathname;
           if (plugin.settings.sideNav.subDir != '') {
             var afterDomain = window.location.pathname
                 + plugin.settings.sideNav.subDir;
@@ -1180,21 +1179,18 @@
 
       var navel = $('#sideNav>li a.active');
       var navsub = navel.closest('.nav.sub');
-      //empty curmb
       breadcrumb.empty();
       breadcrumb.append('<li>' + homeIcon + '<a href="index.html">Home</a>'
           + rightArrow + '</li>');
-
+      //empty curmb
       if (navsub.closest('li').hasClass('hasSub')) {
         //get previous
         navel1 = navsub.prev('a.expand');
         link = navel1.attr('href');
         icon1 = navel1.children('i').not('.sideNav-arrow').prop('outerHTML');
         text1 = navel1.children('.notification').remove().end().text().trim();
-
         breadcrumb.append('<li>' + icon1 + '<a href="' + link + '">' + text1
             + '</a>' + rightArrow + '</li>');
-
         icon = navel.children('i').prop('outerHTML');
         text = navel.children('.indicator').remove().end().text();
         breadcrumb.append('<li>' + icon + ' ' + text + '</li>');
@@ -1204,7 +1200,7 @@
         text = navel.children('.indicator').remove().end().text();
         breadcrumb.append('<li>' + icon + ' ' + text + '</li>');
       }
-
+      $("#page-header").append(icon + text);
     }
 
     plugin.launchFullScreen = function (el) {

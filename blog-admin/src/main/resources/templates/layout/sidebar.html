@@ -1,4 +1,3 @@
-
 <div id="sidebar" th:fragment="sidebar">
   <!-- Start .sidebar-inner -->
   <div class="sidebar-inner">
@@ -13,22 +12,18 @@
       </li>
       <li><a th:href="@{/}">首页 <i class="im-screen"></i></a>
       </li>
-
       <li>
-      <a href="#"> 文章管理 <i class="im-paragraph-justify"></i></a>
-      <ul class="nav sub">
-        <li><a th:href="@{/article/publish}"><i class="ec-pencil2"></i> 发布文章</a>
-        </li>
-        <li><a th:href="@{/article/articles}"><i class="ec-pencil2"></i> 文章列表</a>
-        </li>
-      </ul>
-    </li>
-
-      <li>
-        <a th:href="@{/user/users}"> 用户管理 <i class="im-paragraph-justify"></i></a>
-
+        <a th:href="@{/user/users}"> 用户管理 <i class="im-users"></i></a>
       </li>
-
+      <li>
+        <a href="#"> 文章管理 <i class="st-book2"></i></a>
+        <ul class="nav sub">
+          <li><a th:href="@{/article/publish}"><i class="ec-pencil2"></i> 发布文章</a>
+          </li>
+          <li><a th:href="@{/article/articles}"><i class="fa-list-alt"></i> 文章列表</a>
+          </li>
+        </ul>
+      </li>
     </ul>
     <!-- End #sideNav -->
 
