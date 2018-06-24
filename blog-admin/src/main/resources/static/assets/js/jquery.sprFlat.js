@@ -1180,29 +1180,44 @@
       var navel = $('#sideNav>li a.active');
       var navsub = navel.closest('.nav.sub');
       breadcrumb.empty();
-      breadcrumb.append('<li>' + homeIcon + '<a href="index.html">Home</a>'
-          + rightArrow + '</li>');
+
       //empty curmb
       if (navsub.closest('li').hasClass('hasSub')) {
+        breadcrumb.append('<li>' + homeIcon + '<a href="/">Home</a>'
+            + rightArrow + '</li>');
         //get previous
         navel1 = navsub.prev('a.expand');
         link = navel1.attr('href');
         icon1 = navel1.children('i').not('.sideNav-arrow').prop('outerHTML');
         text1 = navel1.children('.notification').remove().end().text().trim();
-        breadcrumb.append('<li>' + icon1 + '<a href="' + link + '">' + text1
-            + '</a>' + rightArrow + '</li>');
+        console.log(text1)
+        if(icon1 != "undefined" && text1 != "undefined"){
+          breadcrumb.append('<li>' + icon1 + '<a href="' + link + '">' + text1
+              + '</a>' + rightArrow + '</li>');
+        }
+
         icon = navel.children('i').prop('outerHTML');
         text = navel.children('.indicator').remove().end().text();
-        breadcrumb.append('<li>' + icon + ' ' + text + '</li>');
+        if(icon != "undefined" && text != "undefined"){
+          breadcrumb.append('<li>' + icon + ' ' + text + '</li>');
+        }
 
       } else {
         icon = navel.children('i').prop('outerHTML');
         text = navel.children('.indicator').remove().end().text();
-        breadcrumb.append('<li>' + icon + ' ' + text + '</li>');
+        if(icon != "undefined" && text != "undefined" && text != null && text != ''){
+          breadcrumb.append('<li>' + homeIcon + '<a href="/">Home</a>'
+              + rightArrow + '</li>');
+          breadcrumb.append('<li>' + icon + ' ' + text + '</li>');
+        }else{
+          breadcrumb.append('<li>' + homeIcon + '<a href="/">Home</a></li>');
+        }
       }
-      $("#page-header").append(icon + text);
+      var pageHanderContent = icon + text;
+      if (pageHanderContent != "undefined") {
+        $("#page-header").append(icon + text);
+      }
     }
-
     plugin.launchFullScreen = function (el) {
       if ((document.fullScreenElement && document.fullScreenElement !== null)
           || (!document.mozFullScreen && !document.webkitIsFullScreen)) {
