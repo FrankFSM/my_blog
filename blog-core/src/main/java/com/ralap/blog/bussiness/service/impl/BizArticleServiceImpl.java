@@ -3,6 +3,8 @@ package com.ralap.blog.bussiness.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ralap.blog.bussiness.service.BizArticleService;
+import com.ralap.blog.bussiness.service.BizArticleTagsService;
+import com.ralap.blog.bussiness.service.BizTagsService;
 import com.ralap.blog.bussiness.vo.ArticleConditionVO;
 import com.ralap.blog.persistent.beans.BizArticle;
 import com.ralap.blog.persistent.entity.Article;
@@ -12,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
@@ -24,6 +27,9 @@ public class BizArticleServiceImpl implements BizArticleService {
 
     @Autowired
     private BizArticleMapper bizArticleMapper;
+
+    @Autowired
+    private BizArticleTagsService bizArticleTagsService;
 
 
     @Override
@@ -41,8 +47,16 @@ public class BizArticleServiceImpl implements BizArticleService {
     }
 
     @Override
+    @Transactional
     public boolean removeByPrimaryKey(Long primaryKey) {
-        return false;
+        Assert.notNull(primaryKey, "ArticleId cannot for Null");
+        boolean result = bizArticleTagsService.removeByArticleId(primaryKey);
+        if (result) {
+            int deleteCount = bizArticleMapper.deleteByPrimaryKey(primaryKey);
+            return deleteCount > 0 ? true : false;
+        } else {
+            return false;
+        }
     }
 
     @Override

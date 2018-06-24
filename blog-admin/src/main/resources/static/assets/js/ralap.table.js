@@ -77,7 +77,7 @@
     buttonUtil: {
       init: function (options) {
         /**
-         * 修改用户
+         * 修改
          */
         $("#tablelist").on('click', '.btn-update', function () {
           var $this = $(this);
@@ -109,7 +109,7 @@
         });
 
         /**
-         * 删除用户
+         * 删除
          */
         $("#tablelist").on('click', '.btn-remove', function () {
           var $this = $(this);
@@ -118,7 +118,7 @@
         });
 
         /**
-         * 添加用户
+         * 添加
          */
         $("#btn_add").click(function () {
           resetForm();
@@ -209,7 +209,7 @@
         });
 
         /**
-         * 删除用户
+         * 删除
          * @param selectedId
          */
         function remove(selectedId) {

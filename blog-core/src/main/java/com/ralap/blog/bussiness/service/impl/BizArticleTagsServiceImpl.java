@@ -76,10 +76,10 @@ public class BizArticleTagsServiceImpl implements BizArticleTagsService {
     }
 
     @Override
-    public void removeByArticleId(Long articleId) {
+    public boolean removeByArticleId(Long articleId) {
         Example example = new Example(BizArticleTags.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("articleId", articleId);
-        bizArticleTagsMapper.deleteByExample(example);
+        return bizArticleTagsMapper.deleteByExample(example) > 0 ? true : false;
     }
 }

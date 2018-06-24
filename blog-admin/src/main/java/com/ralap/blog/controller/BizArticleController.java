@@ -142,4 +142,25 @@ public class BizArticleController {
         return ResultUtil.success("获取成功", article);
 
     }
+
+
+    @RequestMapping(value = "/remove", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseVO remove(Long[] ids) {
+
+        if (ids == null || ids.length < 0) {
+            return ResultUtil.error("请最少选择一条记录");
+        }
+        int successCount = 0;
+        for (int i = 0; i < ids.length; i++) {
+            boolean result = bizArticleService.removeByPrimaryKey(ids[i]);
+            if (result) {
+                successCount++;
+            }
+        }
+        return ResultUtil
+                .success("成功删除[" + successCount + "]条记录,失败[" + (ids.length - successCount) + "]",
+                        null);
+
+    }
 }
