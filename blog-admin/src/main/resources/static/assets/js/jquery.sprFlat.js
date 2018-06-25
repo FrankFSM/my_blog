@@ -1190,7 +1190,6 @@
         link = navel1.attr('href');
         icon1 = navel1.children('i').not('.sideNav-arrow').prop('outerHTML');
         text1 = navel1.children('.notification').remove().end().text().trim();
-        console.log(text1)
         if(icon1 != "undefined" && text1 != "undefined"){
           breadcrumb.append('<li>' + icon1 + '<a href="' + link + '">' + text1
               + '</a>' + rightArrow + '</li>');

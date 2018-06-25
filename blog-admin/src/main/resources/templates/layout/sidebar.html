@@ -3,30 +3,98 @@
   <div class="sidebar-inner">
     <!-- Start #sideNav -->
     <ul id="sideNav" class="nav nav-pills nav-stacked">
-      <li class="top-search">
-        <form>
-          <input type="text" name="search" placeholder="Search ...">
-          <button type="submit"><i class="ec-search s20"></i>
-          </button>
-        </form>
-      </li>
-      <li><a th:href="@{/}">首页 <i class="im-screen"></i></a>
-      </li>
-      <li>
-        <a th:href="@{/user/users}"> 用户管理 <i class="im-users"></i></a>
-      </li>
-      <li>
-        <a href="#"> 文章管理 <i class="st-book2"></i></a>
-        <ul class="nav sub">
-          <li><a th:href="@{/article/publish}"><i class="ec-pencil2"></i> 发布文章</a>
-          </li>
-          <li><a th:href="@{/article/articles}"><i class="fa-list-alt"></i> 文章列表</a>
-          </li>
-        </ul>
-      </li>
+      <!--<li class="top-search">-->
+      <!--<form>-->
+      <!--<input type="text" name="search" placeholder="Search ...">-->
+      <!--<button type="submit"><i class="ec-search s20"></i>-->
+      <!--</button>-->
+      <!--</form>-->
+      <!--</li>-->
+      <!--<li><a th:href="@{/}">首页 <i class="im-screen"></i></a>-->
+      <!--</li>-->
+      <!--<li>-->
+      <!--<a th:href="@{/user/users}"> 用户管理 <i class="im-users"></i></a>-->
+      <!--</li>-->
+      <!--<li>-->
+      <!--<a href="#"> 文章管理 <i class="st-book2"></i></a>-->
+      <!--<ul class="nav sub">-->
+      <!--<li><a th:href="@{/article/publish}"><i class="ec-pencil2"></i> 发布文章</a>-->
+      <!--</li>-->
+      <!--<li><a th:href="@{/article/articles}"><i class="fa-list-alt"></i> 文章列表</a>-->
+      <!--</li>-->
+      <!--</ul>-->
+      <!--</li>-->
     </ul>
     <!-- End #sideNav -->
 
   </div>
   <!-- End .sidebar-inner -->
 </div>
+<script type="text/javascript">
+  window.onload = function () {
+
+    initTreeData();
+
+  }
+
+  function initTreeData() {
+
+    $.ajax({
+      type: "GET",
+      url: "/resources/list",
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader(header, token);
+      },
+      success: function (json) {
+        loadTree([0], json.data);
+        // test();
+        $.sprFlat();
+      },
+      error: function () {
+        $.tool.ajaxError();
+      }
+
+    })
+  }
+
+  function loadTree(parendIds, data) {
+
+    var parendIdsArray = new Array();
+    var sideNav;
+    for (var pIndex = 0; pIndex < parendIds.length; pIndex++) {
+      if (parendIds[pIndex] == 0) {
+        sideNav = $("#sideNav");
+      } else {
+        var idStr = "#sid" + parendIds[pIndex];
+        sideNav = $(idStr);
+
+      }
+      var childCount = 0;
+      for (var i = 0; i < data.length; i++) {
+        if (data[i].parentId == parendIds[pIndex]) {
+          var url = data[i].url;
+          if (url == null || url == '') {
+            url = "#";
+          }
+
+          if (parendIds[pIndex] != 0 && childCount == 0) {
+            var navId = "nav" + parendIds[pIndex];
+            sideNav.append('<ul class="nav sub" id="' + navId + '">');
+            var navStr = "#" + navId;
+            sideNav = $(navStr);
+          }
+
+          sideNav.append('<li id="sid' + data[i].id + '"><a href="' + url + '" >' + data[i].name
+              + '<i class="' + data[i].icon + '"></i></a>')
+          parendIdsArray.push(data[i].id);
+          childCount++;
+        }
+      }
+    }
+    if (parendIdsArray.length > 0) {
+      loadTree(parendIdsArray, data)
+    }
+
+  }
+
+</script>

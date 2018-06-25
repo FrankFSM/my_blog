@@ -122,6 +122,7 @@ public class SysUserServiceImpl implements SysUserService {
             users.add(new User(user));
         }
         pageInfo = new PageInfo(userList);
+        pageInfo.setList(users);
         return pageInfo;
     }
 }

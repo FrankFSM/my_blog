@@ -61,6 +61,12 @@ public class RenderController {
         return ResultUtil.view("icons");
     }
 
+    @BusinessLog("进入菜单页")
+    @GetMapping("/system/menus")
+    public ModelAndView menuList() {
+        return ResultUtil.view("system/menu/list");
+    }
+
 }
 
 

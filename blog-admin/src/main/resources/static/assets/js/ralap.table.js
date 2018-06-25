@@ -158,7 +158,6 @@
             dataType: 'json',
             success: function (json) {
               var data = json.data;
-              console.log(data);
               var setting = {
                 check: {
                   enable: true,

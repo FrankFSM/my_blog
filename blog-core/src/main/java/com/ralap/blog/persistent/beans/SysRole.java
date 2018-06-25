@@ -11,5 +11,7 @@ public class SysRole extends AbstractDO {
 
     private String description;
 
+    private Integer level;
+
     private Boolean available;
 }

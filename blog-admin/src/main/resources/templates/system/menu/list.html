@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<!-- Start #header -->
+<div th:replace="layout/header"></div>
+<!-- End #header -->
+<!-- Start #sidebar -->
+<div th:replace="layout/sidebar"></div>
+
+<!-- End #sidebar -->
+<!-- Start #right-sidebar -->
+
+<!-- End #right-sidebar -->
+<!-- Start #content -->
+<div id="content">
+  <!-- Start .content-wrapper -->
+  <div class="content-wrapper">
+    <div th:replace="layout/topbar"></div>
+    <!-- End .row -->
+    <div class="outlet">
+      <!-- Start .outlet -->
+      <!-- Page start here ( usual with .row ) -->
+      <div class="row">
+        <!-- Start .row -->
+        <div class="col-lg-12">
+          <div>
+            <div>
+
+              <div class="btn-group hidden-xs" id="toolbar">
+
+                <button id="btn_add" type="button" class="btn btn-default" title="新增菜单">
+                  <i class="fa-plus"></i> 新增菜单
+                </button>
+                <button id="btn_delete_ids" type="button" class="btn btn-default" title="删除选中">
+                  <i class="fa-trash"></i> 批量删除
+                </button>
+              </div>
+              <!-- Start col-lg-12 -->
+              <table id="tablelist">
+              </table>
+
+              <!-- End .panel -->
+            </div>
+            <!-- End col-lg-12 -->
+          </div>
+          <!-- End .row -->
+          <!-- Page End here -->
+        </div>
+        <!-- End .outlet -->
+      </div>
+      <!-- End .content-wrapper -->
+
+
+    </div>
+    <div th:replace="layout/footer"></div>
+    <div class="modal fade bs-example-modal-sm" id="selectRole" tabindex="-1" role="dialog"
+         aria-labelledby="selectRoleLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="selectRoleLabel">分配资源权限</h4>
+          </div>
+          <div class="modal-body">
+            <form id="boxRoleForm">
+              <div class="zTreeDemoBackground left">
+                <ul id="treeRole" class="ztree"></ul>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="addOrUpdateModal" tabindex="-1" role="dialog"
+         aria-labelledby="addroleLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="addroleLabel">添加用户</h4>
+          </div>
+          <div class="modal-body">
+            <form id="addOrUpdateForm" class="form-horizontal form-label-left" novalidate>
+              <input type="hidden" name="id" id="id">
+              <div class="item form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="username">用户名: <span
+                    class="required">*</span></label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" class="form-control col-md-7 col-xs-12" name="username"
+                         id="username" required="required" placeholder="请输入用户名"/>
+                </div>
+              </div>
+              <div class="item form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">密码: <span
+                    class="required">*</span></label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="password" class="form-control col-md-7 col-xs-12" id="password"
+                         name="password" required="required" placeholder="请输入密码 6位以上"/>
+                </div>
+              </div>
+              <div class="item form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="nickname">昵称:</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" class="form-control col-md-7 col-xs-12" name="nickname"
+                         id="nickname" placeholder="请输入昵称"/>
+                </div>
+              </div>
+              <div class="item form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mobile">手机:</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="tel" class="form-control col-md-7 col-xs-12" name="mobile"
+                         id="mobile"
+                         data-validate-length-range="8,20" placeholder="请输入手机号"/>
+                </div>
+              </div>
+              <div class="item form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">邮箱:</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="email" class="form-control col-md-7 col-xs-12" name="email"
+                         id="email"
+                         placeholder="请输入邮箱"/>
+                </div>
+              </div>
+              <div class="item form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="qq">QQ:</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="number" class="form-control col-md-7 col-xs-12" name="qq" id="qq"
+                         placeholder="请输入QQ"/>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary addOrUpdateBtn">保存</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+  var token = $("meta[name='_csrf']").attr("content");
+  var header = $("meta[name='_csrf_header']").attr("content");
+
+  /**
+   * 添加operate
+   */
+  function operateFormatter(code, row, index) {
+
+
+    // return operateBtn.join('');
+  }
+
+  $(function () {
+    var options = {
+      header: header,
+      token: token,
+      url: "/system/menu/list",
+      token: token,
+      header: header,
+      columns: [
+        {
+          checkbox: true
+        },
+        {
+          field: 'id',
+          title: '编号',
+          editable: false
+        },
+        {
+          field: 'name',
+          title: '菜单名称',
+          editable: false
+        }, {
+          field: 'type',
+          title: '类型',
+          editable: true
+        },
+        {
+          field: 'url',
+          title: '路径',
+          editable: true
+        }, {
+          field: 'parentId',
+          title: '父菜单',
+          editable: false
+        }, {
+          field: 'available',
+          title: '是否有效',
+          editable: false,
+          formatter: function (code) {
+            if (code == 0) {
+              return "无效";
+            } else {
+              return "有效";
+            }
+          }
+        },
+        {
+          field: 'icon',
+          title: '图标',
+          editable: false
+        },
+        {
+          field: 'createTime',
+          title: '创建时间',
+          editable: false,
+          formatter: function (code) {
+            return new Date(code).format("yyyy-MM-dd hh:mm:ss")
+          }
+        },
+        {
+          field: 'operate',
+          title: '操作',
+          formatter: operateFormatter //自定义方法，添加操作按钮
+        }
+      ],
+      modalName: "菜单"
+    };
+    //1.初始化Table
+    $.tableUtil.init(options);
+    // $.buttonUtil.init(options)
+
+  });
+
+</script>
+</html>

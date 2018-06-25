@@ -6,9 +6,10 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class BizTags extends AbstractDO {
+public class SysRoleResources extends AbstractDO {
 
-    private String name;
-    private String description;
+    private Long roleId;
+
+    private Long resourcesId;
 
 }
