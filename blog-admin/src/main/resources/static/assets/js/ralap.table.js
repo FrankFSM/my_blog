@@ -209,6 +209,18 @@
         /**
          * 加载父目录
          */
+        $('#show_icon_all').click(function () {
+          $('#iconList').modal('show');
+
+          $(".icon-list i").on('click', function(){
+            $("#icon").val($(this).attr('class'));
+            $('#iconList').modal('hide');
+          });
+        });
+
+        /**
+         * 加载父目录
+         */
         $('#show_menu_all').click(function () {
           $.ajax({
             async: false,
