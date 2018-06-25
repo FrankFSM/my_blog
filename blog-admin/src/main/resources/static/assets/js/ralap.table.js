@@ -206,6 +206,57 @@
             }
           });
         });
+        /**
+         * 加载父目录
+         */
+        $('#show_menu_all').click(function () {
+          $.ajax({
+            async: false,
+            type: "POST",
+            data: {},
+            url: '/resources/tree',
+            beforeSend: function (xhr) {
+              xhr.setRequestHeader(header, token);
+            },
+            dataType: 'json',
+            success: function (json) {
+              var data = json.data;
+              var setting = {
+                check: {
+                  enable: true,
+                  chkboxType: {"Y": "ps", "N": "ps"},
+                  chkStyle: "radio"
+                },
+                data: {
+                  simpleData: {
+                    enable: true
+                  }
+                },
+                callback: {
+                  onCheck: function (event, treeId, treeNode) {
+                    console.log(treeNode.tId + ", " + treeNode.name + ","
+                        + treeNode.checked);
+                    var treeObj = $.fn.zTree.getZTreeObj(treeId);
+                    var nodes = treeObj.getCheckedNodes(true);
+                    var ids = new Array();
+                    for (var i = 0; i < nodes.length; i++) {
+                      //获取选中节点的值
+                      ids.push(nodes[i].id);
+                    }
+
+                    $("#parentName").val(treeNode.name);
+                    $("#parentId").val(ids[0]);
+                    $('#selectRole').modal('hide');
+                  }
+                }
+              };
+              var tree = $.fn.zTree.init($("#treeRole"), setting, data);
+              tree.expandAll(true);//全部展开
+
+              $('#selectRole').modal('show');
+            }
+          });
+        });
 
         /**
          * 删除

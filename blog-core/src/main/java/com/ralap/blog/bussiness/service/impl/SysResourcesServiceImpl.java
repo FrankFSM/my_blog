@@ -5,10 +5,13 @@ import com.github.pagehelper.PageInfo;
 import com.ralap.blog.bussiness.service.SysResourcesService;
 import com.ralap.blog.bussiness.vo.ResourceConditionVO;
 import com.ralap.blog.persistent.beans.SysResources;
+import com.ralap.blog.persistent.beans.SysRole;
 import com.ralap.blog.persistent.entity.Resources;
 import com.ralap.blog.persistent.mapper.SysResourcesMapper;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -84,5 +87,24 @@ public class SysResourcesServiceImpl implements SysResourcesService {
         pageInfo = new PageInfo(resourcesList);
         pageInfo.setList(resources);
         return pageInfo;
+    }
+
+    @Override
+    public List<Map<String, Object>> queryTree() {
+        List<SysResources> sysResourceList = sysResourcesMapper.selectAll();
+        if (CollectionUtils.isEmpty(sysResourceList)) {
+            return null;
+        }
+        List<Map<String, Object>> mapList = new ArrayList<Map<String, Object>>();
+        Map<String, Object> map = null;
+        for (SysResources resources : sysResourceList) {
+            map = new HashMap<String, Object>(3);
+            map.put("id", resources.getId());
+            map.put("pId", resources.getParentId());
+            map.put("checked", false);
+            map.put("name", resources.getName());
+            mapList.add(map);
+        }
+        return mapList;
     }
 }

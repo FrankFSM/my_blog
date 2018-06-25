@@ -4,7 +4,13 @@ import com.github.pagehelper.PageInfo;
 import com.ralap.blog.bussiness.vo.ResourceConditionVO;
 import com.ralap.blog.framework.objecct.AbstractService;
 import com.ralap.blog.persistent.beans.SysResources;
+import com.ralap.blog.persistent.beans.SysRole;
 import com.ralap.blog.persistent.entity.Resources;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.springframework.util.CollectionUtils;
 
 /**
  * @author: ralap
@@ -14,4 +20,7 @@ public interface SysResourcesService extends AbstractService<SysResources, Long>
 
 
     PageInfo<Resources> findPageBreakByCondition(ResourceConditionVO vo);
+
+
+    List<Map<String, Object>> queryTree();
 }

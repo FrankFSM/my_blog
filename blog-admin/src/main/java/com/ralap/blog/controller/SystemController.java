@@ -46,19 +46,4 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/system")
 public class SystemController {
 
-
-    @Autowired
-    private SysResourcesService sysResourcesService;
-
-
-    @RequestMapping(value = "/menu/list", method = RequestMethod.POST)
-    @ResponseBody
-    public PageResult list(ResourceConditionVO vo) {
-        PageHelper.startPage(vo.getPageNumber() - 1, vo.getPageSize());
-        PageInfo<Resources> userPage = sysResourcesService.findPageBreakByCondition(vo);
-        PageResult pageResult = ResultUtil.tablePage(userPage);
-        return pageResult;
-    }
-
-
 }
