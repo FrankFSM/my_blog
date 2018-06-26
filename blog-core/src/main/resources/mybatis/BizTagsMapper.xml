@@ -11,4 +11,15 @@
   <sql id="Base_Column_List" >
     id, name, description, create_time, update_time
   </sql>
+
+  <select id="findPageBreakByCondition" parameterType="com.ralap.blog.bussiness.vo.TagsConditionVO"
+    resultMap="BaseResultMap">
+    SELECT *
+    FROM biz_tags
+    <where>
+      <if test="searchText != null and searchText != ''">
+        AND name = #{searchText}
+      </if>
+    </where>
+  </select>
 </mapper>

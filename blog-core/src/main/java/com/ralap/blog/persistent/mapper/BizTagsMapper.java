@@ -1,5 +1,6 @@
 package com.ralap.blog.persistent.mapper;
 
+import com.ralap.blog.bussiness.vo.TagsConditionVO;
 import com.ralap.blog.bussiness.vo.TypeConditionVO;
 import com.ralap.blog.persistent.beans.BizTags;
 import com.ralap.blog.persistent.beans.BizType;
@@ -10,5 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BizTagsMapper extends BaseMapper<BizTags> {
 
+    List<BizTags> findPageBreakByCondition(TagsConditionVO vo);
 
 }

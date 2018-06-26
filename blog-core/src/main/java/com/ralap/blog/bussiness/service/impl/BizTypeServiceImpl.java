@@ -27,7 +27,6 @@ public class BizTypeServiceImpl implements BizTypeService {
     @Override
     public BizType insert(BizType entity) {
         Assert.notNull(entity, "BizType cannot for null");
-        entity.setUpdateTime(new Date());
         entity.setCreateTime(new Date());
         bizTypeMapper.insert(entity);
         return entity;

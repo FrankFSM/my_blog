@@ -72,6 +72,11 @@ public class RenderController {
     public ModelAndView typeList() {
         return ResultUtil.view("type/list");
     }
+    @BusinessLog("进入分类页")
+    @GetMapping("/tags/tags")
+    public ModelAndView tagsList() {
+        return ResultUtil.view("tags/list");
+    }
 
 }
 
