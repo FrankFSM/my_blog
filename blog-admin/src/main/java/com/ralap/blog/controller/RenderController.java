@@ -67,6 +67,12 @@ public class RenderController {
         return ResultUtil.view("system/menu/list");
     }
 
+    @BusinessLog("进入分类页")
+    @GetMapping("/type/types")
+    public ModelAndView typeList() {
+        return ResultUtil.view("type/list");
+    }
+
 }
 
 

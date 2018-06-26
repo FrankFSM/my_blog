@@ -21,5 +21,10 @@
     resultMap="BaseResultMap">
     SELECT *
     FROM biz_type
+    <where>
+      <if test="searchText != null and searchText != ''">
+        AND name = #{searchText}
+      </if>
+    </where>
   </select>
 </mapper>

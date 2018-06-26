@@ -1183,7 +1183,7 @@
 
       //empty curmb
       if (navsub.closest('li').hasClass('hasSub')) {
-        breadcrumb.append('<li>' + homeIcon + '<a href="/">Home</a>'
+        breadcrumb.append('<li>' + homeIcon + '<a href="/">首页</a>'
             + rightArrow + '</li>');
         //get previous
         navel1 = navsub.prev('a.expand');

@@ -26,10 +26,10 @@ public class BizTypeServiceImpl implements BizTypeService {
 
     @Override
     public BizType insert(BizType entity) {
-        Assert.notNull(entity, "Type不能为空");
+        Assert.notNull(entity, "BizType cannot for null");
         entity.setUpdateTime(new Date());
         entity.setCreateTime(new Date());
-        bizTypeMapper.insertSelective(entity);
+        bizTypeMapper.insert(entity);
         return entity;
     }
 
@@ -40,7 +40,9 @@ public class BizTypeServiceImpl implements BizTypeService {
 
     @Override
     public boolean removeByPrimaryKey(Long primaryKey) {
-        return false;
+        Assert.notNull(primaryKey, "primaryKey cannot for Null");
+        int resultCount = bizTypeMapper.deleteByPrimaryKey(primaryKey);
+        return resultCount > 0 ? true : false;
     }
 
     @Override
@@ -50,12 +52,16 @@ public class BizTypeServiceImpl implements BizTypeService {
 
     @Override
     public boolean updateSelective(BizType eneity) {
-        return false;
+        Assert.notNull(eneity, "BizType cannot for Null");
+        int resultCount = bizTypeMapper.updateByPrimaryKey(eneity);
+        return resultCount > 0 ? true : false;
     }
 
     @Override
     public BizType getByPrimaryKey(Long primaryKey) {
-        return null;
+        Assert.notNull(primaryKey, "primaryKey cannot for Null");
+        BizType bizType = bizTypeMapper.selectByPrimaryKey(primaryKey);
+        return bizType;
     }
 
     @Override
@@ -77,15 +83,13 @@ public class BizTypeServiceImpl implements BizTypeService {
 
     @Override
     public PageInfo<Type> findPageBreakByCondition(TypeConditionVO vo) {
-        vo.setPageNumber(1);
-        vo.setPageSize(20);
         PageHelper.startPage(vo.getPageNumber(), vo.getPageSize());
         List<BizType> bizTypeList = bizTypeMapper.findPageBreakByCondition(vo);
         List<Type> typeList = new ArrayList<>();
         for (BizType type : bizTypeList) {
             typeList.add(new Type(type));
         }
-        PageInfo<Type> pageInfo = new PageInfo<>();
+        PageInfo pageInfo = new PageInfo(bizTypeList);
         pageInfo.setList(typeList);
         return pageInfo;
     }
