@@ -47,8 +47,7 @@
       },
       success: function (json) {
         loadTree([0], json.data);
-        // test();
-        $.sprFlat();
+        $.sprFlatCopy();
       },
       error: function () {
         $.tool.ajaxError();
