@@ -8,12 +8,15 @@ import com.ralap.blog.persistent.beans.SysResources;
 import com.ralap.blog.persistent.beans.SysRole;
 import com.ralap.blog.persistent.entity.Resources;
 import com.ralap.blog.persistent.mapper.SysResourcesMapper;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
 /**
@@ -28,7 +31,10 @@ public class SysResourcesServiceImpl implements SysResourcesService {
 
     @Override
     public SysResources insert(SysResources entity) {
-        return null;
+        Assert.notNull(entity, "SysResources cannot for Null");
+        entity.setCreateTime(new Date());
+        sysResourcesMapper.insert(entity);
+        return entity;
     }
 
     @Override
@@ -38,7 +44,9 @@ public class SysResourcesServiceImpl implements SysResourcesService {
 
     @Override
     public boolean removeByPrimaryKey(Long primaryKey) {
-        return false;
+        Assert.notNull(primaryKey, "primaryKey cannot for Null");
+        int result = sysResourcesMapper.deleteByPrimaryKey(primaryKey);
+        return result > 0 ? true : false;
     }
 
     @Override
@@ -48,12 +56,15 @@ public class SysResourcesServiceImpl implements SysResourcesService {
 
     @Override
     public boolean updateSelective(SysResources entity) {
-        return false;
+        Assert.notNull(entity, "SysResources cannot for Null");
+        int result = sysResourcesMapper.updateByPrimaryKeySelective(entity);
+        return result > 0 ? true : false;
     }
 
     @Override
     public SysResources getByPrimaryKey(Long primaryKey) {
-        return null;
+        Assert.notNull(primaryKey, "primaryKey cannot for Null");
+        return sysResourcesMapper.selectByPrimaryKey(primaryKey);
     }
 
     @Override

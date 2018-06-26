@@ -34,7 +34,7 @@
           // detailView: true,                   //是否显示父子表
           // showExport: true,                   //是否显示导出
           // exportDataType: "basic",              //basic', 'all', 'selected'.
-          // clickToSelect: true,                //是否启用点击选中行
+          clickToSelect: true,                //是否启用点击选中行
           // singleSelect: true,
           // height: 505,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
           onEditableSave: function (field, row, oldValue, $el) {
@@ -91,7 +91,7 @@
             success: function (json) {
               var info = json.data;
               resetForm(info);
-              initUserInfo(info);
+              initUpdateInfo(info);
               $("#addOrUpdateModal").modal('show');
               $("#addOrUpdateModal").find(
                   ".modal-dialog .modal-content .modal-header h4.modal-title").html("修改"
@@ -207,12 +207,12 @@
           });
         });
         /**
-         * 加载父目录
+         * 加载Icon
          */
         $('#show_icon_all').click(function () {
           $('#iconList').modal('show');
 
-          $(".icon-list i").on('click', function(){
+          $(".icon-list i").on('click', function () {
             $("#icon").val($(this).attr('class'));
             $('#iconList').modal('hide');
           });
@@ -303,16 +303,6 @@
   });
 })(jQuery);
 
-function initUserInfo(info) {
-  $('#id').val(info.id);
-  $('#password').val('');
-  $('#username').val(info.username);
-  $('#nickname').val(info.nickname);
-  $('#mobile').val(info.mobile);
-  $('#email').val(info.email);
-  $('#qq').val(info.qq);
-}
-
 function bindSaveInfoEvent(url) {
   $(".addOrUpdateBtn").unbind('click');
   $(".addOrUpdateBtn").click(function () {
@@ -387,10 +377,15 @@ function clearText($this, type, info) {
  * 获取选中ID
  */
 function getSelectedId() {
+  var sele = $("#tablelist input[type='checkbox']");
+  console.log(sele);
+
   var selectedJson = $("#tablelist").bootstrapTable('getAllSelections');
+  console.log(selectedJson);
   var ids = [];
   $.each(selectedJson, function (i) {
     ids.push(selectedJson[i].id);
   });
+  console.log("ids[{}]", ids);
   return ids;
 }

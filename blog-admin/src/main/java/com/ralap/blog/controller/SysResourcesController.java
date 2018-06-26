@@ -69,9 +69,9 @@ public class SysResourcesController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO add(Resources user) {
-        SysResources sysUser = sysResourcesService.insert(user.getSysResources());
-        if (sysUser == null) {
+    public ResponseVO add(Resources resources) {
+        SysResources sysResources = sysResourcesService.insert(resources.getSysResources());
+        if (sysResources == null) {
             return ResultUtil.error("系统异常");
         }
         return ResultUtil.success(ResponseStatus.SUCCESS);
@@ -85,10 +85,13 @@ public class SysResourcesController {
         if (ids == null || ids.length < 0) {
             return ResultUtil.error("请最少选择一条记录");
         }
+        int successCount = 0;
         for (int i = 0; i < ids.length; i++) {
-            sysResourcesService.removeByPrimaryKey(ids[i]);
+            if (sysResourcesService.removeByPrimaryKey(ids[i])) {
+                successCount++;
+            }
         }
-        return ResultUtil.success("成功删除[" + ids.length + "]条记录", null);
+        return ResultUtil.success("成功删除[" + successCount + "]条记录,失败[" + (ids.length - successCount) + "]条记录", null);
 
     }
 

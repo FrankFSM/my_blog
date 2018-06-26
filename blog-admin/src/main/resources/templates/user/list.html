@@ -220,6 +220,11 @@
           checkbox: true
         },
         {
+          field: 'id',
+          title: '编号',
+          editable: false
+        },
+        {
           field: 'username',
           title: '用户名',
           editable: false
@@ -264,5 +269,14 @@
 
   });
 
+  function initUpdateInfo(info) {
+    $('#id').val(info.id);
+    $('#password').val('');
+    $('#username').val(info.username);
+    $('#nickname').val(info.nickname);
+    $('#mobile').val(info.mobile);
+    $('#email').val(info.email);
+    $('#qq').val(info.qq);
+  }
 </script>
 </html>
