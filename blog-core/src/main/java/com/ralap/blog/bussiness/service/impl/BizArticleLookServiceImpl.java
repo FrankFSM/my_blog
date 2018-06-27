@@ -30,7 +30,7 @@ public class BizArticleLookServiceImpl implements BizArticleLookService {
 
     @Override
     public ArticleLook insert(ArticleLook entity) {
-        Assert.notNull(entity, "article不能为空！");
+        Assert.notNull(entity, "ArticleLook cannot for Null！");
         entity.setCreateTime(new Date());
         entity.setUpdateTime(new Date());
         bizArticleLookMapper.insertSelective(entity.getBizArticleLook());
