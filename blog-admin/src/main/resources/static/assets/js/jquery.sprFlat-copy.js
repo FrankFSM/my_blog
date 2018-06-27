@@ -52,7 +52,7 @@
         showNotificationNumbers: 'onhover',//show how many elements menu have with notifcation style values - always, onhover, never
         showArrows: true,//show arrow to indicate sub
         sideNavArrowIcon: 'en-arrow-down5', //arrow icon for navigation
-        showIndicator: false,//show indicator when hover links
+        showIndicator: true,//show indicator when hover links
         notificationColor: 'red', //green, red
         subOpenSpeed: 300,//animation speed for open subs
         subCloseSpeed: 400,//animation speed for close subs
@@ -223,9 +223,9 @@
       // })
       //
       // //update breadcrumbs
-      // if (plugin.settings.breadcrumbs.auto) {
-      //   this.breadCrumbs();
-      // }
+      if (plugin.settings.breadcrumbs.auto) {
+        this.breadCrumbs();
+      }
       //
       // //dropdown menu animations
       // if (plugin.settings.dropdownMenu.animation) {
