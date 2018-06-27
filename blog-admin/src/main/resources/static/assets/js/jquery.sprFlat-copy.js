@@ -1,4 +1,4 @@
-// jQuery Plugin for SprFlat admin template
+// jQuery Plugin for sprFlatCopy admin template
 // Control options and basic function of template
 // version 1.0, 28.02.2013
 // by SuggeElson www.suggeelson.com
@@ -102,7 +102,6 @@
       }
 
     }
-
     // current instance of the object
     var plugin = this;
 
@@ -2271,22 +2270,22 @@
   }
 
   // add the plugin to the jQuery.fn object
-  $.fn.sprFlat = function (options) {
+  $.fn.sprFlatCopy = function (options) {
 
     // iterate through the DOM elements we are attaching the plugin to
     return this.each(function () {
 
       // if plugin has not already been attached to the element
-      if (undefined == $(this).data('sprFlat')) {
+      if (undefined == $(this).data('sprFlatCopy')) {
 
         // create a new instance of the plugin
         // pass the DOM element and the user-provided options as arguments
-        var plugin = new $.sprFlat(this, options);
+        var plugin = new $.sprFlatCopy(this, options);
 
         // store a reference to the plugin object
         // element.data('sprFlat').publicMethod(arg1, arg2, ... argn) or
         // element.data('sprFlat').settings.propertyName
-        $(this).data('sprFlat', plugin);
+        $(this).data('sprFlatCopy', plugin);
 
       }
 
