@@ -1205,11 +1205,11 @@
         icon = navel.children('i').prop('outerHTML');
         text = navel.children('.indicator').remove().end().text();
         if(icon != "undefined" && text != "undefined" && text != null && text != ''){
-          breadcrumb.append('<li>' + homeIcon + '<a href="/">Home</a>'
+          breadcrumb.append('<li>' + homeIcon + '<a href="/">首页</a>'
               + rightArrow + '</li>');
           breadcrumb.append('<li>' + icon + ' ' + text + '</li>');
         }else{
-          breadcrumb.append('<li>' + homeIcon + '<a href="/">Home</a></li>');
+          breadcrumb.append('<li>' + homeIcon + '<a href="/">首页</a></li>');
         }
       }
       var pageHanderContent = icon + text;
