@@ -31,4 +31,11 @@ public interface SysResourcesService extends AbstractService<SysResources, Long>
 
     boolean allocationRole(Long resourceId, Long roleId);
 
+    /**
+     * 获取url拥有的权限
+     */
+    List<SysRole> getRoleByResourseUrl(String url);
+
+
+
 }

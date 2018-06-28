@@ -100,4 +100,13 @@ public class SysRoleServiceImpl implements SysRoleService {
         List<SysRole> roleList = sysRoleMapper.getCurrAndAboveRole(level);
         return roleList;
     }
+
+
+
+    @Override
+    public List<SysRole> getCurrAndUnderAuthority(Integer level) {
+        Assert.notNull(level, "level cannot for Null");
+        List<SysRole> roleList = sysRoleMapper.getCurrAndUnderRole(level);
+        return roleList;
+    }
 }

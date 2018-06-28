@@ -138,7 +138,6 @@ public class SysResourcesServiceImpl implements SysResourcesService {
     }
 
 
-
     @Override
     public List<SysResources> getResourcesTree(String currentDescription) {
         List<SysRole> roleList = getCurrAndAboveAuthority(currentDescription);
@@ -148,20 +147,20 @@ public class SysResourcesServiceImpl implements SysResourcesService {
             return null;
         } else {
             List<SysResources> treeResourcesList = new ArrayList<>();
-            List<SysRoleResources> resourcesList ;
+            List<SysRoleResources> resourcesList;
             for (SysRole role : roleList) {
                 SysRoleResources roleResources = new SysRoleResources();
                 roleResources.setRoleId(role.getId());
                 resourcesList = sysRoleResourcesService
                         .listByEntity(roleResources);
-                    SysResources treeResources;
-                    if(!CollectionUtils.isEmpty(resourcesList)){
-                        for (SysRoleResources resources : resourcesList) {
-                            treeResources = sysResourcesMapper
-                                    .selectByPrimaryKey(resources.getResourcesId());
-                            treeResourcesList.add(treeResources);
-                        }
+                SysResources treeResources;
+                if (!CollectionUtils.isEmpty(resourcesList)) {
+                    for (SysRoleResources resources : resourcesList) {
+                        treeResources = sysResourcesMapper
+                                .selectByPrimaryKey(resources.getResourcesId());
+                        treeResourcesList.add(treeResources);
                     }
+                }
 
             }
             return treeResourcesList;
@@ -215,5 +214,46 @@ public class SysResourcesServiceImpl implements SysResourcesService {
             return null;
         }
         return sysRoleService.getByPrimaryKey(sysRoleResources.getRoleId());
+    }
+
+    @Override
+    public List<SysRole> getRoleByResourseUrl(String url) {
+        SysResources sysResources = new SysResources();
+        sysResources.setUrl(url);
+        SysResources resources = sysResourcesMapper.selectOne(sysResources);
+        if (resources == null) {
+            log.info("{}没有匹配的资源路径", url);
+            // TODO: 2018/6/28 暂时没有的都赋予ROOT
+            List<SysRole> sysRoles = new ArrayList<>();
+            sysRoles.add(sysRoleService.getByPrimaryKey(1L));
+            return sysRoles;
+        }
+
+        SysRoleResources roleResources = new SysRoleResources();
+        roleResources.setResourcesId(resources.getId());
+        SysRoleResources rs = sysRoleResourcesService.getOneByEntity(roleResources);
+        if (rs == null) {
+            log.info("{}没有分配权限");
+            return null;
+        }
+        SysRole role = sysRoleService.getByPrimaryKey(rs.getRoleId());
+        List<SysRole> roleList = getCurrAndUnderAuthority(role.getDescription());
+        return roleList;
+    }
+
+
+    public List<SysRole> getCurrAndUnderAuthority(String currentDescription) {
+        SysRole sysRole = new SysRole();
+        sysRole.setDescription(currentDescription);
+        SysRole role = sysRoleService.getOneByEntity(sysRole);
+        if (role == null) {
+            log.warn("角色没有找到！");
+            return null;
+        } else {
+            List<SysRole> roleList = sysRoleService.getCurrAndUnderAuthority(role.getLevel());
+            return roleList;
+        }
+
+
     }
 }

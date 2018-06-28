@@ -14,4 +14,11 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
      * @return
      */
     List<SysRole> getCurrAndAboveRole(Integer level);
+
+    /**
+     * 查询当前及以下角色
+     * @param level
+     * @return
+     */
+    List<SysRole> getCurrAndUnderRole(Integer level);
 }

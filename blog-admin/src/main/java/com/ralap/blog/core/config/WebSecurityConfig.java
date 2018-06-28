@@ -20,11 +20,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private SysUserDetailsService sysUserDetailsService;
+    @Autowired
+    private CustomPostProcessor customPostProcessor;
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/assets/**");
-    }
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -33,19 +32,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/info").hasRole("ADMIN")
-                .antMatchers("/beans").hasRole("USER")
-                .anyRequest().authenticated()
-//                .antMatchers("/**").permitAll()
+        http.formLogin().loginPage("/login").defaultSuccessUrl("/",true)
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll();
+                .authorizeRequests().anyRequest().authenticated()
+                .withObjectPostProcessor(customPostProcessor);
     }
 
     @Bean
