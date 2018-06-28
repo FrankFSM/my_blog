@@ -8,7 +8,7 @@
 <!-- Start #sidebar -->
 <div th:replace="layout/sidebar"></div>
 <style>
-  input[type=checkbox]{
+  input[type=checkbox] {
 
   }
 </style>
@@ -31,7 +31,8 @@
         <div class="col-lg-12">
           <div>
             <div>
-
+              <input type="hidden" id="currentUserId" th:value="${currentUser.id}"/>
+              <input type="hidden" id="role" th:value="${role}"/>
               <div class="btn-group hidden-xs" id="toolbar">
 
                 <button id="btn_add" type="button" class="btn btn-default" title="新增菜单">
@@ -174,6 +175,8 @@
 
   var token = $("meta[name='_csrf']").attr("content");
   var header = $("meta[name='_csrf_header']").attr("content");
+  var currentId = $('#currentUserId').val();
+  var role = $('#role').val();
 
   /**
    * 添加operate
@@ -187,6 +190,11 @@
       + '"><i class="fa-trash"></i>删除</a>',
     ];
 
+    if (role == "ROLE_ROOT") {
+      operateBtn.push('<a class="btn btn-xs btn-info btn-allot" data-id="' + trMenuId
+          + '"><i class="fa-circle-blank"></i>分配权限</a>')
+    }
+
     return operateBtn.join('');
   }
 
@@ -199,6 +207,7 @@
       updateUrl: "/resources/edit",
       removeUrl: "/resources/remove",
       createUrl: "/resources/add",
+      saveRolesUrl: "/resources/saveRole",
       token: token,
       header: header,
       columns: [
@@ -238,6 +247,12 @@
               return "有效";
             }
           }
+        },
+        {
+          field: 'roleName',
+          title: '角色',
+          editable: false
+
         },
         {
           field: 'icon',

@@ -98,4 +98,13 @@ public class Resources {
     }
 
 
+    public String getRoleName() {
+        return this.sysResources.getRoleName();
+    }
+
+    public void setRoleName(String roleName) {
+        this.sysResources.setRoleName(roleName);
+    }
+
+
 }

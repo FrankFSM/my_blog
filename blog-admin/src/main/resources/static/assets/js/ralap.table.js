@@ -144,7 +144,6 @@
         });
 
         $('#tablelist').on('click', '.btn-allot', function () {
-          console.log("分配权限");
           var $this = $(this);
           var userId = $this.attr("data-id");
           $.ajax({
@@ -183,7 +182,7 @@
                     $.ajax({
                       type: "post",
                       url: options.saveRolesUrl,
-                      data: {"userId": userId, "roleIds": ids.join(",")},
+                      data: {"id": userId, "roleIds": ids.join(",")},
                       dataType: 'json',
                       beforeSend: function (xhr) {
                         xhr.setRequestHeader(header, token);
@@ -191,6 +190,7 @@
                       success: function (json) {
                         $.tool.ajaxSuccess(json);
                         $.tableUtil.refresh();
+                        $('#selectRole').modal('hide');
                       },
                       error: function () {
                         $.tool.ajaxError();

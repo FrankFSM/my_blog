@@ -1,9 +1,15 @@
 package com.ralap.blog.controller;
 
+import com.qiniu.util.StringMap;
 import com.ralap.blog.bussiness.annotation.BusinessLog;
+import com.ralap.blog.core.bean.CurrentUser;
+import com.ralap.blog.core.holder.UserHolder;
 import com.ralap.blog.util.ResultUtil;
+import java.util.Collection;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,7 +70,11 @@ public class RenderController {
     @BusinessLog("进入菜单页")
     @GetMapping("/system/menus")
     public ModelAndView menuList() {
-        return ResultUtil.view("system/menu/list");
+
+        StringMap map = new StringMap();
+        map.put("currentUser", UserHolder.getCurrentUserDetails());
+        map.put("role", UserHolder.getCurrentUserAuthority());
+        return ResultUtil.view("system/menu/list", map);
     }
 
     @BusinessLog("进入分类页")
@@ -72,6 +82,7 @@ public class RenderController {
     public ModelAndView typeList() {
         return ResultUtil.view("type/list");
     }
+
     @BusinessLog("进入分类页")
     @GetMapping("/tags/tags")
     public ModelAndView tagsList() {

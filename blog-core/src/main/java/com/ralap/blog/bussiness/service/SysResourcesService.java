@@ -23,4 +23,12 @@ public interface SysResourcesService extends AbstractService<SysResources, Long>
 
 
     List<Map<String, Object>> queryTree();
+
+    /**
+     * 获取当前用户有效资源列表
+     */
+    List<SysResources> getResourcesTree(String currentDescription);
+
+    boolean allocationRole(Long resourceId, Long roleId);
+
 }

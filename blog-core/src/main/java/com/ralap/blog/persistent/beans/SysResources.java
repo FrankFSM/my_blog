@@ -1,6 +1,7 @@
 package com.ralap.blog.persistent.beans;
 
 import com.ralap.blog.framework.objecct.AbstractDO;
+import javax.persistence.Transient;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -19,5 +20,8 @@ public class SysResources extends AbstractDO {
     private Boolean available;
 
     private String icon;
+
+    @Transient
+    private String roleName;
 
 }

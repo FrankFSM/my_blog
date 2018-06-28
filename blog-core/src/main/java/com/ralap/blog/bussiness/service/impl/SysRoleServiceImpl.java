@@ -67,7 +67,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     public List<SysRole> listAll() {
-        return null;
+        return sysRoleMapper.selectAll();
     }
 
     @Override
@@ -92,5 +92,12 @@ public class SysRoleServiceImpl implements SysRoleService {
             mapList.add(map);
         }
         return mapList;
+    }
+
+    @Override
+    public List<SysRole> getCurrAndAboveRole(Integer level) {
+        Assert.notNull(level, "level cannot for Null");
+        List<SysRole> roleList = sysRoleMapper.getCurrAndAboveRole(level);
+        return roleList;
     }
 }

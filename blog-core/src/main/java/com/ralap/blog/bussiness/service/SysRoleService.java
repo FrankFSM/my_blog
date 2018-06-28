@@ -13,4 +13,11 @@ import java.util.Map;
 public interface SysRoleService extends AbstractService<SysRole, Long> {
 
      List<Map<String, Object>> queryRoleListWithSelected(Integer userId) ;
+
+    /**
+     * 当前以及以上权限
+     * @param level
+     * @return
+     */
+    List<SysRole> getCurrAndAboveRole(Integer level);
 }

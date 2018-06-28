@@ -10,6 +10,7 @@ import com.ralap.blog.bussiness.service.SysUserRoleService;
 import com.ralap.blog.bussiness.service.SysUserService;
 import com.ralap.blog.bussiness.vo.UserConditionVO;
 import com.ralap.blog.core.bean.CurrentUser;
+import com.ralap.blog.core.holder.UserHolder;
 import com.ralap.blog.framework.holder.RequestHolder;
 import com.ralap.blog.framework.objecct.PageResult;
 import com.ralap.blog.framework.objecct.ResponseVO;
@@ -60,13 +61,10 @@ public class SysUserController {
     @BusinessLog("进入用户管理")
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public ModelAndView userList() {
-        CurrentUser userDetails = (CurrentUser) SecurityContextHolder.getContext()
-                .getAuthentication().getPrincipal();
-        Collection<GrantedAuthority> authorities = userDetails.getAuthorities();
+
         StringMap map = new StringMap();
-        map.put("currentUser", userDetails);
-        GrantedAuthority grantedAuthority = authorities.iterator().next();
-        map.put("role", grantedAuthority.getAuthority());
+        map.put("currentUser", UserHolder.getCurrentUserDetails());
+        map.put("role", UserHolder.getCurrentUserAuthority());
         return ResultUtil.view("user/list", map);
     }
 
@@ -139,10 +137,10 @@ public class SysUserController {
 
     @RequestMapping(value = "/saveUserRoles", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseVO saveUserRoles(String userId, String roleIds) {
+    public ResponseVO saveUserRoles(String id, String roleIds) {
         String[] roleIdList = roleIds.split(",");
         SysUserRole sysUserRole = new SysUserRole();
-        sysUserRole.setUserId(Long.parseLong(userId));
+        sysUserRole.setUserId(Long.parseLong(id));
         sysUserRole.setRoleId(Long.parseLong(roleIdList[0]));
         sysUserRole.setUpdateTime(new Date());
         sysUserRoleService.updateSelective(sysUserRole);
@@ -150,7 +148,7 @@ public class SysUserController {
         SysRole role = sysRoleService.getByPrimaryKey(Long.parseLong(roleIds));
 
         SysUser user = new SysUser();
-        user.setId(Long.parseLong(userId));
+        user.setId(Long.parseLong(id));
         user.setUserType(role.getDescription());
         sysUserService.updateSelective(user);
         return ResultUtil.success(ResponseStatus.SUCCESS);

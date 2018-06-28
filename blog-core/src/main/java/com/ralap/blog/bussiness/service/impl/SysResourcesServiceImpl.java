@@ -3,17 +3,23 @@ package com.ralap.blog.bussiness.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ralap.blog.bussiness.service.SysResourcesService;
+import com.ralap.blog.bussiness.service.SysRoleResourcesService;
+import com.ralap.blog.bussiness.service.SysRoleService;
 import com.ralap.blog.bussiness.vo.ResourceConditionVO;
 import com.ralap.blog.persistent.beans.SysResources;
 import com.ralap.blog.persistent.beans.SysRole;
+import com.ralap.blog.persistent.beans.SysRoleResources;
 import com.ralap.blog.persistent.entity.Resources;
 import com.ralap.blog.persistent.mapper.SysResourcesMapper;
+import com.ralap.blog.persistent.mapper.SysRoleResourcesMapper;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
+import org.omg.CORBA.UnknownUserExceptionHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -23,11 +29,18 @@ import org.springframework.util.CollectionUtils;
  * @author: ralap
  * @date: created at 2018/6/25 11:26
  */
+@Slf4j
 @Service
 public class SysResourcesServiceImpl implements SysResourcesService {
 
     @Autowired
     private SysResourcesMapper sysResourcesMapper;
+
+    @Autowired
+    private SysRoleResourcesService sysRoleResourcesService;
+
+    @Autowired
+    private SysRoleService sysRoleService;
 
     @Override
     public SysResources insert(SysResources entity) {
@@ -93,6 +106,10 @@ public class SysResourcesServiceImpl implements SysResourcesService {
         }
         List<Resources> resources = new ArrayList<>();
         for (SysResources sysResources : resourcesList) {
+            SysRole sysRole = getSysRole(sysResources);
+            if (sysRole != null) {
+                sysResources.setRoleName(sysRole.getDescription());
+            }
             resources.add(new Resources(sysResources));
         }
         pageInfo = new PageInfo(resourcesList);
@@ -102,6 +119,7 @@ public class SysResourcesServiceImpl implements SysResourcesService {
 
     @Override
     public List<Map<String, Object>> queryTree() {
+
         List<SysResources> sysResourceList = sysResourcesMapper.selectAll();
         if (CollectionUtils.isEmpty(sysResourceList)) {
             return null;
@@ -117,5 +135,85 @@ public class SysResourcesServiceImpl implements SysResourcesService {
             mapList.add(map);
         }
         return mapList;
+    }
+
+
+
+    @Override
+    public List<SysResources> getResourcesTree(String currentDescription) {
+        List<SysRole> roleList = getCurrAndAboveAuthority(currentDescription);
+
+        if (CollectionUtils.isEmpty(roleList)) {
+            log.warn("角色没有找到！");
+            return null;
+        } else {
+            List<SysResources> treeResourcesList = new ArrayList<>();
+            List<SysRoleResources> resourcesList ;
+            for (SysRole role : roleList) {
+                SysRoleResources roleResources = new SysRoleResources();
+                roleResources.setRoleId(role.getId());
+                resourcesList = sysRoleResourcesService
+                        .listByEntity(roleResources);
+                    SysResources treeResources;
+                    if(!CollectionUtils.isEmpty(resourcesList)){
+                        for (SysRoleResources resources : resourcesList) {
+                            treeResources = sysResourcesMapper
+                                    .selectByPrimaryKey(resources.getResourcesId());
+                            treeResourcesList.add(treeResources);
+                        }
+                    }
+
+            }
+            return treeResourcesList;
+        }
+
+    }
+
+    public List<SysRole> getCurrAndAboveAuthority(String currentDescription) {
+        SysRole sysRole = new SysRole();
+        sysRole.setDescription(currentDescription);
+        SysRole role = sysRoleService.getOneByEntity(sysRole);
+        if (role == null) {
+            log.warn("角色没有找到！");
+            return null;
+        } else {
+            List<SysRole> roleList = sysRoleService.getCurrAndAboveRole(role.getLevel());
+            return roleList;
+        }
+
+
+    }
+
+    @Override
+    public boolean allocationRole(Long resourceId, Long roleId) {
+        SysRoleResources roleResources = new SysRoleResources();
+        roleResources.setResourcesId(resourceId);
+        SysRoleResources entity = sysRoleResourcesService.getOneByEntity(roleResources);
+        SysRoleResources sysRoleResources = new SysRoleResources();
+        sysRoleResources.setResourcesId(resourceId);
+        sysRoleResources.setRoleId(roleId);
+
+        boolean result;
+        if (entity == null) {
+            sysRoleResources.setCreateTime(new Date());
+            SysRoleResources insertRoleResource = sysRoleResourcesService.insert(sysRoleResources);
+            result =
+                    insertRoleResource == null || insertRoleResource.getId() == null ? false : true;
+            return result;
+        } else {
+            sysRoleResources.setId(entity.getId());
+            return sysRoleResourcesService.updateSelective(sysRoleResources);
+        }
+    }
+
+    private SysRole getSysRole(SysResources sysResources) {
+        SysRoleResources roleResources = new SysRoleResources();
+        roleResources.setResourcesId(sysResources.getId());
+        SysRoleResources sysRoleResources = sysRoleResourcesService
+                .getOneByEntity(roleResources);
+        if (sysRoleResources == null) {
+            return null;
+        }
+        return sysRoleService.getByPrimaryKey(sysRoleResources.getRoleId());
     }
 }
