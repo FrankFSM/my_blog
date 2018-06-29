@@ -2,6 +2,7 @@ package com.ralap.blog.bussiness.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.ralap.blog.bussiness.enums.AvailableEnum;
 import com.ralap.blog.bussiness.service.SysResourcesService;
 import com.ralap.blog.bussiness.service.SysRoleResourcesService;
 import com.ralap.blog.bussiness.service.SysRoleService;
@@ -157,14 +158,20 @@ public class SysResourcesServiceImpl implements SysResourcesService {
                 resourcesList = sysRoleResourcesService
                         .listByEntity(roleResources);
                 SysResources treeResources;
+                SysResources selectResources;
                 if (!CollectionUtils.isEmpty(resourcesList)) {
                     for (SysRoleResources resources : resourcesList) {
+                        selectResources = new SysResources();
+                        selectResources.setId(resources.getResourcesId());
+                        selectResources.setAvailable(AvailableEnum.ENABLE.isCode());
                         treeResources = sysResourcesMapper
-                                .selectByPrimaryKey(resources.getResourcesId());
-                        treeResourcesList.add(treeResources);
+                                .selectOne(selectResources);
+                        if (treeResources != null) {
+
+                            treeResourcesList.add(treeResources);
+                        }
                     }
                 }
-
             }
             Collections.sort(treeResourcesList, new Comparator<SysResources>() {
                 @Override
@@ -174,7 +181,6 @@ public class SysResourcesServiceImpl implements SysResourcesService {
             });
             return treeResourcesList;
         }
-
     }
 
     public List<SysRole> getCurrAndAboveAuthority(String currentDescription) {
