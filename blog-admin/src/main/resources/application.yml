@@ -14,6 +14,17 @@ spring:
      hikari:
        maximum-pool-size: 10
        max-lifetime: 1765000
+  redis:
+      database : 0
+      host : www.itfan.top
+      port : 6379
+      password : Hjx969190
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+      timeout: 0
   thymeleaf:
     cache: false
     mode: LEGACYHTML5
@@ -74,6 +85,17 @@ spring:
      hikari:
        maximum-pool-size: 10
        max-lifetime: 1765000
+  redis:
+      database : 0
+      host : www.itfan.top
+      port : 6379
+      password : Hjx969190
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+      timeout: 0
   thymeleaf:
     cache: false
     mode: LEGACYHTML5

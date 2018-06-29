@@ -25,6 +25,9 @@ import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.omg.CORBA.UnknownUserExceptionHolder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
@@ -46,6 +49,7 @@ public class SysResourcesServiceImpl implements SysResourcesService {
     @Autowired
     private SysRoleService sysRoleService;
 
+    @CacheEvict(cacheNames = "resources", key = "'getResourcesTree'")
     @Override
     public SysResources insert(SysResources entity) {
         Assert.notNull(entity, "SysResources cannot for Null");
@@ -54,11 +58,13 @@ public class SysResourcesServiceImpl implements SysResourcesService {
         return entity;
     }
 
+    @CacheEvict(cacheNames = "resources", key = "'getResourcesTree'")
     @Override
     public int insertList(List<SysResources> entityList) {
         return 0;
     }
 
+    @CacheEvict(cacheNames = "resources", key = "'getResourcesTree'")
     @Override
     public boolean removeByPrimaryKey(Long primaryKey) {
         Assert.notNull(primaryKey, "primaryKey cannot for Null");
@@ -66,11 +72,13 @@ public class SysResourcesServiceImpl implements SysResourcesService {
         return result > 0 ? true : false;
     }
 
+    @CacheEvict(cacheNames = "resources", key = "'getResourcesTree'")
     @Override
     public boolean update(SysResources entity) {
         return false;
     }
 
+    @CacheEvict(cacheNames = "resources", key = "'getResourcesTree'")
     @Override
     public boolean updateSelective(SysResources entity) {
         Assert.notNull(entity, "SysResources cannot for Null");
@@ -142,7 +150,7 @@ public class SysResourcesServiceImpl implements SysResourcesService {
         return mapList;
     }
 
-
+    @Cacheable(cacheNames = "resources", key = "'getResourcesTree'")
     @Override
     public List<SysResources> getResourcesTree(String currentDescription) {
         List<SysRole> roleList = getCurrAndAboveAuthority(currentDescription);
@@ -157,7 +165,7 @@ public class SysResourcesServiceImpl implements SysResourcesService {
     }
 
     /**
-     * role 转为 resouce（启用）
+     * role 转为 resouce（启用）（排序）
      */
     private void role2Resource(List<SysRole> roleList, List<SysResources> treeResourcesList) {
         List<SysRoleResources> resourcesList;
