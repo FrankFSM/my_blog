@@ -14,10 +14,13 @@ import com.ralap.blog.persistent.mapper.SysResourcesMapper;
 import com.ralap.blog.persistent.mapper.SysRoleResourcesMapper;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.omg.CORBA.UnknownUserExceptionHolder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -163,6 +166,12 @@ public class SysResourcesServiceImpl implements SysResourcesService {
                 }
 
             }
+            Collections.sort(treeResourcesList, new Comparator<SysResources>() {
+                @Override
+                public int compare(SysResources o1, SysResources o2) {
+                    return o1.getSort() - o2.getSort();
+                }
+            });
             return treeResourcesList;
         }
 

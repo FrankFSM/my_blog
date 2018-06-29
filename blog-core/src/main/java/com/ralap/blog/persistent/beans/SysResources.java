@@ -21,6 +21,8 @@ public class SysResources extends AbstractDO {
 
     private String icon;
 
+    private Integer sort;
+
     @Transient
     private String roleName;
 

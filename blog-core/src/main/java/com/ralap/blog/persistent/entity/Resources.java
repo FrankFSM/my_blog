@@ -98,6 +98,15 @@ public class Resources {
     }
 
 
+    public Integer getSort() {
+        return this.sysResources.getSort();
+    }
+
+    public void setSort(Integer sort) {
+        this.sysResources.setSort(sort);
+    }
+
+
     public String getRoleName() {
         return this.sysResources.getRoleName();
     }
