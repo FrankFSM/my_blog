@@ -226,6 +226,7 @@ public class SysResourcesServiceImpl implements SysResourcesService {
             // TODO: 2018/6/28 暂时没有的都赋予ROOT
             List<SysRole> sysRoles = new ArrayList<>();
             sysRoles.add(sysRoleService.getByPrimaryKey(1L));
+            sysRoles.add(sysRoleService.getByPrimaryKey(2L));
             return sysRoles;
         }
 
