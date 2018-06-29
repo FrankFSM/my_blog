@@ -112,6 +112,7 @@ public class SysResourcesServiceImpl implements SysResourcesService {
         for (SysResources sysResources : resourcesList) {
             SysRole sysRole = getSysRole(sysResources);
             if (sysRole != null) {
+                //添加角色名
                 sysResources.setRoleName(sysRole.getDescription());
             }
             resources.add(new Resources(sysResources));
@@ -145,41 +146,54 @@ public class SysResourcesServiceImpl implements SysResourcesService {
     @Override
     public List<SysResources> getResourcesTree(String currentDescription) {
         List<SysRole> roleList = getCurrAndAboveAuthority(currentDescription);
-
         if (CollectionUtils.isEmpty(roleList)) {
             log.warn("角色没有找到！");
             return null;
         } else {
             List<SysResources> treeResourcesList = new ArrayList<>();
-            List<SysRoleResources> resourcesList;
-            for (SysRole role : roleList) {
-                SysRoleResources roleResources = new SysRoleResources();
-                roleResources.setRoleId(role.getId());
-                resourcesList = sysRoleResourcesService
-                        .listByEntity(roleResources);
-                SysResources treeResources;
-                SysResources selectResources;
-                if (!CollectionUtils.isEmpty(resourcesList)) {
-                    for (SysRoleResources resources : resourcesList) {
-                        selectResources = new SysResources();
-                        selectResources.setId(resources.getResourcesId());
-                        selectResources.setAvailable(AvailableEnum.ENABLE.isCode());
-                        treeResources = sysResourcesMapper
-                                .selectOne(selectResources);
-                        if (treeResources != null) {
+            role2Resource(roleList, treeResourcesList);
+            return treeResourcesList;
+        }
+    }
 
-                            treeResourcesList.add(treeResources);
-                        }
-                    }
+    /**
+     * role 转为 resouce（启用）
+     */
+    private void role2Resource(List<SysRole> roleList, List<SysResources> treeResourcesList) {
+        List<SysRoleResources> resourcesList;
+        for (SysRole role : roleList) {
+            SysRoleResources roleResources = new SysRoleResources();
+            roleResources.setRoleId(role.getId());
+            resourcesList = sysRoleResourcesService
+                    .listByEntity(roleResources);
+            roleResource2Resource(treeResourcesList, resourcesList);
+        }
+        Collections.sort(treeResourcesList, new Comparator<SysResources>() {
+            @Override
+            public int compare(SysResources o1, SysResources o2) {
+                return o1.getSort() - o2.getSort();
+            }
+        });
+    }
+
+    /**
+     * roleResouces 转为 resource（启用）
+     */
+    private void roleResource2Resource(List<SysResources> treeResourcesList,
+            List<SysRoleResources> resourcesList) {
+        SysResources selectResources;
+        SysResources treeResources;
+        if (!CollectionUtils.isEmpty(resourcesList)) {
+            for (SysRoleResources resources : resourcesList) {
+                selectResources = new SysResources();
+                selectResources.setId(resources.getResourcesId());
+                selectResources.setAvailable(AvailableEnum.ENABLE.isCode());
+                treeResources = sysResourcesMapper
+                        .selectOne(selectResources);
+                if (treeResources != null) {
+                    treeResourcesList.add(treeResources);
                 }
             }
-            Collections.sort(treeResourcesList, new Comparator<SysResources>() {
-                @Override
-                public int compare(SysResources o1, SysResources o2) {
-                    return o1.getSort() - o2.getSort();
-                }
-            });
-            return treeResourcesList;
         }
     }
 
