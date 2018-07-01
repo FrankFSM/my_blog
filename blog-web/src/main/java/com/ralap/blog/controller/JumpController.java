@@ -1,6 +1,7 @@
 package com.ralap.blog.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.ralap.blog.bussiness.enums.ArticleStatusEnum;
 import com.ralap.blog.bussiness.enums.ResponseStatus;
 import com.ralap.blog.bussiness.service.BizArticleLoveService;
 import com.ralap.blog.bussiness.service.BizArticleService;
@@ -46,6 +47,7 @@ public class JumpController {
      */
     @RequestMapping("/")
     public ModelAndView index(ArticleConditionVO vo, Model model) {
+        vo.setStatus(ArticleStatusEnum.PUBLISHED.getCode());
         PageInfo<Article> page = bizArticleService.findPageBreakByCondition(vo);
         model.addAttribute("page", page);
         TypeConditionVO typeVo = new TypeConditionVO();

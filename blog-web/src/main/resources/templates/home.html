@@ -66,6 +66,7 @@
           </figure>
           <header class="entry-header">
             <h2 class="entry-title">
+              <span class="btn btn-danger" th:if="${article.top}" title="该文章为置顶文章" data-toggle="tooltip" data-placement="bottom">置顶</span>
               <a th:href="@{'/article/' + ${article.id}}" rel="bookmark" title="点击查看文章详情"
                  data-toggle="tooltip"
                  data-placement="bottom" th:text="${article.title}"></a>

@@ -51,7 +51,7 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, title, user_id, cover_url, qrcode_url, status, type_id, top, recommend, original, content_plain,content,
+    id, title, user_id, cover_url, qrcode_url, status, type_id, top, recommend, original, content_plain, content,
     description, keywords, remake, create_time, update_time
   </sql>
 
@@ -87,7 +87,11 @@
       <if test="searchText != null and searchText != ''">
         AND title LIKE CONCAT('%',#{searchText},'%')
       </if>
+      <if test="status != null">
+        AND status = #{status}
+      </if>
     </where>
+    order by top desc
   </select>
 
   <select id="isExist" parameterType="Long" resultType="Integer">

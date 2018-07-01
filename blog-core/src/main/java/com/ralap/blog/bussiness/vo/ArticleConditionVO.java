@@ -17,4 +17,5 @@ public class ArticleConditionVO extends BaseConditionVO {
 
     private Long typeId;
     private Long tagsId;
+    private Integer status;
 }

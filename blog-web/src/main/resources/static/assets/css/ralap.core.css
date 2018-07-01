@@ -2784,3 +2784,17 @@ i {
     margin: auto 3px;
 }
 
+.stick{
+    position: relative;
+    float: left;
+    max-width: 150px;
+    height: auto;
+    clear: both;
+    margin: 1px 20px 0 0;
+    padding: 0px;
+    overflow: hidden;
+    transition-duration: .5s;
+    border: 0px solid #ddd;
+
+
+}

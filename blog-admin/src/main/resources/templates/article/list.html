@@ -200,12 +200,15 @@
     //       + '"><i class="fa-circle-blank"></i>分配权限</a>');
     // }
 
-    var operateBtn = ['<a class="btn btn-xs btn-info btn-top" data-id="' + trArticleId
+    var operateBtn = ['<a class="btn btn-xs btn-success btn-top" data-id="' + trArticleId
     + '"><i class="fa-upload"></i>置顶</a>',
       '<a class="btn btn-xs btn-info btn-recommend" data-id="' + trArticleId
       + '"><i class="fa-thumbs-up"></i>推荐</a>',
       '<a class="btn btn-xs btn-primary" data-id="'
-      + trArticleId + '" href="/article/update/'+trArticleId+'"><i class="fa-edit"></i>编辑</a>',
+      + trArticleId + '" href="/article/update/' + trArticleId + '"><i class="fa-edit"></i>编辑</a>',
+      '<a class="btn btn-xs btn-dark" data-id="'
+      + trArticleId + '" href="localhost:8000/article/' + trArticleId
+      + '" target="_blank"><i class="fa-trash"></i>查看</a>',
       '<a class="btn btn-xs btn-danger btn-remove" data-id="'
       + trArticleId + '"><i class="fa-trash"></i>删除</a>'];
     return operateBtn.join('');
