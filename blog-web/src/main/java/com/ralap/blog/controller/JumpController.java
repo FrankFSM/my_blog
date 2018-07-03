@@ -51,7 +51,7 @@ public class JumpController {
         PageInfo<Article> page = bizArticleService.findPageBreakByCondition(vo);
         model.addAttribute("page", page);
         TypeConditionVO typeVo = new TypeConditionVO();
-        typeVo.setPageSize(20);
+        typeVo.setPageSize(100);
         typeVo.setPageNumber(1);
         PageInfo<Type> pageInfo = bizTypeService.findPageBreakByCondition(typeVo);
         model.addAttribute("typeList", pageInfo.getList());
