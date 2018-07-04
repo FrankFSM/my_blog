@@ -50,7 +50,7 @@ public class ErrorPagesController implements ErrorController {
         Map<String, Object> model = getErrorAttributes(request,
                 isIncludeStackTrace(request, MediaType.TEXT_HTML));
 
-        return new ModelAndView("404",model);
+        return new ModelAndView("error/404", model);
     }
 
     @RequestMapping("/401")
@@ -59,7 +59,7 @@ public class ErrorPagesController implements ErrorController {
         Map<String, Object> model = getErrorAttributes(request,
                 isIncludeStackTrace(request, MediaType.TEXT_HTML));
 
-        return new ModelAndView("401",model);
+        return new ModelAndView("error/401", model);
     }
 
     @RequestMapping("/403")
@@ -68,14 +68,15 @@ public class ErrorPagesController implements ErrorController {
         Map<String, Object> model = getErrorAttributes(request,
                 isIncludeStackTrace(request, MediaType.TEXT_HTML));
 
-        return new ModelAndView("403",model);
+        return new ModelAndView("error/403", model);
     }
 
     @RequestMapping("/500")
     public ModelAndView errorHtml500(HttpServletRequest request, HttpServletResponse response) {
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-        Map<String, Object> model = getErrorAttributes(request, isIncludeStackTrace(request, MediaType.TEXT_HTML));
-        return new ModelAndView("500", model);
+        Map<String, Object> model = getErrorAttributes(request,
+                isIncludeStackTrace(request, MediaType.TEXT_HTML));
+        return new ModelAndView("error/500", model);
     }
 
     private Map<String, Object> getErrorAttributes(HttpServletRequest request,
@@ -88,23 +89,23 @@ public class ErrorPagesController implements ErrorController {
 
     protected boolean isIncludeStackTrace(HttpServletRequest request,
             MediaType produces) {
-        ErrorProperties.IncludeStacktrace include = this.serverProperties.getError().getIncludeStacktrace();
+        ErrorProperties.IncludeStacktrace include = this.serverProperties.getError()
+                .getIncludeStacktrace();
         if (include == ErrorProperties.IncludeStacktrace.ALWAYS) {
             return true;
         }
-        return include == ErrorProperties.IncludeStacktrace.ON_TRACE_PARAM && getTraceParameter(request);
+        return include == ErrorProperties.IncludeStacktrace.ON_TRACE_PARAM && getTraceParameter(
+                request);
     }
 
     /**
      * 是否包含trace
-     *
-     * @param request
-     * @return
      */
     private boolean getTraceParameter(HttpServletRequest request) {
         String parameter = request.getParameter("trace");
         return parameter != null && !"false".equalsIgnoreCase(parameter);
     }
+
     @Override
     public String getErrorPath() {
         return null;
