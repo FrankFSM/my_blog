@@ -196,10 +196,9 @@
 
           <a th:href="@{'/article/' + ${other['prev'].id}}" rel="prev"
              th:if="${other['prev']}">
-        <span class="meta-nav" th:data-original-title="${other.prev.title}"
-              data-toggle="tooltip" data-placement="bottom"><span
+        <span class="meta-nav"><span
             class="post-nav"><i class="fa-angle-left"></i> 上一篇</span>
-        <br><span th:text="${other.prev.title}"></span>
+        <br><span th:text="${other['prev'].title}"></span>
 
         </span>
           </a>
@@ -214,10 +213,9 @@
 
           <a th:href="@{'/article/' + ${other['next'].id}}" rel="next"
              th:if="${other['next']}">
-        <span class="meta-nav" th:data-original-title="${other.next.title}"
-              data-toggle="tooltip" data-placement="bottom"><span
+        <span class="meta-nav"><span
             class="post-nav">下一篇 <i class="fa-angle-right"></i></span>
-        <br><span th:text="${other.next.title}"></span>
+        <br><span th:text="${other['next'].title}"></span>
         </span>
           </a>
 
