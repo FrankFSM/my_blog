@@ -9,9 +9,13 @@ import com.ralap.blog.bussiness.vo.ArticleConditionVO;
 import com.ralap.blog.persistent.beans.BizArticle;
 import com.ralap.blog.persistent.entity.Article;
 import com.ralap.blog.persistent.mapper.BizArticleMapper;
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -130,5 +134,20 @@ public class BizArticleServiceImpl implements BizArticleService {
         Assert.notNull(id, "id不能为空");
         BizArticle bizArticle = bizArticleMapper.selectById(id);
         return bizArticle == null ? null : new Article(bizArticle);
+    }
+
+    @Override
+    public Map<String, Article> getPrevAndNextArticle(Date insertTime) {
+        Map<String, Article> result = new HashMap<>(4);
+        insertTime = insertTime == null ? new Date() : insertTime;
+        List<BizArticle> articleList = bizArticleMapper.selectPrevAndNextArticle(insertTime);
+        for (BizArticle article : articleList) {
+            if (article.getCreateTime().getTime() > insertTime.getTime()) {
+                result.put("next", new Article(article));
+            } else {
+                result.put("prev", new Article(article));
+            }
+        }
+        return result;
     }
 }

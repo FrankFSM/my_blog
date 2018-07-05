@@ -52,7 +52,8 @@
     <a class="crumbs" title="返回首页" th:href="@{/}" data-toggle="tooltip" data-placement="bottom"><i
         class="fa-home"></i>首页</a>
     <i class="fa-angle-right"></i>
-    <a class="crumbs" title="点击查看该分类文章" th:href="@{'/type/' + ${article.bizType.id}}" data-toggle="tooltip" data-placement="bottom"><span th:text="${article.bizType.name}"></span></a>
+    <a class="crumbs" title="点击查看该分类文章" th:href="@{'/type/' + ${article.bizType.id}}"
+       data-toggle="tooltip" data-placement="bottom"><span th:text="${article.bizType.name}"></span></a>
     <i class="fa-angle-right"></i>正文
   </nav>
 
@@ -159,8 +160,78 @@
               <div class="clear"></div>
             </div>
           </div>
+          <div class="article-footer overflow-initial">所属分类：<a
+              th:href="@{'/type/' + ${article.bizType.id}}" data-original-title="点击查看"
+              data-toggle="tooltip" data-placement="bottom"><span
+              th:text="${article.bizType.name}"></span></a></div>
         </div>
 
+      </div>
+
+      <div class="blog-body article-tag">
+        <div class="cat">
+          <ul class="list-unstyled">
+            <li>
+              <strong>本文标签：</strong>
+
+              <a href="" class="c-label" data-original-title="点击查看" data-toggle="tooltip"
+                 data-placement="bottom" target="_blank">java</a>
+
+            </li>
+            <li>
+              <strong>版权声明：</strong>
+              本站原创文章，于 <span
+                th:text="${'发表于'+#dates.format(article.createTime,'yyyy-MM-dd HH:mm')}"></span> 由 <a
+                href="" target="_blank" data-original-title="郝吉祥"
+                data-toggle="tooltip" data-placement="bottom"><strong> 郝吉祥 </strong></a>发布，转载请注明出处
+              本文为互联网转载文章，出处已在文章中说明(部分除外)。如果侵权，请<a target="_blank" href="" title="点击给我发邮件"
+                                                  data-toggle="tooltip"
+                                                  data-placement="bottom"><strong>联系本站长</strong></a>删除，谢谢。
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="blog-body prev-next">
+        <nav class="nav-single wow" data-wow-delay="0.3s">
+
+          <a th:href="@{'/article/' + ${other['prev'].id}}" rel="prev"
+             th:if="${other['prev']}">
+        <span class="meta-nav" th:data-original-title="${other.prev.title}"
+              data-toggle="tooltip" data-placement="bottom"><span
+            class="post-nav"><i class="fa-angle-left"></i> 上一篇</span>
+        <br><span th:text="${other.prev.title}"></span>
+
+        </span>
+          </a>
+
+          <a href="javascript:void(0)" rel="nofollow prev" th:unless="${other['prev']}">
+        <span class="meta-nav" data-original-title="已经到第一篇了"
+              data-toggle="tooltip" data-placement="bottom"><span
+            class="post-nav"><i class="fa-angle-left"></i> 上一篇</span>
+        <br>已经到第一篇了
+        </span>
+          </a>
+
+          <a th:href="@{'/article/' + ${other['next'].id}}" rel="next"
+             th:if="${other['next']}">
+        <span class="meta-nav" th:data-original-title="${other.next.title}"
+              data-toggle="tooltip" data-placement="bottom"><span
+            class="post-nav">下一篇 <i class="fa-angle-right"></i></span>
+        <br><span th:text="${other.next.title}"></span>
+        </span>
+          </a>
+
+          <a href="javascript:void(0)" rel="nofollow next"
+             th:unless="${other['next']}">
+        <span class="meta-nav" data-original-title="已经到最后一篇了"
+              data-toggle="tooltip" data-placement="bottom"><span
+            class="post-nav">下一篇 <i class="fa-angle-right"></i></span>
+        <br>已经到最后一篇了
+        </span>
+          </a>
+
+          <div class="clear"></div>
+        </nav>
       </div>
     </div>
     <div class="col-md-3 sidebar-gutter">
@@ -184,8 +255,9 @@
         <h5 class="sidebar-title"><i class="fa-tags icon"></i><strong>文章标签</strong></h5>
         <ul class="list-unstyled list-inline">
           <li class="tag-li" th:each="tags:${tagsList}">
-            <a  class="btn btn-default btn-xs" href=""
-                th:title="${tags.name}" data-toggle="tooltip" data-placement="bottom" th:text="${tags.name}">
+            <a class="btn btn-default btn-xs" href=""
+               th:title="${tags.name}" data-toggle="tooltip" data-placement="bottom"
+               th:text="${tags.name}">
             </a>
           </li>
 

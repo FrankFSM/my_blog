@@ -4,6 +4,8 @@ import com.github.pagehelper.PageInfo;
 import com.ralap.blog.bussiness.vo.ArticleConditionVO;
 import com.ralap.blog.framework.objecct.AbstractService;
 import com.ralap.blog.persistent.entity.Article;
+import java.util.Date;
+import java.util.Map;
 
 /**
  * @author: ralap
@@ -16,4 +18,7 @@ public interface BizArticleService extends AbstractService<Article, Long> {
     boolean isExist(Long articleId);
 
     Article selectById(Long id);
+
+    Map<String, Article> getPrevAndNextArticle(Date insertTime);
+
 }

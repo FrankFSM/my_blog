@@ -16,6 +16,7 @@ import com.ralap.blog.persistent.entity.ArticleLove;
 import com.ralap.blog.persistent.entity.Type;
 import com.ralap.blog.util.IpUtil;
 import com.ralap.blog.util.ResultUtil;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,7 +58,6 @@ public class JumpController {
         model.addAttribute("typeList", pageInfo.getList());
         model.addAttribute("tagsList", bizTagsService.listAll());
         return ResultUtil.view("home");
-
     }
 
     /**
@@ -99,6 +99,9 @@ public class JumpController {
         typeVo.setPageSize(20);
         typeVo.setPageNumber(1);
         PageInfo<Type> pageInfo = bizTypeService.findPageBreakByCondition(typeVo);
+        Map<String, Article> other = bizArticleService
+                .getPrevAndNextArticle(article.getCreateTime());
+        model.addAttribute("other", other);
         model.addAttribute("typeList", pageInfo.getList());
         model.addAttribute("tagsList", bizTagsService.listAll());
         return ResultUtil.view("article");
