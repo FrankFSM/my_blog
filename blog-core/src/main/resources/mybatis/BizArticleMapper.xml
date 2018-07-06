@@ -127,7 +127,8 @@
     WHERE a.id = #{id}
   </select>
 
-  <select id="selectPrevAndNextArticle" parameterType="Date" resultType="com.ralap.blog.persistent.beans.BizArticle">
+  <select id="selectPrevAndNextArticle" parameterType="Date"
+    resultType="com.ralap.blog.persistent.beans.BizArticle">
     (
       SELECT *
       FROM
@@ -149,7 +150,26 @@
         a.create_time
       LIMIT 1
     )
-
   </select>
 
+  <select id="hotArticle" resultMap="rm">
+    SELECT
+      a.*,
+      lo.lookCount AS look_count
+    FROM
+      biz_article a
+      LEFT JOIN (
+                  SELECT
+                    l.article_id,
+                    IFNULL(COUNT(1), 0) AS lookCount
+                  FROM
+                    biz_article_look l
+                  GROUP BY
+                    l.article_id) lo
+        ON a.id = lo.article_id
+    WHERE
+      a.status = 1
+    ORDER BY
+      lo.lookCount DESC
+  </select>
 </mapper>

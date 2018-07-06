@@ -16,10 +16,13 @@ import com.ralap.blog.persistent.entity.ArticleLove;
 import com.ralap.blog.persistent.entity.Type;
 import com.ralap.blog.util.IpUtil;
 import com.ralap.blog.util.ResultUtil;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -101,12 +104,35 @@ public class JumpController {
         PageInfo<Type> pageInfo = bizTypeService.findPageBreakByCondition(typeVo);
         Map<String, Article> other = bizArticleService
                 .getPrevAndNextArticle(article.getCreateTime());
+        List<Article> hotArticleList = bizArticleService.hotArticle().subList(0, 4);
+        countHotIndex(hotArticleList);
+//        bizArticleService.relatedArticle(article);
+//        model.addAttribute("relatedArticleList",)
         model.addAttribute("other", other);
+        model.addAttribute("hotArticleList", hotArticleList);
         model.addAttribute("typeList", pageInfo.getList());
         model.addAttribute("tagsList", bizTagsService.listAll());
         return ResultUtil.view("article");
 
     }
+
+    /**
+     * 计算热度指数
+     */
+    public void countHotIndex(List<Article> articleList) {
+        int max;
+        if (!CollectionUtils.isEmpty(articleList)) {
+            articleList.stream().sorted(Comparator.comparing(Article::getLookCount).reversed());
+        }
+        max = articleList.get(0).getLookCount();
+        articleList.stream().forEach(article -> {
+            if (article.getLookCount() == 0) {
+                article.setHotIndex(0);
+            }
+            article.setHotIndex((int) ((article.getLookCount() * 5 / max)));
+        });
+    }
+
 
     @RequestMapping("/love/{id}")
     @ResponseBody

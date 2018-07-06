@@ -206,4 +206,11 @@ public class Article {
         this.bizArticle.setTagsId(tagsId);
     }
 
+    public Integer getHotIndex() {
+        return this.bizArticle.getHotIndex();
+    }
+
+    public void setHotIndex(Integer hotIndex) {
+        this.bizArticle.setHotIndex(hotIndex);
+    }
 }

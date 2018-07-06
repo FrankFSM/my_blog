@@ -5,6 +5,7 @@ import com.ralap.blog.bussiness.vo.ArticleConditionVO;
 import com.ralap.blog.framework.objecct.AbstractService;
 import com.ralap.blog.persistent.entity.Article;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,5 +21,8 @@ public interface BizArticleService extends AbstractService<Article, Long> {
     Article selectById(Long id);
 
     Map<String, Article> getPrevAndNextArticle(Date insertTime);
+
+
+    List<Article> hotArticle();
 
 }

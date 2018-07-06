@@ -150,4 +150,18 @@ public class BizArticleServiceImpl implements BizArticleService {
         }
         return result;
     }
+
+    @Override
+    public List<Article> hotArticle() {
+        List<BizArticle> hotList = bizArticleMapper.hotArticle();
+        List<Article> hotArticleList = new ArrayList<>();
+
+        if (CollectionUtils.isEmpty(hotList)) {
+            return null;
+        }
+        hotList.stream().forEach(hotArticle -> {
+            hotArticleList.add(new Article(hotArticle));
+        });
+        return hotArticleList;
+    }
 }

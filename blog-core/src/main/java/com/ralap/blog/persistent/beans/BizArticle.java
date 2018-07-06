@@ -47,4 +47,7 @@ public class BizArticle extends AbstractDO {
     private Integer lookCount;
     @Transient
     private Integer loveCount;
+
+    @Transient
+    private Integer hotIndex;
 }

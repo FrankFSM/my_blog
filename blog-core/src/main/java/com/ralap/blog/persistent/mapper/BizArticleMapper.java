@@ -17,4 +17,6 @@ public interface BizArticleMapper extends BaseMapper<BizArticle> {
     BizArticle selectById(Long id);
 
     List<BizArticle> selectPrevAndNextArticle(Date insertTime);
+
+    List<BizArticle> hotArticle();
 }
