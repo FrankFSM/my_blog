@@ -1,11 +1,15 @@
 package com.ralap.blog.persistent.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ralap.blog.bussiness.enums.ArticleStatusEnum;
 import com.ralap.blog.persistent.beans.BizArticle;
+import com.ralap.blog.persistent.beans.BizTags;
 import com.ralap.blog.persistent.beans.BizType;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author: ralap
@@ -114,7 +118,6 @@ public class Article {
         return ArticleStatusEnum.get(this.bizArticle.getStatus());
     }
 
-
     public Long getTypeId() {
         return this.bizArticle.getTypeId();
     }
@@ -182,6 +185,15 @@ public class Article {
         this.bizArticle.setBizType(bizArticle);
     }
 
+    public List<BizTags> getTags() {
+        return this.bizArticle.getTags();
+    }
+
+    public void setTags(List<BizTags> tags) {
+        this.bizArticle.setTags(tags);
+    }
+
+
     public Integer getLookCount() {
         return this.bizArticle.getLookCount();
     }
@@ -198,19 +210,19 @@ public class Article {
         this.bizArticle.setLoveCount(loveCount);
     }
 
-    public Long getTagsId() {
-        return this.bizArticle.getTagsId();
-    }
-
-    public void setTagsId(Long tagsId) {
-        this.bizArticle.setTagsId(tagsId);
-    }
-
     public Integer getHotIndex() {
         return this.bizArticle.getHotIndex();
     }
 
     public void setHotIndex(Integer hotIndex) {
         this.bizArticle.setHotIndex(hotIndex);
+    }
+
+    public String[] getTagIds() {
+        return this.bizArticle.getTagIds();
+    }
+
+    public void setTagIds(String[] tagIds) {
+        this.bizArticle.setTagIds(tagIds);
     }
 }

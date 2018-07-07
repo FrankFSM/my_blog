@@ -174,9 +174,8 @@
           <ul class="list-unstyled">
             <li>
               <strong>本文标签：</strong>
-
               <a href="" class="c-label" data-original-title="点击查看" data-toggle="tooltip"
-                 data-placement="bottom" target="_blank"><span th:text="${te}"></span></a>
+                 data-placement="bottom" target="_blank" th:each="tags:${article.tags}"><span th:text="${tags.name}"></span></a>
 
             </li>
             <li>

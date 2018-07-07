@@ -1,6 +1,9 @@
 package com.ralap.blog.persistent.beans;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.ralap.blog.framework.objecct.AbstractDO;
+import java.util.List;
 import javax.persistence.Transient;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -41,13 +44,13 @@ public class BizArticle extends AbstractDO {
     private BizType bizType;
 
     @Transient
-    private Long tagsId;
-
+    private List<BizTags> tags;
     @Transient
     private Integer lookCount;
     @Transient
     private Integer loveCount;
-
     @Transient
     private Integer hotIndex;
+    @Transient
+    private String[] tagIds;
 }

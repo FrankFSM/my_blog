@@ -54,13 +54,10 @@ public class BizArticleServiceImpl implements BizArticleService {
     @Transactional
     public boolean removeByPrimaryKey(Long primaryKey) {
         Assert.notNull(primaryKey, "ArticleId cannot for Null");
-        boolean result = bizArticleTagsService.removeByArticleId(primaryKey);
-        if (result) {
-            int deleteCount = bizArticleMapper.deleteByPrimaryKey(primaryKey);
-            return deleteCount > 0 ? true : false;
-        } else {
-            return false;
-        }
+        bizArticleTagsService.removeByArticleId(primaryKey);
+        int deleteCount = bizArticleMapper.deleteByPrimaryKey(primaryKey);
+        return deleteCount > 0 ? true : false;
+
     }
 
     @Override
@@ -78,7 +75,7 @@ public class BizArticleServiceImpl implements BizArticleService {
     @Override
     public Article getByPrimaryKey(Long primaryKey) {
         Assert.notNull(primaryKey, "primaryKeyb不能为空!");
-        BizArticle bizArticle = bizArticleMapper.selectByPrimaryKey(primaryKey);
+        BizArticle bizArticle = bizArticleMapper.selectById(primaryKey);
         return bizArticle == null ? null : new Article(bizArticle);
     }
 

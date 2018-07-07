@@ -65,11 +65,7 @@ public class BizArticleController {
     }
 
     @PostMapping("/save")
-    public ResponseVO save(Article article, String[] tags) {
-        if (tags == null || tags.length <= 0) {
-            return ResultUtil.error("至少选择一个标签");
-        }
-        article.setOriginal(article.getOriginal());
+    public ResponseVO save(Article article) {
         if (article.getId() == null) {
             bizArticleService.insert(article);
         } else {
@@ -80,7 +76,7 @@ public class BizArticleController {
             bizArticleTagsService.removeByArticleId(articleId);
             BizArticleTags articleTags;
             List<BizArticleTags> articleTagsList = new ArrayList<>();
-            for (String tag : tags) {
+            for (String tag : article.getTagIds()) {
                 articleTags = new BizArticleTags();
                 articleTags.setArticleId(articleId);
                 articleTags.setTagsId(Long.parseLong(tag));
@@ -132,13 +128,6 @@ public class BizArticleController {
     @PostMapping("/get/{articleId}")
     public ResponseVO get(@PathVariable("articleId") Long id) {
         Article article = bizArticleService.getByPrimaryKey(id);
-        BizArticleTags articleTags = new BizArticleTags();
-        articleTags.setArticleId(article.getId());
-        articleTags = bizArticleTagsService.getOneByEntity(articleTags);
-        Assert.notNull(articleTags, "BizArticleTags cannot for Null");
-        BizTags tags = bizTagsService.getByPrimaryKey(articleTags.getTagsId());
-        Assert.notNull(tags, "BizTags cannot for Null");
-        article.setTagsId(tags.getId());
         return ResultUtil.success("获取成功", article);
 
     }
