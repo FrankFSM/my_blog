@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * 网站信息
+ *
  * @author: ralap
  * @date: created at 2018/6/1 9:32
  */

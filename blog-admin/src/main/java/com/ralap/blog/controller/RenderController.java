@@ -2,22 +2,14 @@ package com.ralap.blog.controller;
 
 import com.qiniu.util.StringMap;
 import com.ralap.blog.bussiness.annotation.BusinessLog;
-import com.ralap.blog.core.bean.CurrentUser;
 import com.ralap.blog.core.holder.UserHolder;
 import com.ralap.blog.util.ResultUtil;
-import java.util.Collection;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  * 页面相关渲染

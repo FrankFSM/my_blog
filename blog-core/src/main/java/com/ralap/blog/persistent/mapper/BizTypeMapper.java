@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BizTypeMapper extends BaseMapper<BizType> {
+
     List<BizType> findPageBreakByCondition(TypeConditionVO vo);
 }

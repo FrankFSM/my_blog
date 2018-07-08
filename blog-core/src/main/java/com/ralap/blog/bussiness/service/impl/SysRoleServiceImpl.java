@@ -9,11 +9,8 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
-import tk.mybatis.mapper.entity.Example;
 
 /**
  * @author: ralap
@@ -100,7 +97,6 @@ public class SysRoleServiceImpl implements SysRoleService {
         List<SysRole> roleList = sysRoleMapper.getCurrAndAboveRole(level);
         return roleList;
     }
-
 
 
     @Override

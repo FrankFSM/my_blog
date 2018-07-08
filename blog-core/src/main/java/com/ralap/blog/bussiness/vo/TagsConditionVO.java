@@ -2,7 +2,6 @@ package com.ralap.blog.bussiness.vo;
 
 import com.ralap.blog.framework.objecct.BaseConditionVO;
 import com.ralap.blog.persistent.entity.Tags;
-import com.ralap.blog.persistent.entity.Type;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

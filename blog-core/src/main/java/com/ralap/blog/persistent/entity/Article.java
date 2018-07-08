@@ -1,7 +1,5 @@
 package com.ralap.blog.persistent.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ralap.blog.bussiness.enums.ArticleStatusEnum;

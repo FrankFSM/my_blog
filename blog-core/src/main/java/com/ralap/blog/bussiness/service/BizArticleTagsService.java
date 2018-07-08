@@ -11,6 +11,7 @@ public interface BizArticleTagsService extends AbstractService<BizArticleTags, L
 
     /**
      * 批量删除
+     *
      * @param articleId 文章ID
      */
     boolean removeByArticleId(Long articleId);

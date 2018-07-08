@@ -35,9 +35,6 @@ public class IpUtil {
 
     /**
      * 获取真实IP
-     *
-     * @param request
-     * @return
      */
     public static String getRealIp(HttpServletRequest request) {
         String ip = request.getHeader("x-forwarded-for");
@@ -49,9 +46,6 @@ public class IpUtil {
 
     /**
      * 校验IP
-     *
-     * @param ip
-     * @return
      */
     private static boolean checkIp(String ip) {
         return !StringUtils.isEmpty(ip) && !"unknown".equalsIgnoreCase(ip);

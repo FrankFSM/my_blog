@@ -1,7 +1,6 @@
 package com.ralap.blog.bussiness.service;
 
 import com.ralap.blog.framework.objecct.AbstractService;
-import com.ralap.blog.persistent.beans.SysUser;
 import com.ralap.blog.persistent.beans.SysUserRole;
 
 /**

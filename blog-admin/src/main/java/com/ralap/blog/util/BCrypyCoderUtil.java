@@ -4,13 +4,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * BCrypyCoderUtil
- * @author: ralap 
+ *
+ * @author: ralap
  * @date: created at 2018/6/7 21:55
  */
 public class BCrypyCoderUtil {
 
     /**
      * BCryptPasswordEncoder加密
+     *
      * @param raw 未加密
      * @return 加密密码
      */

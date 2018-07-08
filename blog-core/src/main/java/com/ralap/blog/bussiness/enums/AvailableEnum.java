@@ -21,7 +21,7 @@ public enum AvailableEnum {
     public static AvailableEnum get(boolean code) {
         if (code) {
             return ENABLE;
-        }else{
+        } else {
 
             return DISABLE;
         }

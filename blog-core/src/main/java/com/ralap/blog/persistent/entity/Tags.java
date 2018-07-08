@@ -2,7 +2,6 @@ package com.ralap.blog.persistent.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ralap.blog.persistent.beans.BizArticleTags;
 import com.ralap.blog.persistent.beans.BizTags;
 import java.util.Date;
 

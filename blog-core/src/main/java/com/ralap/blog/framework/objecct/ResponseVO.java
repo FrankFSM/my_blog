@@ -6,7 +6,6 @@ import com.ralap.blog.bussiness.enums.ResponseStatus;
 import java.util.Collection;
 import java.util.List;
 import lombok.Data;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 /**
  * @author: ralap
@@ -35,8 +34,8 @@ public class ResponseVO<T> {
         T t = this.getData();
         if (t instanceof List || t instanceof Collection) {
             return JSONObject.toJSONString(this, SerializerFeature.WriteNullStringAsEmpty);
-        }else{
-            return JSONObject.toJSONString(this,SerializerFeature.WriteMapNullValue);
+        } else {
+            return JSONObject.toJSONString(this, SerializerFeature.WriteMapNullValue);
         }
     }
 

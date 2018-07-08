@@ -1,20 +1,15 @@
 package com.ralap.blog.bussiness.service.impl;
 
 import com.ralap.blog.bussiness.service.SysUserRoleService;
-import com.ralap.blog.bussiness.service.SysUserService;
-import com.ralap.blog.persistent.beans.SysUser;
 import com.ralap.blog.persistent.beans.SysUserRole;
-import com.ralap.blog.persistent.mapper.SysUserMapper;
 import com.ralap.blog.persistent.mapper.SysUserRoleMapper;
 import java.util.List;
-import org.aspectj.lang.annotation.SuppressAjWarnings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import tk.mybatis.mapper.entity.Example;
-import tk.mybatis.mapper.entity.Example.Criteria;
 
 /**
  * @author: ralap

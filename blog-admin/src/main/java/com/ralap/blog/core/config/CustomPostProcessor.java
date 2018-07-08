@@ -2,7 +2,6 @@ package com.ralap.blog.core.config;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.stereotype.Component;
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class CustomPostProcessor implements ObjectPostProcessor<FilterSecurityInterceptor> {
 
     @Autowired
-    private  CustomAccessDecisionManager customAccessDecisionManager;
+    private CustomAccessDecisionManager customAccessDecisionManager;
     @Autowired
     private CustomFilterSecurityMetadataSource customFilterSecurityMetadataSource;
 

@@ -26,15 +26,16 @@ public class CustomFilterSecurityMetadataSource implements FilterInvocationSecur
     private SysResourcesService sysResourcesService;
 
 
-
     @Override
     public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
         FilterInvocation invocation = (FilterInvocation) o;
         if (isMatcherAllowedRequest(invocation)) {
             return null;
         }
-        List<ConfigAttribute> configAttributes = getMatcherConfigAttribute(invocation.getRequestUrl());
-        return configAttributes.size() > 0 ? configAttributes : deniedRequest(); //返回当前路径所需角色，如果没有则拒绝访问
+        List<ConfigAttribute> configAttributes = getMatcherConfigAttribute(
+                invocation.getRequestUrl());
+        return configAttributes.size() > 0 ? configAttributes
+                : deniedRequest(); //返回当前路径所需角色，如果没有则拒绝访问
     }
 
     @Override
@@ -44,7 +45,7 @@ public class CustomFilterSecurityMetadataSource implements FilterInvocationSecur
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return  FilterInvocation.class.isAssignableFrom(aClass);
+        return FilterInvocation.class.isAssignableFrom(aClass);
     }
 
 
@@ -66,19 +67,19 @@ public class CustomFilterSecurityMetadataSource implements FilterInvocationSecur
      * 允许的请求列表
      */
     private List<String> allowedRequest() {
-        return Arrays.asList("/login","/assets/**");
+        return Arrays.asList("/login", "/assets/**");
     }
 
     /**
      * 判断当前请求是否在允许请求的范围内
      */
-    private boolean isMatcherAllowedRequest(FilterInvocation fi){
+    private boolean isMatcherAllowedRequest(FilterInvocation fi) {
         return allowedRequest().stream().map(AntPathRequestMatcher::new)
                 .filter(requestMatcher -> requestMatcher.matches(fi.getHttpRequest()))
                 .toArray().length > 0;
     }
 
-    private List<ConfigAttribute> deniedRequest(){
+    private List<ConfigAttribute> deniedRequest() {
         return Collections.singletonList(new SecurityConfig("ROLE_DENIED"));
     }
 }

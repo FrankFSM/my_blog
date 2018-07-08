@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class BizArticleLove extends AbstractDO{
+public class BizArticleLove extends AbstractDO {
 
     private Long userId;
 

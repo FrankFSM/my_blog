@@ -1,7 +1,6 @@
 package com.ralap.blog.persistent.beans;
 
 import com.ralap.blog.framework.objecct.AbstractDO;
-import java.util.Date;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

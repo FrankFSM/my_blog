@@ -1,6 +1,5 @@
 package com.ralap.blog.core.holder;
 
-import com.qiniu.util.StringMap;
 import com.ralap.blog.core.bean.CurrentUser;
 import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;

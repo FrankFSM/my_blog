@@ -6,11 +6,8 @@ import com.ralap.blog.framework.objecct.AbstractService;
 import com.ralap.blog.persistent.beans.SysResources;
 import com.ralap.blog.persistent.beans.SysRole;
 import com.ralap.blog.persistent.entity.Resources;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.springframework.util.CollectionUtils;
 
 /**
  * @author: ralap
@@ -35,7 +32,6 @@ public interface SysResourcesService extends AbstractService<SysResources, Long>
      * 获取url拥有的权限
      */
     List<SysRole> getRoleByResourseUrl(String url);
-
 
 
 }

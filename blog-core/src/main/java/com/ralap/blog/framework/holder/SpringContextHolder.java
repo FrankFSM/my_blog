@@ -8,7 +8,8 @@ import org.thymeleaf.util.Validate;
 
 /**
  * SpringContextHolder
- * @author: ralap 
+ *
+ * @author: ralap
  * @date: created at 2018/5/19 14:17
  */
 @Component
@@ -41,7 +42,7 @@ public class SpringContextHolder implements ApplicationContextAware {
     }
 
     public static void assertContextInjected() {
-            Validate.isTrue(applicationContext != null, "application属性未注入");
+        Validate.isTrue(applicationContext != null, "application属性未注入");
     }
 
 }

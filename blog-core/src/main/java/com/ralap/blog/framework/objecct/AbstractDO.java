@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * @author: ralap
@@ -22,9 +21,8 @@ public abstract class AbstractDO implements Serializable {
     private Long id;
 
     private Date createTime;
-    
-    private Date updateTime;
 
+    private Date updateTime;
 
 
 }

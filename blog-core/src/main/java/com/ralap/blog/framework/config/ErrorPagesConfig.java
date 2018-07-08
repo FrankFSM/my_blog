@@ -33,7 +33,8 @@ import org.springframework.stereotype.Component;
 /**
  * 异常页面配置
  * ErrorPagesConfig
- * @author: ralap 
+ *
+ * @author: ralap
  * @date: created at 2018/6/1 14:23
  */
 @Component
@@ -41,20 +42,25 @@ public class ErrorPagesConfig {
 
     /**
      * 自定义异常处理路径
-     *
-     * @return
      */
     @Bean
     public EmbeddedServletContainerCustomizer containerCustomizer() {
         return new EmbeddedServletContainerCustomizer() {
             @Override
-            public void customize(ConfigurableEmbeddedServletContainer configurableEmbeddedServletContainer) {
-                configurableEmbeddedServletContainer.addErrorPages(new ErrorPage(HttpStatus.BAD_REQUEST, "/error/400"));
-                configurableEmbeddedServletContainer.addErrorPages(new ErrorPage(HttpStatus.UNAUTHORIZED, "/error/401"));
-                configurableEmbeddedServletContainer.addErrorPages(new ErrorPage(HttpStatus.FORBIDDEN, "/error/403"));
-                configurableEmbeddedServletContainer.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/error/404"));
-                configurableEmbeddedServletContainer.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/error/500"));
-                configurableEmbeddedServletContainer.addErrorPages(new ErrorPage(Throwable.class, "/error/500"));
+            public void customize(
+                    ConfigurableEmbeddedServletContainer configurableEmbeddedServletContainer) {
+                configurableEmbeddedServletContainer
+                        .addErrorPages(new ErrorPage(HttpStatus.BAD_REQUEST, "/error/400"));
+                configurableEmbeddedServletContainer
+                        .addErrorPages(new ErrorPage(HttpStatus.UNAUTHORIZED, "/error/401"));
+                configurableEmbeddedServletContainer
+                        .addErrorPages(new ErrorPage(HttpStatus.FORBIDDEN, "/error/403"));
+                configurableEmbeddedServletContainer
+                        .addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/error/404"));
+                configurableEmbeddedServletContainer.addErrorPages(
+                        new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/error/500"));
+                configurableEmbeddedServletContainer
+                        .addErrorPages(new ErrorPage(Throwable.class, "/error/500"));
             }
         };
     }

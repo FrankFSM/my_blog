@@ -6,7 +6,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * QiniuProperties
- * @author: ralap 
+ *
+ * @author: ralap
  * @date: created at 2018/5/19 14:19
  */
 @Data

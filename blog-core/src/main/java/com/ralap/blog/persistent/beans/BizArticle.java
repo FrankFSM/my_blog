@@ -1,7 +1,5 @@
 package com.ralap.blog.persistent.beans;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.ralap.blog.framework.objecct.AbstractDO;
 import java.util.List;
 import javax.persistence.Transient;

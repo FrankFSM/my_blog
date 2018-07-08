@@ -65,8 +65,6 @@ public interface AbstractService<T, PK> {
 
     /**
      * 根据实体查询
-     * @param entity
-     * @return
      */
     List<T> listByEntity(T entity);
 

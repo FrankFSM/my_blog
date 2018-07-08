@@ -4,18 +4,13 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ralap.blog.bussiness.enums.ResponseStatus;
 import com.ralap.blog.bussiness.service.BizTypeService;
-import com.ralap.blog.bussiness.vo.ResourceConditionVO;
 import com.ralap.blog.bussiness.vo.TypeConditionVO;
 import com.ralap.blog.framework.objecct.PageResult;
 import com.ralap.blog.framework.objecct.ResponseVO;
 import com.ralap.blog.persistent.beans.BizType;
-import com.ralap.blog.persistent.beans.SysResources;
-import com.ralap.blog.persistent.entity.Resources;
 import com.ralap.blog.persistent.entity.Type;
 import com.ralap.blog.util.ResultUtil;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,7 +44,7 @@ public class BizTypeController {
         PageInfo<Type> userPage = bizTypeService.findPageBreakByCondition(vo);
         PageResult pageResult = ResultUtil.tablePage(userPage);
 
-        return ResultUtil.tablePage(pageResult.getTotal(),pageResult.getRows());
+        return ResultUtil.tablePage(pageResult.getTotal(), pageResult.getRows());
     }
 
 
