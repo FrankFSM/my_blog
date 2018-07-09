@@ -73,7 +73,7 @@ function initArticeMenu() {
                 var tagText = $this.text();
                 var tagName = $this[0].tagName.toLowerCase();
                 var tagIndex = parseInt(tagName.charAt(1)) - 1;
-                spanDom = '<i class="fa fa-angle-right"></i>';
+                spanDom = '<i class="fa-chevron-right"></i>';
                 aDom = '<a href="#menu_' + index + '" style="display:inline-block;">' + tagText + '</a>';
                 liDom = '<li style="padding-left:' + padding[tagIndex] + 'px;line-height: 2;">' + spanDom + aDom + '</li>';
                 $("#article-menu ul").append(liDom);
