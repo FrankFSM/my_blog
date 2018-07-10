@@ -25,4 +25,5 @@ public interface BizArticleService extends AbstractService<Article, Long> {
 
     List<Article> hotArticle();
 
+    List<Article> getRelatedArticle(Article article,int pageSize);
 }

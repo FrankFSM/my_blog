@@ -19,4 +19,10 @@ public interface BizArticleMapper extends BaseMapper<BizArticle> {
     List<BizArticle> selectPrevAndNextArticle(Date insertTime);
 
     List<BizArticle> hotArticle();
+
+    /**
+     * 获取全部文章（关联标签）
+     * @return
+     */
+    List<BizArticle> selectAllIncludeTags();
 }

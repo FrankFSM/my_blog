@@ -223,4 +223,11 @@ public class Article {
     public void setTagIds(String[] tagIds) {
         this.bizArticle.setTagIds(tagIds);
     }
+
+    public Double getSimilarity(){
+        return this.bizArticle.getSimilarity();
+    }
+    public void sets(Double similarity){
+        this.bizArticle.setSimilarity(similarity);
+    }
 }

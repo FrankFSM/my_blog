@@ -14,8 +14,8 @@ import lombok.EqualsAndHashCode;
 public class ArticleConditionVO extends BaseConditionVO {
 
     private Article article;
-
     private Long typeId;
     private Long tagsId;
     private Integer status;
+    private Boolean random;
 }

@@ -36,6 +36,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class JumpController {
 
+    /**
+     * 显示相关文章个数
+     */
+    private static int RELATD_ARTICLE_SIZE = 4;
+
     @Autowired
     private BizArticleService bizArticleService;
     @Autowired
@@ -44,7 +49,6 @@ public class JumpController {
     private BizArticleLoveService bizArticleLoveService;
     @Autowired
     private BizTagsService bizTagsService;
-
 
     /**
      * 首页
@@ -106,8 +110,9 @@ public class JumpController {
                 .getPrevAndNextArticle(article.getCreateTime());
         List<Article> hotArticleList = bizArticleService.hotArticle().subList(0, 4);
         countHotIndex(hotArticleList);
-//        bizArticleService.relatedArticle(article);
-//        model.addAttribute("relatedArticleList",)
+        List<Article> relatedArticleList = bizArticleService
+                .getRelatedArticle(article, RELATD_ARTICLE_SIZE);
+        model.addAttribute("relatedArticleList", relatedArticleList);
         model.addAttribute("other", other);
         model.addAttribute("hotArticleList", hotArticleList);
         model.addAttribute("typeList", pageInfo.getList());

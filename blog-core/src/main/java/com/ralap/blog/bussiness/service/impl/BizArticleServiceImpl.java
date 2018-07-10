@@ -2,17 +2,23 @@ package com.ralap.blog.bussiness.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.ralap.blog.bussiness.consts.CommonConst;
+import com.ralap.blog.bussiness.enums.ArticleStatusEnum;
 import com.ralap.blog.bussiness.service.BizArticleService;
 import com.ralap.blog.bussiness.service.BizArticleTagsService;
 import com.ralap.blog.bussiness.vo.ArticleConditionVO;
 import com.ralap.blog.persistent.beans.BizArticle;
+import com.ralap.blog.persistent.beans.BizTags;
 import com.ralap.blog.persistent.entity.Article;
 import com.ralap.blog.persistent.mapper.BizArticleMapper;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -157,5 +163,62 @@ public class BizArticleServiceImpl implements BizArticleService {
             hotArticleList.add(new Article(hotArticle));
         });
         return hotArticleList;
+    }
+
+    @Override
+    public List<Article> getRelatedArticle(Article article, int pageSize) {
+        List<BizTags> tags = article.getTags();
+        if (null == article || CollectionUtils.isEmpty(tags)) {
+            return listRandomArticle(pageSize);
+        }
+        Long[] tagsIds = new Long[tags.size()];
+        for (int i = 0; i < tags.size(); i++) {
+            tagsIds[i] = tags.get(i).getId();
+        }
+        List<BizArticle> articleList = tagSimilaritySort(tagsIds);
+        List<Article> articles = articleList.stream().filter(articleNew->articleNew.getId().longValue() != article.getId().longValue()).map(articleNew -> new Article(articleNew))
+                .collect(Collectors.toList());
+
+        if(articles.size() <pageSize-1){
+            pageSize = articles.size()+1;
+        }
+        return articles.subList(0,pageSize);
+
+    }
+
+    public List<BizArticle> tagSimilaritySort(Long[] tagId) {
+        List<BizArticle> articles = bizArticleMapper.selectAllIncludeTags();
+        double similarty = 0;
+        long similarityCount = 0;
+        for (BizArticle article : articles) {
+            similarityCount = article.getTags().stream()
+                    .filter(tag -> Arrays.asList(tagId).contains(tag.getId())).count();
+             similarty = (double)similarityCount / (double)tagId.length;
+            article.setSimilarity(getTwoDecimal(similarty));
+        }
+
+        return articles.stream().filter(article->article.getSimilarity() != 0).sorted((article1, article2) -> article2.getSimilarity()
+                .compareTo(article1.getSimilarity())).collect(Collectors.toList());
+
+    }
+
+    /**
+     * 将数据保留两位小数
+     */
+    private double getTwoDecimal(double doublenum) {
+        DecimalFormat formatd = new DecimalFormat("#.00");
+        String yearString = formatd.format(doublenum);
+        Double temp = Double.valueOf(yearString);
+        return temp;
+    }
+
+
+    private List<Article> listRandomArticle(int pageSize) {
+        ArticleConditionVO vo = new ArticleConditionVO();
+        vo.setPageSize(pageSize);
+        vo.setStatus(ArticleStatusEnum.PUBLISHED.getCode());
+        vo.setRandom(true);
+        PageInfo<Article> pageInfo = this.findPageBreakByCondition(vo);
+        return pageInfo == null ? null : pageInfo.getList();
     }
 }

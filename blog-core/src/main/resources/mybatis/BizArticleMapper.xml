@@ -97,7 +97,14 @@
         AND status = #{status}
       </if>
     </where>
-    order by top desc
+    <choose>
+      <when test="random != null">
+        ORDER BY rand();
+      </when>
+      <otherwise>
+        order by top desc
+      </otherwise>
+    </choose>
   </select>
 
   <select id="isExist" parameterType="Long" resultType="Integer">
@@ -136,6 +143,21 @@
                   GROUP BY article_id
                 ) v ON a.id = v.article_id
     WHERE a.id = #{id}
+  </select>
+
+  <select id="selectAllIncludeTags" resultMap="rm">
+    SELECT
+    a.*,
+    b.id                    AS btype_id,
+    b.name                  AS type_name,
+    b.description           AS type_description,
+    tag.id                  AS tag_id,
+    tag.name                AS tag_name,
+    tag.description         AS tag_description
+    FROM biz_article a
+    INNER JOIN biz_type b ON a.type_id = b.id
+    INNER JOIN biz_article_tags atag ON a.id = atag.article_id
+    INNER JOIN biz_tags tag ON atag.tags_id = tag.id
   </select>
 
   <select id="selectPrevAndNextArticle" parameterType="Date"

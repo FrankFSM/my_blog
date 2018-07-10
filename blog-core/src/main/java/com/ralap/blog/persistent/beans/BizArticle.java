@@ -51,4 +51,7 @@ public class BizArticle extends AbstractDO {
     private Integer hotIndex;
     @Transient
     private String[] tagIds;
+    //相似度
+    @Transient
+    private Double similarity;
 }
