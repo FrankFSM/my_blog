@@ -176,13 +176,15 @@ public class BizArticleServiceImpl implements BizArticleService {
             tagsIds[i] = tags.get(i).getId();
         }
         List<BizArticle> articleList = tagSimilaritySort(tagsIds);
-        List<Article> articles = articleList.stream().filter(articleNew->articleNew.getId().longValue() != article.getId().longValue()).map(articleNew -> new Article(articleNew))
+        List<Article> articles = articleList.stream()
+                .filter(articleNew -> articleNew.getId().longValue() != article.getId().longValue())
+                .map(articleNew -> new Article(articleNew))
                 .collect(Collectors.toList());
 
-        if(articles.size() <pageSize-1){
-            pageSize = articles.size()+1;
+        if (articles.size() <= pageSize - 1) {
+            return articles;
         }
-        return articles.subList(0,pageSize);
+        return articles.subList(0, pageSize);
 
     }
 
@@ -193,12 +195,13 @@ public class BizArticleServiceImpl implements BizArticleService {
         for (BizArticle article : articles) {
             similarityCount = article.getTags().stream()
                     .filter(tag -> Arrays.asList(tagId).contains(tag.getId())).count();
-             similarty = (double)similarityCount / (double)tagId.length;
+            similarty = (double) similarityCount / (double) tagId.length;
             article.setSimilarity(getTwoDecimal(similarty));
         }
 
-        return articles.stream().filter(article->article.getSimilarity() != 0).sorted((article1, article2) -> article2.getSimilarity()
-                .compareTo(article1.getSimilarity())).collect(Collectors.toList());
+        return articles.stream().filter(article -> article.getSimilarity() != 0)
+                .sorted((article1, article2) -> article2.getSimilarity()
+                        .compareTo(article1.getSimilarity())).collect(Collectors.toList());
 
     }
 

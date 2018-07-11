@@ -227,7 +227,7 @@ public class Article {
     public Double getSimilarity(){
         return this.bizArticle.getSimilarity();
     }
-    public void sets(Double similarity){
+    public void setSimilarity(Double similarity){
         this.bizArticle.setSimilarity(similarity);
     }
 }

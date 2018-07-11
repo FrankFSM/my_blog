@@ -284,11 +284,13 @@
               <div class="line-right">
                 <div class="text">
                   <a  th:href="@{'/article/' + ${relatedArticle.id}}"
-                     data-original-title="${item.lookCount?c}人浏览了该文章" data-toggle="tooltip"
+                     th:data-original-title="" data-toggle="tooltip"
                      data-placement="bottom" >
                     <span th:text="${relatedArticle.title}"></span>
                   </a>
+                  <div>相似度：<span th:text="${relatedArticle.similarity * 100} + ' %'"></span></div>
                 </div>
+
               </div>
             </div>
           </li>

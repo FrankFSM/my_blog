@@ -37,9 +37,9 @@ spring:
     multipart:
       max-file-size: 10Mb
       max-request-size: 10Mb
-logging:
-  level:
-    org.springframework.web: debug
+#logging:
+#  level:
+#    org.springframework.web: debug
 mybatis:
   type-aliases-package: com.ralap.blog.persistent.beans
   mapper-locations: classpath:/mybatis/*.xml
@@ -110,9 +110,9 @@ spring:
     multipart:
       max-file-size: 10Mb
       max-request-size: 10Mb
-logging:
-  level:
-    org.springframework.web: debug
+#logging:
+#  level:
+#    org.springframework.web: debug
 mybatis:
   type-aliases-package: com.ralap.blog.persistent.beans
   mapper-locations: classpath:/mybatis/*.xml
