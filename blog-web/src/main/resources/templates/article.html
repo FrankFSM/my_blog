@@ -283,9 +283,9 @@
             <div class="line-container">
               <div class="line-right">
                 <div class="text">
-                  <a  th:href="@{'/article/' + ${relatedArticle.id}}"
+                  <a th:href="@{'/article/' + ${relatedArticle.id}}"
                      th:data-original-title="" data-toggle="tooltip"
-                     data-placement="bottom" >
+                     data-placement="bottom">
                     <span th:text="${relatedArticle.title}"></span>
                   </a>
                   <div>相似度：<span th:text="${relatedArticle.similarity * 100} + ' %'"></span></div>
@@ -349,7 +349,8 @@
            title="查看备案信息" data-toggle="tooltip" data-placement="bottom"
            rel="external nofollow"> </a>
     </p>
-    <p>Copyright&copy;2016-</p>
+    <p>Copyright&copy;2018-<a href="http://www.miitbeian.gov.cn/" target="_blank"><strong>京ICP备18030135号</strong></a>
+    </p>
   </div>
 </footer>
 <!-- End #content -->
