@@ -299,41 +299,9 @@
       </div>
     </div>
     <div class="col-md-3 sidebar-gutter">
-      <div class="sidebar-module" style="position: relative;">
-        <h5 class="sidebar-title"><i class="fa-hand-right icon"></i><strong>说给你听</strong></h5>
-        <div class="widget" onclick="loadHitokoto()" style="cursor:pointer ">
-          <div id="feed_widget">
-            <div class="feed-about">
-              <div class="about-main">
-                <div class="div-quote">
-                  <i class="fa-quote-left"></i>
-                  <p style="margin-left: 10px" id="hitokoto"></p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="sidebar-module article-module hide" style="top: 0;">
-        <h5 class="sidebar-title"><i class="fa-book icon"></i><strong>本文目录</strong> <i
-            class="fa fa-close pull-right close-article-menu hide pointer"></i></h5>
-        <div id="article-menu">
-          <ul class="list-unstyled">
-          </ul>
-        </div>
-      </div>
-      <div class="sidebar-module">
-        <h5 class="sidebar-title"><i class="fa-tags icon"></i><strong>文章标签</strong></h5>
-        <ul class="list-unstyled list-inline">
-          <li class="tag-li" th:each="tags:${tagsList}">
-            <a class="btn btn-default btn-xs" href=""
-               th:title="${tags.name}" data-toggle="tooltip" data-placement="bottom"
-               th:text="${tags.name}">
-            </a>
-          </li>
-
-        </ul>
-      </div>
+      <div th:replace="layout/sidebar :: say"></div>
+      <div th:replace="layout/sidebar :: menu"></div>
+      <div th:replace="layout/sidebar :: tag"></div>
     </div>
   </div>
 </div>

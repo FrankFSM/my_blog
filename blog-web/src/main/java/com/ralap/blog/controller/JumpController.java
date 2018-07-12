@@ -11,6 +11,7 @@ import com.ralap.blog.bussiness.vo.ArticleConditionVO;
 import com.ralap.blog.bussiness.vo.TypeConditionVO;
 import com.ralap.blog.framework.holder.RequestHolder;
 import com.ralap.blog.framework.objecct.ResponseVO;
+import com.ralap.blog.persistent.beans.BizTags;
 import com.ralap.blog.persistent.entity.Article;
 import com.ralap.blog.persistent.entity.ArticleLove;
 import com.ralap.blog.persistent.entity.Type;
@@ -63,7 +64,6 @@ public class JumpController {
         typeVo.setPageNumber(1);
         PageInfo<Type> pageInfo = bizTypeService.findPageBreakByCondition(typeVo);
         model.addAttribute("typeList", pageInfo.getList());
-        model.addAttribute("tagsList", bizTagsService.listAll());
         return ResultUtil.view("home");
     }
 
@@ -116,7 +116,6 @@ public class JumpController {
         model.addAttribute("other", other);
         model.addAttribute("hotArticleList", hotArticleList);
         model.addAttribute("typeList", pageInfo.getList());
-        model.addAttribute("tagsList", bizTagsService.listAll());
         return ResultUtil.view("article");
 
     }
@@ -147,6 +146,13 @@ public class JumpController {
         articleLove.setUserIp(IpUtil.getRealIp(RequestHolder.getRequest()));
         bizArticleLoveService.insert(articleLove);
         return ResultUtil.success(ResponseStatus.SUCCESS);
+    }
+
+    @RequestMapping("/tags/tagsList")
+    @ResponseBody
+    public ResponseVO tagsList() {
+        List<BizTags> bizTagsList = bizTagsService.listAll();
+        return ResultUtil.success("加载成功",bizTagsList);
     }
 
 }

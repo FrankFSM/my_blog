@@ -115,54 +115,9 @@
 
       </div>
       <div class="col-md-3 sidebar-gutter">
-        <div class="sidebar-module" style="position: relative;">
-          <a href='https://gitee.com/itFanRalap/my_blog' target="_blank"
-             rel="external nofollow"><img
-              src='https://gitee.com/itFanRalap/my_blog/widgets/widget_1.svg?color=C71D24'
-              alt='Fork me on Gitee' style="position: absolute;right: 0;"/></a>
-          <h5 class="sidebar-title"><i class="fa-home icon"></i><strong>关于我</strong></h5>
-          <div class="widget">
-            <div id="feed_widget">
-              <div class="feed-about">
-                <div class="about-main">
-                  <div class="about-img"><a href="localhost:8000/assets/img/blog/WX.jpg"
-                                            class="showImage" title="微信公众号" target="_blank"><img
-                      src="/assets/img/blog/WX.jpg" alt="微信公众号"></a></div>
-                  <div class="about-name">Ralap</div>
-                  <div class="about-the">我就是我,不一样的烟火,我若成佛，天下无魔，我若成魔，佛奈我何</div>
-                </div>
-                <div class="clear"></div>
-                <ul class="widget-icon" style="align-content: center">
-                  <li class="tqq auto-shake">
-                    <a class="tag-icon"
-                       href="javascript:window.open('tencent://message/?uin=843977358&Site=www.${config.domain}&Menu=yes')"
-                       title="点击QQ联系我" target="blank" rel="external nofollow"><i class="en-qq"></i></a>
-                  </li>
-                  <li class="tsina auto-shake">
-                    <a class="tag-icon" href="" title="点击查看我的微博"
-                       target="_blank" rel="external nofollow"><i class="fa-weibo"></i></a>
-                  </li>
-                  <li class="github auto-shake">
-                    <a class="tag-icon" href="https://github.com/Noing/my_blog" title="点击查看我的github"
-                       target="_blank" rel="external nofollow"><i class="en-github"></i></a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="sidebar-module">
-          <h5 class="sidebar-title"><i class="fa-tags icon"></i><strong>文章标签</strong></h5>
-          <ul class="list-unstyled list-inline">
-            <li class="tag-li" th:each="tags:${tagsList}">
-              <a  class="btn btn-default btn-xs" href=""
-                 th:title="${tags.name}" data-toggle="tooltip" data-placement="bottom" th:text="${tags.name}">
-              </a>
-            </li>
-
-          </ul>
-        </div>
+        <div th:replace="layout/sidebar :: about"></div>
+        <div th:replace="layout/sidebar :: menu"></div>
+        <div th:replace="layout/sidebar :: tag"></div>
 
 
       </div>
