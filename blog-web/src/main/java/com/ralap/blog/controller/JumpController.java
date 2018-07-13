@@ -78,12 +78,8 @@ public class JumpController {
         if (page != null && page.getList() != null && page.getList().size() > 0) {
             model.addAttribute("typeId", page.getList().get(0).getTypeId());
         }
-        TypeConditionVO typeVo = new TypeConditionVO();
-        typeVo.setPageSize(20);
-        typeVo.setPageNumber(1);
-        PageInfo<Type> pageInfo = bizTypeService.findPageBreakByCondition(typeVo);
+        PageInfo<Type> pageInfo = getTypeList();
         model.addAttribute("typeList", pageInfo.getList());
-        model.addAttribute("tagsList", bizTagsService.listAll());
         return ResultUtil.view("home");
 
     }
@@ -102,10 +98,7 @@ public class JumpController {
     public ModelAndView article(@PathVariable("id") Long id, Model model) {
         Article article = bizArticleService.selectById(id);
         model.addAttribute("article", article);
-        TypeConditionVO typeVo = new TypeConditionVO();
-        typeVo.setPageSize(20);
-        typeVo.setPageNumber(1);
-        PageInfo<Type> pageInfo = bizTypeService.findPageBreakByCondition(typeVo);
+        PageInfo<Type> pageInfo = getTypeList();
         Map<String, Article> other = bizArticleService
                 .getPrevAndNextArticle(article.getCreateTime());
         List<Article> hotArticleList = bizArticleService.hotArticle().subList(0, 4);
@@ -153,6 +146,36 @@ public class JumpController {
     public ResponseVO tagsList() {
         List<BizTags> bizTagsList = bizTagsService.listAll();
         return ResultUtil.success("加载成功",bizTagsList);
+    }
+
+    @RequestMapping("/type/typeList")
+    @ResponseBody
+    public ResponseVO typeList() {
+        PageInfo<Type> pageInfo = getTypeList();
+        return ResultUtil.success("加载成功",pageInfo.getList());
+    }
+    /**
+     * 文章标签
+     */
+    @RequestMapping("/tags/{id}")
+    public ModelAndView indexTags(ArticleConditionVO vo, Model model, @PathVariable("id") Long id) {
+        vo.setTypeId(id);
+        PageInfo<Article> page = bizArticleService.findPageBreakByCondition(vo);
+        model.addAttribute("page", page);
+        if (page != null && page.getList() != null && page.getList().size() > 0) {
+            model.addAttribute("typeId", page.getList().get(0).getTypeId());
+        }
+        PageInfo<Type> pageInfo = getTypeList();
+        model.addAttribute("typeList", pageInfo.getList());
+        return ResultUtil.view("home");
+
+    }
+
+    private PageInfo<Type> getTypeList() {
+        TypeConditionVO typeVo = new TypeConditionVO();
+        typeVo.setPageSize(20);
+        typeVo.setPageNumber(1);
+        return bizTypeService.findPageBreakByCondition(typeVo);
     }
 
 }

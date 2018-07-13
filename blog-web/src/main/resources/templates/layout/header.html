@@ -1,6 +1,6 @@
-
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"><nav id="topmenu" class="navbar navbar-default navbar-fixed-top">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<nav id="topmenu" class="navbar navbar-default navbar-fixed-top">
   <div class="menu-box">
     <div class="pull-left">
       <ul class="list-unstyled list-inline">
@@ -46,44 +46,43 @@
           <a href="/" class="menu_a"><i class="fa-home"></i>首页</a>
         </li>
         <li th:each="type:${typeList}">
-          <a th:href="@{'/type/' + ${type.id}}" class="menu_a"><i th:class="${type.icon}"></i><span th:text="${type.name}"></span></a>
+          <a th:href="@{'/type/' + ${type.id}}" class="menu_a"><i th:class="${type.icon}"></i><span
+              th:text="${type.name}"></span></a>
         <li><a href="/guestbook" class="menu_a"><i class="fa-comments-alt"></i>留言板</a></li>
-        <li><span class="pull-right nav-search main-search" data-toggle="modal" data-target=".nav-search-box">
+        <li><span class="pull-right nav-search main-search" data-toggle="modal"
+                  data-target=".nav-search-box">
           <i class="fa-search"></i></span></li>
         </li>
       </ul>
     </div>
   </div>
 </nav>
-<!--<script src="/assets/js/jquery-1.8.3.min.js"></script>-->
-<!--<script type="text/javascript">-->
-  <!--$(function () {-->
-    <!--console.log("123123");-->
-    <!--loadTypes();-->
-  <!--});-->
+<script type="text/javascript">
 
-  <!--function loadTypes() {-->
+  function loadTypes() {
+    $.ajax({
+      type: "GET",
+      url: '/type/typeList',
+      success: function (json) {
+        console.log(json);
+        var titleTypeLi = $("#titleType");
+        var typeList = json.data;
+        for (var i = 0; i < typeList.length; i++) {
+          titleTypeLi.append(' <li>\n'
+              + '          <a href="/type/' + typeList[i].id + '" class="menu_a"><i class="'
+              + typeList[i].icon + '"></i><span\n'
+              + '              >' + typeList[i].name + '</span></a>\n'
+              + '        </li>');
+        }
+        titleTypeLi.append(' <li><a href="/guestbook" class="menu_a"><i class="fa-comments-alt"></i>留言板</a></li>\n'
+            + '          <li><span class="pull-right nav-search main-search" data-toggle="modal"\n'
+            + '                    data-target=".nav-search-box">\n'
+            + '          <i class="fa-search"></i></span></li>');
+      },
+      error: function () {
+        $.tool.ajaxError();
+      }
+    })
+  }
 
-    <!--$.ajax({-->
-      <!--type: "get",-->
-      <!--url: "/type/listAll",-->
-      <!--success: function (json) {-->
-        <!--console.log(json);-->
-        <!--var typeList = json.data.list;-->
-        <!--var titleType = $("#titleType");-->
-        <!--var typeString = '';-->
-        <!--for (var i = 0; i < typeList.length; i++) {-->
-          <!--var type = typeList[i];-->
-          <!--typeString += " <li>\n"-->
-              <!--+ "          <a href=\"/type/" + type.id-->
-              <!--+ "\" class=\"menu_a\"><i class=\""+type.icon+"\"></i>" + type.name + "</a>\n"-->
-              <!--+ "        </li>";-->
-        <!--}-->
-        <!--titleType.append(typeString);-->
-        <!--titleType.append("<li><a href=\"/guestbook\" class=\"menu_a\"><i class=\"fa-comments-alt\"></i>留言板</a></li>\n"-->
-            <!--+ "        <li><span class=\"pull-right nav-search main-search\" data-toggle=\"modal\"\n"-->
-            <!--+ "                  data-target=\".nav-search-box\"><i class=\"fa-search\"></i></span></li>")-->
-      <!--}-->
-    <!--});-->
-  <!--}-->
-<!--</script>-->
+</script>
