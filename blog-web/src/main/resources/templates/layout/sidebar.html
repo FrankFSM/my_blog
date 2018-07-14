@@ -89,11 +89,9 @@
         type: "GET",
         url: '/tags/tagsList',
         success: function (json) {
-          console.log(json);
           var tagsListLi = $("#tagsList");
           var tagsList = json.data;
           for (var i = 0; i < tagsList.length; i++) {
-            console.log(tagsList[i].name);
             tagsListLi.append('<li class="tag-li">' +
                 '<a class="btn btn-default btn-xs" href=""\n'
                 + '          title="' + tagsList[i].name
