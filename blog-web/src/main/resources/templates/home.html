@@ -98,7 +98,7 @@
     var typeN = $("#typeId");
     var typeId = typeN.val();
     var pateNumber = Number(pageNum.val()) + 1;
-    var data = jQuery.param({"pageNum": pateNumber, "typeId": typeId});
+    var data = jQuery.param({"pageNumber": pateNumber, "typeId": typeId});
     loadMore.button('loading');
 
     $.ajax({
