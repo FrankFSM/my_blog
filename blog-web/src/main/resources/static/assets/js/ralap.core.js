@@ -547,15 +547,3 @@
     };
 })(jQuery);
 /* 文字滚动 end */
-
-
-$('.limitTextarea').maxlength({
-  alwaysShow: true,
-  threshold: 10,
-  warningClass: "label label-success",
-  limitReachedClass: "label label-danger",
-  separator: ' of ',
-  preText: 'You have ',
-  postText: ' chars remaining.',
-  validate: true
-});
