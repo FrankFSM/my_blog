@@ -5,15 +5,19 @@ import com.ralap.blog.bussiness.enums.ArticleStatusEnum;
 import com.ralap.blog.bussiness.enums.ResponseStatus;
 import com.ralap.blog.bussiness.service.BizArticleLoveService;
 import com.ralap.blog.bussiness.service.BizArticleService;
+import com.ralap.blog.bussiness.service.BizCommentService;
 import com.ralap.blog.bussiness.service.BizTagsService;
 import com.ralap.blog.bussiness.service.BizTypeService;
 import com.ralap.blog.bussiness.vo.ArticleConditionVO;
+import com.ralap.blog.bussiness.vo.CommentConditionVo;
 import com.ralap.blog.bussiness.vo.TypeConditionVO;
 import com.ralap.blog.framework.holder.RequestHolder;
+import com.ralap.blog.framework.objecct.PageResult;
 import com.ralap.blog.framework.objecct.ResponseVO;
 import com.ralap.blog.persistent.beans.BizTags;
 import com.ralap.blog.persistent.entity.Article;
 import com.ralap.blog.persistent.entity.ArticleLove;
+import com.ralap.blog.persistent.entity.Comment;
 import com.ralap.blog.persistent.entity.Type;
 import com.ralap.blog.util.IpUtil;
 import com.ralap.blog.util.ResultUtil;
@@ -50,6 +54,8 @@ public class JumpController {
     private BizArticleLoveService bizArticleLoveService;
     @Autowired
     private BizTagsService bizTagsService;
+    @Autowired
+    private BizCommentService bizCommentService;
 
     /**
      * 首页
@@ -145,15 +151,16 @@ public class JumpController {
     @ResponseBody
     public ResponseVO tagsList() {
         List<BizTags> bizTagsList = bizTagsService.listAll();
-        return ResultUtil.success("加载成功",bizTagsList);
+        return ResultUtil.success("加载成功", bizTagsList);
     }
 
     @RequestMapping("/type/typeList")
     @ResponseBody
     public ResponseVO typeList() {
         PageInfo<Type> pageInfo = getTypeList();
-        return ResultUtil.success("加载成功",pageInfo.getList());
+        return ResultUtil.success("加载成功", pageInfo.getList());
     }
+
     /**
      * 文章标签
      */
@@ -176,6 +183,11 @@ public class JumpController {
         typeVo.setPageSize(20);
         typeVo.setPageNumber(1);
         return bizTypeService.findPageBreakByCondition(typeVo);
+    }
+
+    public PageResult getCommentList(CommentConditionVo vo) {
+        PageInfo<Comment> commentList = bizCommentService.findPageBreakByCondition(vo);
+        return ResultUtil.tablePage(commentList);
     }
 
 }
