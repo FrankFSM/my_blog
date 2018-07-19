@@ -185,9 +185,11 @@ public class JumpController {
         return bizTypeService.findPageBreakByCondition(typeVo);
     }
 
-    public PageResult getCommentList(CommentConditionVo vo) {
+    @RequestMapping("/comment/list")
+    @ResponseBody
+    public ResponseVO getCommentList(CommentConditionVo vo) {
         PageInfo<Comment> commentList = bizCommentService.findPageBreakByCondition(vo);
-        return ResultUtil.tablePage(commentList);
+        return ResultUtil.success("获取成功", commentList);
     }
 
 }

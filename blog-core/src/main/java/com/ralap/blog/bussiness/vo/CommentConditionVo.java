@@ -16,6 +16,7 @@ import lombok.experimental.Accessors;
 public class CommentConditionVo extends BaseConditionVO {
 
     private Comment comment;
+    private Long sid;
 
 
 }

@@ -160,93 +160,93 @@ $(function(){
                     throw "未指定sid！";
                 }
                 this.sid = sid;
-                // $.ajax({
-                //     type: "post",
-                //     url: "/api/comments",
-                //     data: {sid: sid, pageNumber: pageNumber || 1},
-                //     success: function (json) {
-                //         $.tool.ajaxSuccess(json);
-                //         // 加载 评论列表 start
-                //         var commentList = json.data.commentList;
-                //         var commentListBox  = '';
-                //         if(!commentList){
-                //             commentListBox = '<div class="commentList">'
-                //                     + '<h4 class="bottom-line"><i class="fa fa-comments-o fa-fw icon"></i><strong><em>0</em> 条评论</strong></h4>'
-                //                     + '<ul class="comment">';
-                //             commentListBox += '<li><div class="list-comment-empty-w fade-in">'
-                //                     +'<div class="empty-prompt-w">'
-                //                     +'<span class="prompt-null-w">还没有评论，快来抢沙发吧！</span>'
-                //                     +'</div>'
-                //                     +'</div></li>';
-                //             // 加载 评论列表 end
-                //             commentListBox += '</ul></div>';
-                //             $(commentListBox).appendTo(box);
-                //         }else{
-                //             // 首次加载-刷新页面后第一次加载，此时没有点击加载更多进行分页
-                //             if(!pageNumber) {
-                //                 commentListBox = '<div class="commentList">'
-                //                         + '<h5 class="bottom-line"><i class="fa fa-comments-o fa-fw icon"></i><strong><em>' + json.data.total + '</em> 条评论</strong></h5>'
-                //                         + '<ul class="comment">';
-                //             }
-                //             for(var i = 0, len = commentList.length; i < len ; i ++){
-                //                 var comment = commentList[i];
-                //                 var userUrl = comment.url || "javascript:void(0)";
-                //                 var parent = comment.parent;
-                //                 var parentQuote = parent ? '<a href="#comment-' + parent.id + '" class="comment-quote">@' + parent.nickname + '</a><div style="background-color: #f5f5f5;padding: 5px;margin: 5px;border-radius: 4px;"><i class="fa fa-quote-left"></i><p></p><div style="padding-left: 10px;">' + filterXSS(parent.content) + '</div></div>' : '';
-                //                 commentListBox += '<li>' +
-                //                         '    <div class="comment-body fade-in" id="comment-'+comment.id+'">' +
-                //                         '        <div class="cheader">' +
-                //                         '           <div class="user-img"><img class="userImage" src="' + comment.avatar + '" onerror="this.src=\'' + appConfig.staticPath + '/img/user.png\'"></div>' +
-                //                         '           <div class="user-info">' +
-                //                         '              <div class="nickname">' +
-                //                         '                 <a target="_blank" href="' + userUrl + '" rel="external nofollow"><strong>' + comment.nickname + '</strong></a>' +
-                //                         '              </div>            ' +
-                //                         '             <div class="timer">' +
-                //                         '                  <i class="fa fa-clock-o fa-fw"></i>' + comment.createTimeString +
-                //                         '                  <i class="fa fa-map-marker fa-fw"></i>' + comment.address +
-                //                         '              </div>' +
-                //                         '          </div>' +
-                //                         '        </div>' +
-                //                         '        <div class="content">' + parentQuote + '<div>' + filterXSS(comment.content) + '</div></div>' +
-                //                         '        <div class="sign">' +
-                //                         '            <i class="icons os-' + comment.osShortName + '"></i>'+ comment.os +' <i class="sepa"></i>' +
-                //                         '            <i class="icons browser-' + comment.browserShortName + '"></i>' + comment.browser + ' <i class="sepa"></i>' +
-                //                         '            <a href="javascript:void(0);" class="comment-up" onclick="$.comment.praise(' + comment.id + ', this)"><i class="fa fa-thumbs-o-up"></i>赞(<span class="count">' + comment.support + '</span>)<i class="sepa"></i></a>' +
-                //                         '            <a href="javascript:void(0);" class="comment-down" onclick="$.comment.step(' + comment.id + ', this)"><i class="fa fa-thumbs-o-down"></i>踩(<span class="count">' + comment.oppose + '</span>)<i class="sepa"></i></a>' +
-                //                         '            <a href="javascript:void(0);" class="comment-reply" onclick="$.comment.reply(' + comment.id + ', this)"><i class="fa fa-reply"></i>回复</a>' +
-                //                         '            <a href="javascript:void(0);" class="comment-flag hide" onclick="$.comment.report(' + comment.id + ', this)"><i class="fa fa-flag"></i>举报</a>' +
-                //                         '        </div>' +
-                //                         '    </div>' +
-                //                         '</li>';
-                //             }
-                //             // 如果存在下一页，则显示加载按钮
-                //             if(json.data.hasNextPage){
-                //                 commentListBox += '<li><div class="list-comment-empty-w fade-in">'
-                //                         +'<div class="empty-prompt-w">'
-                //                         +'<span class="prompt-null-w pointer load-more">加载更多 <i class="fa fa-angle-double-down"></i></span>'
-                //                         +'</div>'
-                //                         +'</div></li>';
-                //             }
-                //             // 加载 评论列表 end
-                //
-                //             if(!pageNumber) {
-                //                 // 首次加载-刷新页面后第一次加载，此时没有点击加载更多进行分页
-                //                 commentListBox += '</ul></div>';
-                //                 $(commentListBox).appendTo(box);
-                //             }else{
-                //                 // 点击加载更多时，列表追加到ul中
-                //                 $(commentListBox).appendTo($(".comment"));
-                //             }
-                //
-                //             // 加载更多按钮
-                //             $(".load-more").click(function () {
-                //                 $(this).parents('li').hide();
-                //                 $.comment.loadCommentList(box, json.data.nextPage)
-                //             });
-                //         }
-                //     },
-                //     error: $.tool.ajaxError
-                // });
+                $.ajax({
+                    type: "post",
+                    url: "/comment/list",
+                    data: {sid: sid, pageNumber: pageNumber || 1},
+                    success: function (json) {
+                        $.tool.ajaxSuccess(json);
+                        // 加载 评论列表 start
+                        var commentList = json.data.list;
+                        var commentListBox  = '';
+                        if(!commentList){
+                            commentListBox = '<div class="commentList">'
+                                    + '<h4 class="bottom-line"><i class="fa fa-comments-o fa-fw icon"></i><strong><em>0</em> 条评论</strong></h4>'
+                                    + '<ul class="comment">';
+                            commentListBox += '<li><div class="list-comment-empty-w fade-in">'
+                                    +'<div class="empty-prompt-w">'
+                                    +'<span class="prompt-null-w">还没有评论，快来抢沙发吧！</span>'
+                                    +'</div>'
+                                    +'</div></li>';
+                            // 加载 评论列表 end
+                            commentListBox += '</ul></div>';
+                            $(commentListBox).appendTo(box);
+                        }else{
+                            // 首次加载-刷新页面后第一次加载，此时没有点击加载更多进行分页
+                            if(!pageNumber) {
+                                commentListBox = '<div class="commentList">'
+                                        + '<h5 class="bottom-line"><i class="fa fa-comments-o fa-fw icon"></i><strong><em>' + json.data.total + '</em> 条评论</strong></h5>'
+                                        + '<ul class="comment">';
+                            }
+                            for(var i = 0, len = commentList.length; i < len ; i ++){
+                                var comment = commentList[i];
+                                var userUrl = comment.url || "javascript:void(0)";
+                                var parent = comment.parent;
+                                var parentQuote = parent ? '<a href="#comment-' + parent.id + '" class="comment-quote">@' + parent.nickname + '</a><div style="background-color: #f5f5f5;padding: 5px;margin: 5px;border-radius: 4px;"><i class="fa fa-quote-left"></i><p></p><div style="padding-left: 10px;">' +parent.content+ '</div></div>' : '';
+                                commentListBox += '<li>' +
+                                        '    <div class="comment-body fade-in" id="comment-'+comment.id+'">' +
+                                        '        <div class="cheader">' +
+                                        '           <div class="user-img"><img class="userImage" src="' + comment.avatar + '" onerror="this.src=\'/assets/img/user.png\'"></div>' +
+                                        '           <div class="user-info">' +
+                                        '              <div class="nickname">' +
+                                        '                 <a target="_blank" href="' + userUrl + '" rel="external nofollow"><strong>' + comment.nickname + '</strong></a>' +
+                                        '              </div>            ' +
+                                        '             <div class="timer">' +
+                                        '                  <i class="fa fa-clock-o fa-fw"></i>' + comment.createTime +
+                                        '                  <i class="fa fa-map-marker fa-fw"></i>' + comment.address +
+                                        '              </div>' +
+                                        '          </div>' +
+                                        '        </div>' +
+                                        '        <div class="content">' + parentQuote + '<div>'+comment.content + '</div></div>' +
+                                        '        <div class="sign">' +
+                                        '            <i class="icons os-' + comment.osShortName + '"></i>'+ comment.os +' <i class="sepa"></i>' +
+                                        '            <i class="icons browser-' + comment.browserShortName + '"></i>' + comment.browser + ' <i class="sepa"></i>' +
+                                        '            <a href="javascript:void(0);" class="comment-up" onclick="$.comment.praise(' + comment.id + ', this)"><i class="fa fa-thumbs-o-up"></i>赞(<span class="count">' + comment.support + '</span>)<i class="sepa"></i></a>' +
+                                        '            <a href="javascript:void(0);" class="comment-down" onclick="$.comment.step(' + comment.id + ', this)"><i class="fa fa-thumbs-o-down"></i>踩(<span class="count">' + comment.oppose + '</span>)<i class="sepa"></i></a>' +
+                                        '            <a href="javascript:void(0);" class="comment-reply" onclick="$.comment.reply(' + comment.id + ', this)"><i class="fa fa-reply"></i>回复</a>' +
+                                        '            <a href="javascript:void(0);" class="comment-flag hide" onclick="$.comment.report(' + comment.id + ', this)"><i class="fa fa-flag"></i>举报</a>' +
+                                        '        </div>' +
+                                        '    </div>' +
+                                        '</li>';
+                            }
+                            // 如果存在下一页，则显示加载按钮
+                            if(json.data.hasNextPage){
+                                commentListBox += '<li><div class="list-comment-empty-w fade-in">'
+                                        +'<div class="empty-prompt-w">'
+                                        +'<span class="prompt-null-w pointer load-more">加载更多 <i class="fa fa-angle-double-down"></i></span>'
+                                        +'</div>'
+                                        +'</div></li>';
+                            }
+                            // 加载 评论列表 end
+
+                            if(!pageNumber) {
+                                // 首次加载-刷新页面后第一次加载，此时没有点击加载更多进行分页
+                                commentListBox += '</ul></div>';
+                                $(commentListBox).appendTo(box);
+                            }else{
+                                // 点击加载更多时，列表追加到ul中
+                                $(commentListBox).appendTo($(".comment"));
+                            }
+
+                            // 加载更多按钮
+                            $(".load-more").click(function () {
+                                $(this).parents('li').hide();
+                                $.comment.loadCommentList(box, json.data.nextPage)
+                            });
+                        }
+                    },
+                    error: $.tool.ajaxError
+                });
             },
             initValidatorPlugin: function () {
                 $.comment._detailForm.bootstrapValidator({

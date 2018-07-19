@@ -34,7 +34,16 @@
     create_time, update_time
   </sql>
 
-  <select id="findPageBreakByCondition" parameterType="com.ralap.blog.bussiness.vo.CommentConditionVo" resultType="com.ralap.blog.persistent.beans.BizComment">
-    SELECT <include refid="Base_Column_List"/> from biz_comment
+  <select id="findPageBreakByCondition"
+    parameterType="com.ralap.blog.bussiness.vo.CommentConditionVo"
+    resultType="com.ralap.blog.persistent.beans.BizComment">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from biz_comment
+    <where>
+      <if test="sid != null">
+        AND sid = #{sid}
+      </if>
+    </where>
   </select>
 </mapper>
