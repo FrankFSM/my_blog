@@ -10,7 +10,6 @@ import java.util.Date;
  */
 public class Comment {
 
-
     private BizComment bizComment;
 
     public Comment() {
