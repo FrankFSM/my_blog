@@ -6,6 +6,7 @@ import com.ralap.blog.bussiness.enums.ArticleStatusEnum;
 import com.ralap.blog.persistent.beans.BizArticle;
 import com.ralap.blog.persistent.beans.BizTags;
 import com.ralap.blog.persistent.beans.BizType;
+import com.ralap.blog.util.DateUtils;
 import java.util.Date;
 import java.util.List;
 
@@ -229,5 +230,8 @@ public class Article {
     }
     public void setSimilarity(Double similarity){
         this.bizArticle.setSimilarity(similarity);
+    }
+    public String getCreateTimeStr() {
+        return DateUtils.dateStr(this.bizArticle.getCreateTime(), "yyyy-MM-dd HH:mm");
     }
 }

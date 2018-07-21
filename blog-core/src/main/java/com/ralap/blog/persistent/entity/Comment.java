@@ -2,6 +2,7 @@ package com.ralap.blog.persistent.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ralap.blog.persistent.beans.BizComment;
+import com.ralap.blog.util.DateUtils;
 import java.util.Date;
 
 /**
@@ -212,6 +213,10 @@ public class Comment {
 
     public void setOppose(Integer oppose) {
         this.bizComment.setOppose(oppose);
+    }
+
+    public String getCreateTimeStr() {
+        return DateUtils.dateStr(this.bizComment.getCreateTime(), "yyyy-MM-dd HH:mm");
     }
 
 

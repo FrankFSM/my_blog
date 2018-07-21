@@ -102,7 +102,7 @@ $(function(){
                 }
                 var commentBox = '<div id="comment-place">'
                         + '<div class="comment-post" id="comment-post" style="position: relative">'
-                        + '<h4 class="bottom-line"><i class="fa fa-commenting-o fa-fw icon"></i><strong>发表评论</strong>' + currentUser + '</h4>'
+                        + '<h4 class="bottom-line"><i class="en-chat icon"></i><strong>发表评论</strong>' + currentUser + '</h4>'
                         + '<div class="cancel-reply" id="cancel-reply" style="display: none;"><a href="javascript:void(0);" onclick="$.comment.cancelReply(this)" rel="external nofollow"><i class="fa fa-share"></i>取消回复</a></div>'
                         + '<form class="form-horizontal" role="form" id="comment-form">'
                         + '<input type="hidden" name="pid" id="comment-pid" value="0" size="22" tabindex="1">'
@@ -171,7 +171,7 @@ $(function(){
                         var commentListBox  = '';
                         if(!commentList){
                             commentListBox = '<div class="commentList">'
-                                    + '<h4 class="bottom-line"><i class="fa fa-comments-o fa-fw icon"></i><strong><em>0</em> 条评论</strong></h4>'
+                                    + '<h4 class="bottom-line"><i class="en-comment icon"></i><strong><em>0</em> 条评论</strong></h4>'
                                     + '<ul class="comment">';
                             commentListBox += '<li><div class="list-comment-empty-w fade-in">'
                                     +'<div class="empty-prompt-w">'
@@ -185,7 +185,7 @@ $(function(){
                             // 首次加载-刷新页面后第一次加载，此时没有点击加载更多进行分页
                             if(!pageNumber) {
                                 commentListBox = '<div class="commentList">'
-                                        + '<h5 class="bottom-line"><i class="fa fa-comments-o fa-fw icon"></i><strong><em>' + json.data.total + '</em> 条评论</strong></h5>'
+                                        + '<h5 class="bottom-line"><i class="en-comment icon"></i><strong><em>' + json.data.total + '</em> 条评论</strong></h5>'
                                         + '<ul class="comment">';
                             }
                             for(var i = 0, len = commentList.length; i < len ; i ++){
@@ -202,8 +202,8 @@ $(function(){
                                         '                 <a target="_blank" href="' + userUrl + '" rel="external nofollow"><strong>' + comment.nickname + '</strong></a>' +
                                         '              </div>            ' +
                                         '             <div class="timer">' +
-                                        '                  <i class="fa fa-clock-o fa-fw"></i>' + comment.createTime +
-                                        '                  <i class="fa fa-map-marker fa-fw"></i>' + comment.address +
+                                        '                  <i class="ec-clock"></i>' + comment.createTimeStr +
+                                        '                  <i class="fa-map-marker"></i>' + comment.address +
                                         '              </div>' +
                                         '          </div>' +
                                         '        </div>' +
