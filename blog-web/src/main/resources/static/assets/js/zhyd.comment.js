@@ -192,7 +192,7 @@ $(function(){
                                 var comment = commentList[i];
                                 var userUrl = comment.url || "javascript:void(0)";
                                 var parent = comment.parent;
-                                var parentQuote = parent ? '<a href="#comment-' + parent.id + '" class="comment-quote">@' + parent.nickname + '</a><div style="background-color: #f5f5f5;padding: 5px;margin: 5px;border-radius: 4px;"><i class="fa fa-quote-left"></i><p></p><div style="padding-left: 10px;">' +parent.content+ '</div></div>' : '';
+                                var parentQuote = parent ? '<a href="#comment-' + parent.id + '" class="comment-quote">@' + parent.nickname + '</a><div style="background-color: #f5f5f5;padding: 5px;margin: 5px;border-radius: 4px;"><i class="fa-quote-left"></i><p></p><div style="padding-left: 10px;">' +parent.content+ '</div></div>' : '';
                                 commentListBox += '<li>' +
                                         '    <div class="comment-body fade-in" id="comment-'+comment.id+'">' +
                                         '        <div class="cheader">' +

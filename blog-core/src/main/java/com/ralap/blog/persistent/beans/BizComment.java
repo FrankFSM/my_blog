@@ -1,6 +1,7 @@
 package com.ralap.blog.persistent.beans;
 
 import com.ralap.blog.framework.objecct.AbstractDO;
+import javax.persistence.Transient;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -9,6 +10,9 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 public class BizComment extends AbstractDO {
+
+    @Transient
+    private BizComment parent;
 
     private Long sid;
 

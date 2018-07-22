@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ralap.blog.persistent.mapper.BizCommentMapper">
-  <resultMap id="BaseResultMap" type="com.ralap.blog.persistent.beans.BizComment">
+  <resultMap id="rm" type="com.ralap.blog.persistent.beans.BizComment">
     <id column="id" property="id" jdbcType="BIGINT"/>
     <result column="sid" property="sid" jdbcType="BIGINT"/>
     <result column="user_id" property="userId" jdbcType="BIGINT"/>
@@ -27,6 +27,11 @@
     <result column="oppose" property="oppose" jdbcType="INTEGER"/>
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    <association property="parent" javaType="com.ralap.blog.persistent.beans.BizComment">
+      <result property="id" jdbcType="BIGINT" column="parent_id"/>
+      <result property="nickname" jdbcType="VARCHAR" column="parent_nickname"/>
+      <result property="content" jdbcType="VARCHAR" column="parent_content"/>
+    </association>
   </resultMap>
   <sql id="Base_Column_List">
     id, sid, user_id, pid, qq, nickname, avatar, email, url, status, ip, lng, lat, address,
@@ -36,13 +41,17 @@
 
   <select id="findPageBreakByCondition"
     parameterType="com.ralap.blog.bussiness.vo.CommentConditionVo"
-    resultType="com.ralap.blog.persistent.beans.BizComment">
+    resultMap="rm">
     SELECT
-    <include refid="Base_Column_List"/>
-    from biz_comment
+    c.*,
+    p.id as parent_id,
+    p.nickname as parent_nickname,
+    p.content as parent_content
+    from biz_comment c
+    LEFT JOIN biz_comment p ON c.pid = p.id
     <where>
       <if test="sid != null">
-        AND sid = #{sid}
+        AND c.sid = #{sid}
       </if>
     </where>
   </select>

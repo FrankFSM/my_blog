@@ -220,4 +220,11 @@ public class Comment {
     }
 
 
+    public BizComment getParent() {
+        return this.bizComment.getParent();
+    }
+
+    public void setParent(BizComment parent){
+        this.bizComment.setParent(parent);
+    }
 }
