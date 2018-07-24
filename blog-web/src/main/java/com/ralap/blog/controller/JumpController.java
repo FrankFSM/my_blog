@@ -29,6 +29,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -192,4 +193,9 @@ public class JumpController {
         return ResultUtil.success("获取成功", commentList);
     }
 
+    @RequestMapping("/submit/comment")
+    @ResponseBody
+    public ResponseVO submitComment(Comment comment) {
+        return null;
+    }
 }

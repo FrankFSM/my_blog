@@ -443,7 +443,7 @@ i {
 
 .fullscreen-editor .w-e-text-container {
     width: 100% !important;
-    height: 95% !important;
-    max-height: initial !important
+    /*height: 95% !important;*/
+    /*max-height: initial !important*/
 }
 /* wangEditor-fullscreen*/
