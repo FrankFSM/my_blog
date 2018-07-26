@@ -45,6 +45,11 @@ public class JumpController {
      */
     private static int RELATD_ARTICLE_SIZE = 4;
 
+    /**
+     * 热度星星数
+     */
+    private static int START_NUM = 5;
+
     @Autowired
     private BizArticleService bizArticleService;
     @Autowired
@@ -131,7 +136,8 @@ public class JumpController {
             if (article.getLookCount() == 0) {
                 article.setHotIndex(0);
             }
-            article.setHotIndex((int) ((article.getLookCount() * 5 / max)));
+            //计算热度（默认）
+            article.setHotIndex((int) ((article.getLookCount() * START_NUM / max)));
         });
     }
 
