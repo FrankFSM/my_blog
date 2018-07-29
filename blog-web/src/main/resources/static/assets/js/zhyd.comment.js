@@ -101,8 +101,8 @@ $(function () {
         var currentUser = '';
         if (detailInfoJson) {
           currentUser = '<small> - 欢迎回来，<a href="' + detailInfoJson.url
-              + '" target="_blank" rel="external nofollow">' + filterXSS(
-                  detailInfoJson.nickname)
+              + '" target="_blank" rel="external nofollow">' +
+                  detailInfoJson.nickname
               + '<i class="fa fa-smile-o"></i></a></small>';
         }
         var commentBox = '<div id="comment-place">'
